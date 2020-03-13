@@ -17,8 +17,7 @@ git add -A
 git commit -m 'deploy'
 
 # 部署到 https://<USERNAME>.github.io
-git push https://github.com/Hazelwu2/breakfast.git -f
-
+#git push origin master -u -f
 # 部署到 https://<USERNAME>.github.io/<REPO>
 git push -f https://github.com/Hazelwu2/breakfast.git master:gh-pages
 
