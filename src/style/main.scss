@@ -132,22 +132,39 @@ table {
 
 // =================================
 
-html, body {
+html,
+body {
   background: #f7f8fa;
 }
+
 .box {
   padding: 24px;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 12px #ebedf0;
   margin: 2rem;
+
   h2 {
     margin: 45px 0 20px;
     font-size: 22px;
   }
 
-  ul li {
-    padding: 1rem;
-    border: 1px solid #E2E2E2;
+  ul {
+    li {
+      padding: 2rem;
+      border-bottom: 1px solid #E2E2E2;
+
+      span {
+        display: block;
+        padding-top: 1rem;
+      }
+
+      h4 {
+        margin-bottom: 1rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 1.4rem;
+      }
+    }
   }
 }
