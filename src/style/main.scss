@@ -1,109 +1,11 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
 
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-
-body {
-  line-height: 1;
+  font-weight: 300;
 }
 
 ol,
@@ -134,7 +36,48 @@ table {
   height: auto;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 // =================================
+// iPhone and iPad CSS Hacks
+html {
+  // 阻止旋转屏幕时自动调整字体大小:
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased; // 使字体变清晰
+  -webkit-overflow-scrolling: touch;
+}
+
+input {
+  // 移除原生樣式
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+
+  text-indent: 0;
+  background: transparent;
+  border: 0 none;
+  resize: none;
+  outline: none; /*清除选中效果的默认蓝色边框 */
+  -webkit-appearance: none; /*清除浏览器默认的样式 */
+  line-height: normal; //光标问题
+}
+
+body,
+html,
+a,
+input {
+  //去掉点击链接和文本框对象时默认的灰色半透明覆盖层(iOS)或者虚框(Android)
+
+  -webkit-tap-highlight-color: none;
+}
+
+// ==================================
 
 html,
 body {
@@ -300,6 +243,7 @@ input {
 
 textarea {
   width: 100%;
+  border: none;
 }
 
 .van-button__text {
@@ -345,9 +289,13 @@ textarea {
   opacity: 0;
 }
 
-
 .van-overlay {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.shopping-cart .van-field--min-height .van-field__control {
+  min-height: 20px;
+  max-height: 25px;
 }

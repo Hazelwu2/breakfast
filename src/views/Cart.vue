@@ -17,7 +17,6 @@
               <div class="list-info">
                 <h4>{{item.title}}</h4>
                 <span>{{item.desc}}</span>
-                <!-- <span>{{item.count}}</span> -->
               </div>
               <div class="close" @click="removeItem(i)">
                 <van-icon name="clear" />
@@ -53,19 +52,20 @@
       </div>
 
       <van-action-sheet @cancel="cancelActionSheet" v-model="showActionSheet" title="明天的早餐有著落啦">
-        <div class="content">
-          <label for="">名字</label>
-          <input type="text" v-model="username" placeholder="請告訴桃子你是誰">
-          <div style="margin: 16px;">
-            <button @click="order" class="submit-btn">下訂單</button>
-          </div>
-          <!-- <van-form>
+        
+          <van-form>
             <van-field
-              
+              type="textarea"
+              v-model="username"
               placeholder="名字"
               :rules="[{ required: true, message: '請告訴桃子你是誰' }]"
             />
-          </van-form> -->
+          </van-form>
+        <div class="content">
+          
+          <div style="margin: 16px;">
+            <button @click="order" class="submit-btn">下訂單</button>
+          </div>
         </div>
       </van-action-sheet>
 
@@ -121,22 +121,24 @@ export default {
       var arrMsg = [];
 
       this.list.forEach(item => {
-        arrTitle.push(item.title);
-        arrSubtitle.push(item.subtitle);
-        arrDesc.push(item.desc);
-        arrMsg.push(item.msg);
+        if (!item.msg) {
+          item.msg = '無備註'
+        }
+
+        var temp = `${item.title}，備註：${item.msg}。`
+        arrTitle.push(temp);
       });
 
       axios
         .get(
-          `${this.url}?time=${today}&title=${arrTitle}&subtitle=${arrSubtitle}&desc=${arrDesc}&price=${this.all}&msg=${arrMsg}&name=${this.username}`
+          `${this.url}?time=${today}&title=${arrTitle}&price=${this.all}&name=${this.username}`
         )
         .then(response => {
           this.loading = false;
-          console.log(response);
+          
           if (response.data == "成功") {
             this.$dialog.alert({
-              message: "訂購桃子早餐成功啦，明天記得來11F領取喔"
+              message: "訂購桃子早餐成功啦！"
             });
             // 清除購物車
             this.$store.dispatch("clearCart");
@@ -173,13 +175,16 @@ export default {
   background: #f7f8fa;
 }
 
+
+
 .list {
   margin: 1rem;
   ul {
     li {
       padding: 0.6rem;
       background: white;
-      border-radius: 10px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
       margin-bottom: 1rem;
   
       border-left: 3px solid #ff6034;
