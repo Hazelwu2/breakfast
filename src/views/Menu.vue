@@ -1,88 +1,93 @@
 <template>
-  <van-tabs v-model="active" scrollspy sticky>
-    <van-tab title="套餐">
-      <div class="box">
-        <h2>套餐</h2>
-        <ul>
-          <router-link
-            v-for="(item,i) in list1"
-            :key="i + 'menu1'"
-            :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
-          >
-            <li>
-              <h4>{{item.title}}</h4>
-              <span>{{item.subtitle}}</span>
-              <span>{{item.desc}}</span>
-              <h6>${{item.price}}</h6>
-            </li>
-          </router-link>
-        </ul>
-      </div>
-    </van-tab>
-    <van-tab title="單點類">
-      <div class="box">
-        <h2>單點</h2>
-        <ul>
-          <router-link
-            v-for="(item,i) in list2"
-            :key="i + 'menu1'"
-            :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
-          >
-            <li>
-              <h4>{{item.title}}</h4>
-              <span>{{item.subtitle}}</span>
-              <span>{{item.desc}}</span>
-              <h6>${{item.price}}</h6>
-            </li>
-          </router-link>
-        </ul>
-      </div>
-    </van-tab>
-    <van-tab title="乳酪厚片">
-      <div class="box">
-        <h2>乳酪厚片</h2>
-        <ul>
-          <router-link
-            v-for="(item,i) in list3"
-            :key="i + 'menu1'"
-            :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
-          >
-            <li>
-              <h4>{{item.title}}</h4>
-              <span>{{item.subtitle}}</span>
-              <span>{{item.desc}}</span>
-              <h6>${{item.price}}</h6>
-            </li>
-          </router-link>
-        </ul>
-      </div>
-    </van-tab>
-    <van-tab title="披薩">
-      <div class="box">
-        <h2>披薩</h2>
-        <ul>
-          <li>
-            <h4>不用去夏威夷就吃得到</h4>
-            <span>夏威夷披薩</span>
-            <h6>$30</h6>
-          </li>
-          <li>
-            <h4>要營養吃總匯</h4>
-            <span>總匯披薩</span>
-            <h6>$30</h6>
-          </li>
-        </ul>
-      </div>
-    </van-tab>
-  </van-tabs>
+  <div>
+    <van-tabs v-model="active" scrollspy sticky>
+      <van-tab title="套餐">
+        <div class="box">
+          <h2>套餐</h2>
+          <ul>
+            <router-link
+              v-for="(item,i) in list1"
+              :key="i + 'menu1'"
+              :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
+            >
+              <li>
+                <h4>{{item.title}}</h4>
+                <span>{{item.subtitle}}</span>
+                <span>{{item.desc}}</span>
+                <h6>${{item.price}}</h6>
+              </li>
+            </router-link>
+          </ul>
+        </div>
+      </van-tab>
+      <van-tab title="單點類">
+        <div class="box">
+          <h2>單點</h2>
+          <ul>
+            <router-link
+              v-for="(item,i) in list2"
+              :key="i + 'menu2'"
+              :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
+            >
+              <li>
+                <h4>{{item.title}}</h4>
+                <span>{{item.subtitle}}</span>
+                <span>{{item.desc}}</span>
+                <h6>${{item.price}}</h6>
+              </li>
+            </router-link>
+          </ul>
+        </div>
+      </van-tab>
+      <van-tab title="乳酪厚片">
+        <div class="box">
+          <h2>乳酪厚片</h2>
+          <ul>
+            <router-link
+              v-for="(item,i) in list3"
+              :key="i + 'menu3'"
+              :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
+            >
+              <li>
+                <h4>{{item.title}}</h4>
+                <span>{{item.subtitle}}</span>
+                <span>{{item.desc}}</span>
+                <h6>${{item.price}}</h6>
+              </li>
+            </router-link>
+          </ul>
+        </div>
+      </van-tab>
+      <van-tab title="披薩">
+        <div class="box">
+          <h2>披薩</h2>
+          <ul>
+            <router-link
+              v-for="(item,i) in list4"
+              :key="i + 'menu4'"
+              :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
+            >
+              <li>
+                <h4>{{item.title}}</h4>
+                <span>{{item.subtitle}}</span>
+                <span>{{item.desc}}</span>
+                <h6>${{item.price}}</h6>
+              </li>
+            </router-link>
+          </ul>
+        </div>
+      </van-tab>
+    </van-tabs>
+  </div>
 </template>
 
 <script>
+
 export default {
+  
   data() {
     return {
       active: 0,
-      show: false,
       list1: [
         {
           title: "1號餐",
@@ -185,7 +190,7 @@ export default {
           title: "我是麥克王子",
           subtitle: "麥克雞 6塊",
           price: 30
-        },
+        }
       ],
       list3: [
         {
@@ -212,8 +217,20 @@ export default {
           title: "雞腿口味",
           subtitle: "雞腿乳酪厚片",
           price: 65
-        },
+        }
       ],
+      list4: [
+        {
+          title: "不用去夏威夷就吃得到",
+          subtitle: "夏威夷披薩",
+          price: 30
+        },
+        {
+          title: "要營養吃總匯",
+          subtitle: "總匯披薩",
+          price: 30
+        }
+      ]
     };
   }
 };

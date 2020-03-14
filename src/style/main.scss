@@ -120,7 +120,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -129,15 +129,15 @@ table {
   border-spacing: 0;
 }
 
-
 // =================================
 
-html, body {
+html,
+body {
   background: #f7f8fa;
 }
 
 .border-bottom {
-  border-top: 1px solid #E2E2E2;
+  border-top: 1px solid #e2e2e2;
 }
 
 .box {
@@ -157,14 +157,13 @@ html, body {
   ul {
     margin-bottom: 16px;
     li {
-      border-top: 1px solid #E2E2E2;
+      border-top: 1px solid #e2e2e2;
       padding: 16px 0;
       text-align: left;
       display: flex;
       flex-direction: column;
       color: #000000;
-      
-      
+
       h4 {
         font-size: 14px;
         line-height: 24px;
@@ -184,13 +183,88 @@ html, body {
         padding-top: 10px;
       }
     }
-  } 
-  
+  }
 }
 
-.text-left { text-align: left;}
-.text-center { text-align: center;}
-.text-right {text-align: right;}
+.submit-bar {
+  background: white;
+  padding: 0.6rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  &__text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding-right: 12px;
+    color: #323233;
+    text-align: right;
+
+    span {
+      font-size: 14px;
+    }
+
+    &__price {
+      color: #ee0a24;
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+  &__button {
+    margin-right: 1rem;
+    width: 200px;
+    height: 40px;
+    font-weight: 500;
+    line-height: 40px;
+    border: none;
+    background: linear-gradient(to right, #ff6034, #ee0a24);
+    padding: 0 15px;
+    border-radius: 999px;
+    transition: all 0.3s;
+
+    &:hover {
+      box-shadow: 0 3px 5px rgba(black, 0.3);
+    }
+
+    span {
+      letter-spacing: 2px;
+      font-size: 14px;
+      color: white;
+    }
+  }
+}
+
+.submit-btn {
+  margin-right: 1rem;
+  width: 200px;
+  height: 40px;
+  font-weight: 500;
+  line-height: 40px;
+  border: none;
+  background: linear-gradient(to right, #ff6034, #ee0a24);
+  padding: 0 15px;
+  border-radius: 999px;
+  transition: all 0.3s;
+  color: white;
+
+  &:hover {
+    box-shadow: 0 3px 5px rgba(black, 0.3);
+  }
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
 .van-panel {
   margin-bottom: 2rem;
   padding: 1rem;
@@ -210,12 +284,12 @@ html, body {
 
 input {
   background-color: initial;
-    cursor: default;
-    -webkit-appearance: checkbox;
-    box-sizing: border-box;
-    margin: 3px 0.5ex;
-    padding: initial;
-    border: initial;
+  cursor: default;
+  -webkit-appearance: checkbox;
+  box-sizing: border-box;
+  margin: 3px 0.5ex;
+  padding: initial;
+  border: initial;
 }
 
 textarea {
@@ -231,10 +305,21 @@ textarea {
   margin: 0 auto;
 }
 
+.cart {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
 
-
-
-
+  border-radius: 50%;
+  background: #ee0a24bd;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+  }
+}
 
 .slide-fade-enter-active {
   transition: all 0.4s 0.2s ease;
@@ -244,18 +329,12 @@ textarea {
   transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
-.slide-fade-enter
-/* .slide-fade-leave-active for below version 2.1.8 */
-
-  {
+.slide-fade-enter {
   transform: translateX(10px);
   opacity: 0;
 }
 
-.slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */
-
-  {
+.slide-fade-leave-to {
   transform: translateX(-10px);
   opacity: 0;
 }
