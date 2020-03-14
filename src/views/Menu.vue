@@ -152,82 +152,82 @@ export default {
       ],
       list2: [
         {
-          title: "各位觀眾！兩支熱狗",
-          subtitle: "兩支熱狗",
+          title: "兩支熱狗",
+          subtitle: "各位觀眾！兩支熱狗",
           price: 20
         },
         {
-          title: "天天吃蛋營養好健康",
-          subtitle: "荷包蛋",
+          title: "荷包蛋",
+          subtitle: "天天吃蛋營養好健康",
           price: 10
         },
         {
-          title: "就是豬排肉",
-          subtitle: "豬排肉",
+          title: "豬排肉",
+          subtitle: "就是豬排肉",
           price: 20
         },
         {
-          title: "是煎餃，不是鍋貼",
-          subtitle: "煎餃8顆",
+          title: "煎餃8顆",
+          subtitle: "是煎餃，不是鍋貼",
           price: 20
         },
         {
-          title: "一口雞 12顆",
-          subtitle: "？？？？",
+          title: "一口雞",
+          subtitle: "一口雞 12顆",
           price: 30
         },
         {
-          title: "美式餐廳都有的薯條",
-          subtitle: "薯條",
+          title: "薯條",
+          subtitle: "美式餐廳都有的薯條",
           price: 20
         },
         {
-          title: "油亮亮的薯餅",
-          subtitle: "薯餅兩片",
+          title: "薯餅兩片",
+          subtitle: "油亮亮的薯餅",
           price: 30
         },
         {
-          title: "我是麥克王子",
-          subtitle: "麥克雞 6塊",
+          title: "麥克雞 6塊",
+          subtitle: "我是麥克王子",
           price: 30
         }
       ],
       list3: [
         {
-          title: "深海鮪魚最相思",
-          subtitle: "鮪魚乳酪厚片",
+          title: "鮪魚乳酪厚片",
+          subtitle: "深海鮪魚最相思",
           price: 50
         },
         {
-          title: "就是要吃加工食品",
-          subtitle: "火腿乳酪厚片",
+          title: "火腿乳酪厚片",
+          subtitle: "就是要吃加工食品",
           price: 50
         },
         {
-          title: "台灣的豬超級健康的啦",
-          subtitle: "豬排乳酪厚片",
+          title: "豬排乳酪厚片",
+          subtitle: "台灣的豬超級健康的啦",
           price: 60
         },
         {
-          title: "燻雞口味",
-          subtitle: "燻雞乳酪厚片",
+          title: "燻雞乳酪厚片",
+          subtitle: "燻雞口味",
           price: 60
         },
         {
-          title: "雞腿口味",
-          subtitle: "雞腿乳酪厚片",
+          title: "雞腿乳酪厚片",
+          subtitle: "雞腿口味",
           price: 65
         }
       ],
       list4: [
         {
-          title: "不用去夏威夷就吃得到",
-          subtitle: "夏威夷披薩",
+          title: "夏威夷披薩",
+          subtitle: "不用去夏威夷就吃得到",
           price: 30
         },
         {
-          title: "要營養吃總匯",
-          subtitle: "總匯披薩",
+          title: "總匯披薩",
+          subtitle: "要營養吃總匯",
           price: 30
         }
       ]

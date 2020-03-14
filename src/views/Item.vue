@@ -50,11 +50,8 @@ export default {
       };
 
       this.$store.dispatch("addToCart", this.item);
-      this.$notify({
-        message: "加入購物車成功",
-        color: "#323233",
-        background: "#f7f8fa"
-      });
+      this.$toast.success('加入購物車成功');
+     
     }
   }
 };

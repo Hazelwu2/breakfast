@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
 
@@ -8,6 +9,11 @@ export default new Vuex.Store({
     cart: [],
     showCart: false
   },
+  plugins: [
+    createPersistedState({
+      storage: window.sessionStorage
+    })
+  ],
   mutations: {
     CART(state, payload) {
       state.cart.push(payload);

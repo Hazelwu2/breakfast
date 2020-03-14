@@ -24,7 +24,7 @@
               </div>
             </div>
 
-            <div class="msg">
+            <div class="msg" v-if="item.msg">
               <span>備註</span>
               {{item.msg}}
             </div>
@@ -47,7 +47,7 @@
           <span>總計</span>
           <span class="submit-bar__text__price">NT${{total}}</span>
         </div>
-        <button class="submit-bar__button" @click="showActionSheet=true">
+        <button class="submit-bar__button" :disabled="true" @click="showActionSheet=true">
           <span>這裡沒有任何東西</span>
         </button>
       </div>

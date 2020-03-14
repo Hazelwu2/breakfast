@@ -39,6 +39,17 @@ export default {
       return this.$store.state.cart
     }
   },
+  created() {
+    let data = sessionStorage.getItem('vuex');
+    console.log('[App.vue] created，VueX資料： ', JSON.parse(data));
+    // 如果data存在並且重整
+    if (data) {
+      this.$store.replaceState(
+        Object.assign({}, this.$store.state, JSON.parse(data))
+      );
+      sessionStorage.removeItem(data);
+    }
+  },
   methods: {
     switchShoppingCart(){
       console.log('this.$store.state.showCart', this.$store.state.showCart)
