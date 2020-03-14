@@ -54,16 +54,18 @@
 
       <van-action-sheet @cancel="cancelActionSheet" v-model="showActionSheet" title="明天的早餐有著落啦">
         <div class="content">
-          <van-form>
+          <label for="">名字</label>
+          <input type="text" v-model="username" placeholder="請告訴桃子你是誰">
+          <div style="margin: 16px;">
+            <button @click="order" class="submit-btn">下訂單</button>
+          </div>
+          <!-- <van-form>
             <van-field
-              v-model="username"
+              
               placeholder="名字"
               :rules="[{ required: true, message: '請告訴桃子你是誰' }]"
             />
-            <div style="margin: 16px;">
-              <button @click="order" class="submit-btn">下訂單</button>
-            </div>
-          </van-form>
+          </van-form> -->
         </div>
       </van-action-sheet>
 
@@ -162,7 +164,7 @@ export default {
 
 <style lang="scss" scoped>
 .shopping-cart {
-  z-index: 2;
+  z-index: 999;
   position: fixed;
   top: 0;
   left: 0;
