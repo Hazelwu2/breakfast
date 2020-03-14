@@ -5,12 +5,29 @@
     </van-sticky>
 
     <van-panel :title="$route.params.title" :desc="$route.params.desc"></van-panel>
+    <!-- 飲品加點 -->
+    <div class="item-subtitle text-left">
+      配杯飲料吧
+      <span>無糖飲料，請另外備註</span>
+    </div>
+    <van-panel>
+      <van-radio-group @change="checkAddonItem" v-model="radio">
+        <van-radio :name="drink.name" v-for="(drink,i) in beverage" :key="i">
+          <div>
+            <span class="name">{{drink.name}}</span>
+            <span class="price">+NT${{drink.price}}</span>
+          </div>
+        </van-radio>
+        
+      
+      </van-radio-group>
+    </van-panel>
+
     <div class="item-subtitle text-left">特殊指示</div>
 
     <van-panel>
       <div slot="header"></div>
       <textarea v-model="item.msg" placeholder="留下備註給桃子早餐"></textarea>
-      <!-- <van-field v-model="item.msg" placeholder="留下備註給桃子早餐" /> -->
     </van-panel>
 
     <van-sticky>
@@ -18,7 +35,7 @@
         block
         class="btn-text submit-btn"
         @click="addToCart"
-      >新增1份餐點到訂單 ${{$route.params.price}}</van-button>
+      >新增1份餐點到訂單 ${{item.price}}</van-button>
     </van-sticky>
   </div>
 </template>
@@ -31,15 +48,51 @@ export default {
         title: "",
         subtitle: "",
         desc: "",
-        price: 0,
-        msg: "",
+        price: this.$route.params.price || 0,
+        msg: ""
       },
+      beverage: [
+        {
+          name: '溫紅茶（中）',
+          price: 5
+        },
+        {
+          name: '冰紅茶（中）',
+          price: 5
+        },
+        {
+          name: '溫紅茶（大）',
+          price: 15
+        },
+        {
+          name: '冰紅茶（大）',
+          price: 15
+        },
+        {
+          name: '溫奶茶（中）',
+          price: 5
+        },
+        {
+          name: '冰奶茶（中）',
+          price: 5
+        },
+        {
+          name: '溫豆漿（中）',
+          price: 5
+        },
+        {
+          name: '冰豆漿（中）',
+          price: 5
+        },
+
+      ],
+      radio: '1'
     };
   },
   methods: {
     back() {
-      this.$router.push('/')
-      this.$store.dispatch('switchShoppingCart', false)
+      this.$router.push("/");
+      this.$store.dispatch("switchShoppingCart", false);
     },
     addToCart() {
       this.item = {
@@ -49,13 +102,53 @@ export default {
         price: this.$route.params.price,
         msg: this.item.msg
       };
+      this.checkAddonItem()
 
       this.$store.dispatch("addToCart", this.item);
-      this.$toast.success('加入購物車成功');
+      this.$toast.success("加入購物車成功");
+    },
+    checkAddonItem() {
+      // 檢查加點項目
+      // console.log(this.radio)
+      switch (this.radio) {
+        case '溫紅茶（中）':
+          break;
+        case '溫紅茶（大）':
+          this.beverage.forEach(item => {
+            if (item.name == '溫紅茶（大）') {
+              console.log(item.price)
+            }
+          })
+
+          break;
+        default:
+          return;
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+
+.item {
+  .item-subtitle {
+    span {
+      font-size: 12px;
+    }
+  }
+  .van-radio__label {
+    .name {
+      color: #000;
+    }
+    .price {
+      letter-spacing: 1px;
+      padding-left: .8rem;
+      font-size: 12px;
+      line-height: 20px;
+      color: rgb(84, 84, 84);
+      cursor: pointer;
+    }
+  }
+}
 </style>

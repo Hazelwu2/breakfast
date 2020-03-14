@@ -109,8 +109,8 @@ export default {
         },
         {
           title: "4號餐",
-          subtitle: "營養早餐 蛋兩顆、火腿、熱狗兩隻",
-          desc: "附中杯飲品",
+          subtitle: "營養早餐",
+          desc: " 蛋兩顆、火腿、熱狗兩隻，附中杯飲品",
           price: 55
         },
         {

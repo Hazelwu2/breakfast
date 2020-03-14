@@ -226,7 +226,7 @@ body {
 
 .item {
   .item-subtitle {
-    padding: 10px 16px;
+    // padding: 10px 16px;
     margin: 16px;
   }
 }
@@ -246,6 +246,7 @@ textarea {
   border: none;
 }
 
+// ==============================
 .van-button__text {
   letter-spacing: 2px;
   font-size: 16px;
@@ -255,9 +256,34 @@ textarea {
   margin: 0 auto;
 }
 
+.item .van-radio {
+  padding-top: 1rem;
+
+  &__label {
+    margin-left: 1rem;
+    font-weight: bold;
+  }
+}
+
+.van-radio__icon--checked .van-icon {
+  background-color: #324150;
+  border-color: transparent;
+}
+
+.van-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopping-cart .van-field--min-height .van-field__control {
+  min-height: 20px;
+  max-height: 25px;
+}
+// ===============================
 .cart {
   position: fixed;
-  bottom: 1rem;
+  bottom: 3rem;
   right: 1rem;
 
   border-radius: 50%;
@@ -287,15 +313,4 @@ textarea {
 .slide-fade-leave-to {
   transform: translateX(-10px);
   opacity: 0;
-}
-
-.van-overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.shopping-cart .van-field--min-height .van-field__control {
-  min-height: 20px;
-  max-height: 25px;
 }

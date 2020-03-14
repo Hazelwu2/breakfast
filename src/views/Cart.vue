@@ -140,6 +140,16 @@ export default {
             this.$dialog.alert({
               message: "訂購桃子早餐成功啦！"
             });
+            let config = {
+              headers: {
+                'Authorization': 'Bearer t20O6LSHVWnJ0N38rS0lLxbcozFqqStCgtkX9fN35mU',
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+            }
+            axios.post('https://notify-api.line.me/api/notify',
+            {
+              Message: `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`,
+            }, config)
             // 清除購物車
             this.$store.dispatch("clearCart");
           } else {
