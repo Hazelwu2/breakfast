@@ -1,10 +1,10 @@
 <template>
   <div class="item">
     <van-sticky>
-      <van-nav-bar @click-left="back" :title="$route.params.title" left-text="返回" left-arrow></van-nav-bar>
+      <van-nav-bar @click-left="back" :title="$route.params.subtitle" left-text="返回" left-arrow></van-nav-bar>
     </van-sticky>
 
-    <van-panel :title="$route.params.subtitle" :desc="$route.params.desc"></van-panel>
+    <van-panel :title="$route.params.title" :desc="$route.params.desc"></van-panel>
     <div class="item-subtitle text-left">特殊指示</div>
 
     <van-panel>
