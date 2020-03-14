@@ -8,6 +8,9 @@ import './style/main.scss';
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
+import moment from 'moment';
+moment.locale('nl');
+Vue.prototype.$moment = moment;
 
 Vue.use(Vant);
 

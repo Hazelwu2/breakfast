@@ -9,14 +9,13 @@
 
     <van-panel>
       <div slot="header"></div>
-      <textarea v-model="item.msg" placeholder="留下備註給桃子早餐"></textarea>
+      <van-field v-model="item.msg" placeholder="留下備註給桃子早餐" />
     </van-panel>
 
     <van-sticky>
       <van-button
         block
-        class="btn-text"
-        type="primary"
+        class="btn-text submit-btn"
         @click="addToCart"
       >新增1份餐點到訂單 ${{$route.params.price}}</van-button>
     </van-sticky>
@@ -53,8 +52,8 @@ export default {
       this.$store.dispatch("addToCart", this.item);
       this.$notify({
         message: "加入購物車成功",
-        color: "#fff",
-        background: "linear-gradient(to right, #ff6034, #ee0a24)"
+        color: "#323233",
+        background: "#f7f8fa"
       });
     }
   }

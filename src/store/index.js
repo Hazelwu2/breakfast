@@ -14,6 +14,12 @@ export default new Vuex.Store({
     },
     SHOW_CART(state, payload) {
       state.showCart = payload;
+    },
+    REMOVE_CART(state, payload) {
+      state.cart.splice(payload, 1)
+    },
+    CLEAR_CART(state) {
+      state.cart = [];
     }
   },
   actions: {
@@ -21,8 +27,13 @@ export default new Vuex.Store({
       commit('CART', value);
     },
     switchShoppingCart({commit}, value) {
-      console.log('switchShoppingCart', value)
       commit('SHOW_CART', value)
+    },
+    removeCart( {commit}, value) {
+      commit('REMOVE_CART', value)
+    },
+    clearCart({commit}) {
+      commit('CLEAR_CART')
     }
   },
   modules: {
