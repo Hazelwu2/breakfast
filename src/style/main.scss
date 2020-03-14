@@ -164,8 +164,9 @@ html, body {
       flex-direction: column;
       color: #000000;
       
+      
       h4 {
-        font-size: 16px;
+        font-size: 14px;
         line-height: 24px;
         font-weight: 500;
         letter-spacing: 1px;
@@ -185,4 +186,76 @@ html, body {
     }
   } 
   
+}
+
+.text-left { text-align: left;}
+.text-center { text-align: center;}
+.text-right {text-align: right;}
+.van-panel {
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.van-cell__title {
+  font-size: 1.6rem;
+  text-align: left;
+}
+
+.item {
+  .item-subtitle {
+    padding: 10px 16px;
+    margin: 16px;
+  }
+}
+
+input {
+  background-color: initial;
+    cursor: default;
+    -webkit-appearance: checkbox;
+    box-sizing: border-box;
+    margin: 3px 0.5ex;
+    padding: initial;
+    border: initial;
+}
+
+textarea {
+  width: 100%;
+}
+
+.van-button__text {
+  letter-spacing: 2px;
+  font-size: 16px;
+}
+.van-button--block {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+
+
+
+
+.slide-fade-enter-active {
+  transition: all 0.4s 0.2s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter
+/* .slide-fade-leave-active for below version 2.1.8 */
+
+  {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */
+
+  {
+  transform: translateX(-10px);
+  opacity: 0;
 }
