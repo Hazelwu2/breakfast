@@ -11,10 +11,6 @@ import 'vant/lib/index.css';
 
 Vue.use(Vant);
 
-import { Tab, Tabs } from 'vant';
-
-Vue.use(Tab);
-Vue.use(Tabs);
 Vue.config.productionTip = false
 
 new Vue({

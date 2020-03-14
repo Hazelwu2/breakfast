@@ -135,6 +135,11 @@ table {
 html, body {
   background: #f7f8fa;
 }
+
+.border-bottom {
+  border-top: 1px solid #E2E2E2;
+}
+
 .box {
   padding: 24px;
   background-color: #fff;
@@ -142,12 +147,42 @@ html, body {
   box-shadow: 0 8px 12px #ebedf0;
   margin: 2rem;
   h2 {
-    margin: 45px 0 20px;
-    font-size: 22px;
+    text-align: left;
+    padding-bottom: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
   }
 
-  ul li {
-    padding: 1rem;
-    border: 1px solid #E2E2E2;
-  }
+  ul {
+    margin-bottom: 16px;
+    li {
+      border-top: 1px solid #E2E2E2;
+      padding: 16px 0;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      color: #000000;
+      
+      h4 {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+      span {
+        padding-top: 10px;
+
+        & + span {
+          color: #545454;
+          font-size: 14px;
+        }
+      }
+      h6 {
+        font-size: 14px;
+        padding-top: 10px;
+      }
+    }
+  } 
+  
 }
