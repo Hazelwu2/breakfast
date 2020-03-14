@@ -19,7 +19,7 @@
                 <span>{{item.desc}}</span>
                 <!-- <span>{{item.count}}</span> -->
               </div>
-              <div class="close" @click="removeItem(item, i)">
+              <div class="close" @click="removeItem(i)">
                 <van-icon name="clear" />
               </div>
             </div>
@@ -152,8 +152,8 @@ export default {
         this.total += item.price;
       });
     },
-    removeItem(item, index) {
-      this.$store.dispatch("removeCart", item, index);
+    removeItem(index) {
+      this.$store.dispatch("removeCart", index);
     },
     cancelActionSheet() {
       this.showActionSheet = false;
@@ -191,6 +191,7 @@ export default {
       justify-content: center;
       align-items: center;
       flex-direction: row;
+      padding-bottom: 1rem;
     }
 
     .msg {

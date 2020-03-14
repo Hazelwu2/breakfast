@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     back() {
-      this.$router.go(-1);
+      this.$router.push('/')
       this.$store.dispatch('switchShoppingCart', false)
     },
     addToCart() {
@@ -52,7 +52,6 @@ export default {
 
       this.$store.dispatch("addToCart", this.item);
       this.$toast.success('加入購物車成功');
-     
     }
   }
 };

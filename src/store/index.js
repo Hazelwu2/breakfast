@@ -21,8 +21,8 @@ export default new Vuex.Store({
     SHOW_CART(state, payload) {
       state.showCart = payload;
     },
-    REMOVE_CART(state, payload) {
-      state.cart.splice(payload, 1)
+    REMOVE_CART(state, index) {
+      state.cart.splice(index, 1)
     },
     CLEAR_CART(state) {
       state.cart = [];
