@@ -9,7 +9,8 @@
 
     <van-panel>
       <div slot="header"></div>
-      <van-field v-model="item.msg" placeholder="留下備註給桃子早餐" />
+      <textarea v-model="item.msg" placeholder="留下備註給桃子早餐"></textarea>
+      <!-- <van-field v-model="item.msg" placeholder="留下備註給桃子早餐" /> -->
     </van-panel>
 
     <van-sticky>
