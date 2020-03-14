@@ -52,17 +52,15 @@
       </div>
 
       <van-action-sheet @cancel="cancelActionSheet" v-model="showActionSheet" title="明天的早餐有著落啦">
-        
-          <van-form>
-            <van-field
-              type="textarea"
-              v-model="username"
-              placeholder="名字"
-              :rules="[{ required: true, message: '請告訴桃子你是誰' }]"
-            />
-          </van-form>
+        <van-form>
+          <van-field
+            type="textarea"
+            v-model="username"
+            placeholder="名字"
+            :rules="[{ required: true, message: '請告訴桃子你是誰' }]"
+          />
+        </van-form>
         <div class="content">
-          
           <div style="margin: 16px;">
             <button @click="order" class="submit-btn">下訂單</button>
           </div>
@@ -78,6 +76,7 @@
 
 <script>
 import axios from "axios";
+const querystring = require('querystring');
 export default {
   name: "Cart",
   props: ["list"],
@@ -122,10 +121,10 @@ export default {
 
       this.list.forEach(item => {
         if (!item.msg) {
-          item.msg = '無備註'
+          item.msg = "無備註";
         }
 
-        var temp = `${item.title}，備註：${item.msg}。`
+        var temp = `${item.title}，備註：${item.msg}。`;
         arrTitle.push(temp);
       });
 
@@ -135,21 +134,20 @@ export default {
         )
         .then(response => {
           this.loading = false;
-          
+
           if (response.data == "成功") {
             this.$dialog.alert({
               message: "訂購桃子早餐成功啦！"
             });
-            let config = {
-              headers: {
-                'Authorization': 'Bearer t20O6LSHVWnJ0N38rS0lLxbcozFqqStCgtkX9fN35mU',
-                'Content-Type': 'application/x-www-form-urlencoded'
-              },
-            }
-            axios.post('https://notify-api.line.me/api/notify',
-            {
-              Message: `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`,
-            }, config)
+
+            axios
+              .post(this.url, {msg: `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`})
+              .then(res => {
+                alert(res)
+              })
+              .catch(err => alert(err))
+
+            
             // 清除購物車
             this.$store.dispatch("clearCart");
           } else {
@@ -185,8 +183,6 @@ export default {
   background: #f7f8fa;
 }
 
-
-
 .list {
   margin: 1rem;
   ul {
@@ -196,7 +192,7 @@ export default {
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
       margin-bottom: 1rem;
-  
+
       border-left: 3px solid #ff6034;
       box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.4);
     }
@@ -214,7 +210,7 @@ export default {
       padding: 1rem;
       span {
         font-size: 14px;
-    color: #545454;
+        color: #545454;
       }
     }
   }
