@@ -24,8 +24,8 @@
             </div>
 
             <div class="msg" v-if="item.msg">
-              <span>備註</span>
-              {{item.msg}}
+              <span>備註 |</span>
+              <span>{{item.msg}}</span>
             </div>
           </li>
         </ul>
@@ -116,7 +116,7 @@ export default {
       this.cancelActionSheet();
 
       // 取得今天日期
-      let today = this.$moment().format("YYYY/MM/DD");
+      let today = this.$moment().format("MMDD");
       var arrTitle = [];
       var arrSubtitle = [];
       var arrDesc = [];
@@ -143,15 +143,15 @@ export default {
               message: "訂購桃子早餐成功啦！"
             });
 
-            let msg = `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`;
-            axios({
-              methos: "get",
-              url: `https://script.google.com/macros/s/AKfycbxaXv_bRTwJRh_GKPtys6Ae7-zgQjvf1611R57L9AOouHgZVWcG/exec?msg=${msg}`
-            })
-              .then(res => {
-                alert(res);
-              })
-              .catch(err => alert(err));
+            // let msg = `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`;
+            // axios({
+            //   methos: "get",
+            //   url: `https://script.google.com/macros/s/AKfycbxaXv_bRTwJRh_GKPtys6Ae7-zgQjvf1611R57L9AOouHgZVWcG/exec?msg=${msg}`
+            // })
+            //   .then(res => {
+            //     alert(res);
+            //   })
+            //   .catch(err => alert(err));
 
             // 清除購物車
             this.$store.dispatch("clearCart");
