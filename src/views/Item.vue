@@ -18,8 +18,6 @@
             <span class="price">+NT${{drink.price}}</span>
           </div>
         </van-radio>
-        
-      
       </van-radio-group>
     </van-panel>
 
@@ -31,67 +29,60 @@
     </van-panel>
 
     <van-sticky>
-      <van-button
-        block
-        class="btn-text submit-btn"
-        @click="addToCart"
-      >新增1份餐點到訂單 ${{item.price}}</van-button>
+      <van-button :disabled="radio==0" block class="btn-text submit-btn" @click="addToCart">新增1份餐點到訂單 ${{temp}}</van-button>
     </van-sticky>
   </div>
 </template>
 
 <script>
 export default {
-  computed:{
+  computed: {
     item() {
-      return this.$store.state.item
+      return this.$store.state.item;
     }
   },
   data() {
     return {
-      // item: {
-      //   title: "",
-      //   subtitle: "",
-      //   desc: "",
-      //   price: this.item.price || 0,
-      //   msg: ""
-      // },
       beverage: [
         {
-          name: '溫紅茶（中）',
-          price: 5
+          name: "溫紅茶（中）",
+          price: 0
         },
         {
-          name: '冰紅茶（中）',
-          price: 5
+          name: "冰紅茶（中）",
+          price: 0
         },
         {
-          name: '溫紅茶（大）',
+          name: "溫紅茶（大）",
           price: 15
         },
         {
-          name: '冰紅茶（大）',
+          name: "冰紅茶（大）",
           price: 15
         },
         {
-          name: '溫奶茶（中）',
+          name: "溫奶茶（中）",
           price: 5
         },
         {
-          name: '冰奶茶（中）',
+          name: "冰奶茶（中）",
           price: 5
         },
         {
-          name: '溫豆漿（中）',
+          name: "溫豆漿（中）",
           price: 5
         },
         {
-          name: '冰豆漿（中）',
+          name: "冰豆漿（中）",
           price: 5
         },
-
+        {
+          name: "不加點飲料",
+          price: 0
+        },
       ],
-      radio: '1'
+      radio: "0",
+      temp: 0
     };
   },
   methods: {
@@ -102,40 +93,75 @@ export default {
     addToCart() {
       let temp = {
         title: this.item.title,
-        subtitle: this.item.subtitle,
-        desc: this.item.desc,
+        subtitle: this.item.subtitle || '',
+        desc: this.item.desc || '',
         price: this.item.price,
-        msg: this.item.msg
+        msg: this.item.msg || ''
       };
-      this.checkAddonItem()
+
+      this.beverage.forEach(drink => {
+        if (drink.name === this.radio) {
+          temp.title += `、${drink.name}`
+          temp.price += drink.price
+        }
+      })
+
+      this.checkAddonItem();
 
       this.$store.dispatch("addToCart", temp);
       this.$toast.success("加入購物車成功");
     },
+    loop(name) {
+      this.beverage.forEach(drink => {
+        if (drink.name == name) {
+          this.temp += drink.price;
+        }
+      });
+    },
     checkAddonItem() {
-      // 檢查加點項目
-      // console.log(this.radio)
-      switch (this.radio) {
-        case '溫紅茶（中）':
-          break;
-        case '溫紅茶（大）':
-          this.beverage.forEach(item => {
-            if (item.name == '溫紅茶（大）') {
-              console.log(item.price)
-            }
-          })
+      // 檢查加點項目是否要加價
 
+      this.temp = this.item.price;
+      
+      switch (this.radio) {
+        case "溫紅茶（中）":
+          this.loop('溫紅茶（中）')
+          break;
+        case "冰紅茶（中）":
+          this.loop('冰紅茶（中）')
+          break;
+        case "溫紅茶（大）":
+          this.loop('溫紅茶（大）')
+          break;
+        case "冰紅茶（大）":
+          this.loop('冰紅茶（大）')
+          break;
+        case "溫奶茶（中）":
+          this.loop('溫奶茶（中）')
+          break;
+        case "冰奶茶（中）":
+          this.loop('冰奶茶（中）')
+          break;
+        case "溫豆漿（中）":
+          this.loop('溫豆漿（中）')
+          break;
+        case "冰豆漿（中）":
+          this.loop('冰豆漿（中）')
           break;
         default:
           return;
       }
-    }
+    },
+  },
+  created() {
+    this.temp = this.item.price;
+  },
+  update() {
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .item {
   .item-subtitle {
     span {
@@ -148,7 +174,7 @@ export default {
     }
     .price {
       letter-spacing: 1px;
-      padding-left: .8rem;
+      padding-left: 0.8rem;
       font-size: 12px;
       line-height: 20px;
       color: rgb(84, 84, 84);

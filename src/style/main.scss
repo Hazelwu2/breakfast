@@ -45,6 +45,8 @@ table {
 html {
   // 阻止旋转屏幕时自动调整字体大小:
   -webkit-text-size-adjust: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {

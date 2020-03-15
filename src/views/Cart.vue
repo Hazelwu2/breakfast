@@ -31,24 +31,28 @@
         </ul>
       </div>
 
-      <div class="submit-bar" v-if="list.length > 0">
-        <div class="submit-bar__text">
-          <span>總計</span>
-          <span class="submit-bar__text__price">NT${{total}}</span>
+      <div v-if="list.length > 0">
+        <div class="submit-bar">
+          <div class="submit-bar__text">
+            <span>總計</span>
+            <span class="submit-bar__text__price">NT${{total}}</span>
+          </div>
+          <button class="submit-bar__button" @click="showActionSheet=true">
+            <span>明天的早餐有著落啦</span>
+          </button>
         </div>
-        <button class="submit-bar__button" @click="showActionSheet=true">
-          <span>明天的早餐有著落啦</span>
-        </button>
       </div>
 
-      <div class="submit-bar" v-else>
-        <div class="submit-bar__text">
-          <span>總計</span>
-          <span class="submit-bar__text__price">NT${{total}}</span>
+      <div v-else>
+        <div class="submit-bar">
+          <div class="submit-bar__text">
+            <span>總計</span>
+            <span class="submit-bar__text__price">NT${{total}}</span>
+          </div>
+          <button class="submit-bar__button" :disabled="true" @click="showActionSheet=true">
+            <span>這裡沒有任何東西</span>
+          </button>
         </div>
-        <button class="submit-bar__button" :disabled="true" @click="showActionSheet=true">
-          <span>這裡沒有任何東西</span>
-        </button>
       </div>
 
       <van-action-sheet @cancel="cancelActionSheet" v-model="showActionSheet" title="明天的早餐有著落啦">
@@ -139,10 +143,10 @@ export default {
               message: "訂購桃子早餐成功啦！"
             });
 
-            let msg = `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`
+            let msg = `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`;
             axios({
               methos: "get",
-              url: `https://script.google.com/macros/s/AKfycbxaXv_bRTwJRh_GKPtys6Ae7-zgQjvf1611R57L9AOouHgZVWcG/exec?msg=${msg}`,
+              url: `https://script.google.com/macros/s/AKfycbxaXv_bRTwJRh_GKPtys6Ae7-zgQjvf1611R57L9AOouHgZVWcG/exec?msg=${msg}`
             })
               .then(res => {
                 alert(res);
@@ -182,10 +186,12 @@ export default {
   width: 100%;
   height: 100%;
   background: #f7f8fa;
+  overflow: scroll;
 }
 
 .list {
   margin: 1rem;
+  margin-bottom: 8rem;
   ul {
     li {
       padding: 0.6rem;

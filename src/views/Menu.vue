@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!showCart">
     <van-tabs v-model="active" scrollspy sticky>
       <van-tab title="套餐">
         <div class="box">
@@ -9,7 +9,6 @@
               v-for="(item,i) in list1"
               :key="i + 'menu1'"
               :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
-              
             >
               <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
@@ -83,9 +82,12 @@
 </template>
 
 <script>
-
 export default {
-  
+  computed: {
+    showCart() {
+      return this.$store.state.showCart;
+    }
+  },
   data() {
     return {
       active: 0,
@@ -236,8 +238,8 @@ export default {
   },
   methods: {
     saveMenu(item) {
-      console.log('saveMenu')
-      this.$store.dispatch('addItem', item);
+      console.log("saveMenu");
+      this.$store.dispatch("addItem", item);
       console.log(this.$store.state.item);
     }
   }
