@@ -116,7 +116,7 @@ export default {
       this.cancelActionSheet();
 
       // 取得今天日期
-      let today = this.$moment().format("MMDD");
+      let today = this.$moment().format("YYYYMMDD");
       var arrTitle = [];
       var arrSubtitle = [];
       var arrDesc = [];
