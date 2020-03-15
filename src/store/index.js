@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     cart: [],
-    showCart: false
+    showCart: false,
+    item: {}
   },
   plugins: [
     createPersistedState({
@@ -26,20 +27,26 @@ export default new Vuex.Store({
     },
     CLEAR_CART(state) {
       state.cart = [];
+    },
+    ADD_ITEM(state, payload) {
+      state.item = payload;
     }
   },
   actions: {
     addToCart({ commit }, value) {
       commit('CART', value);
     },
-    switchShoppingCart({commit}, value) {
+    switchShoppingCart({ commit }, value) {
       commit('SHOW_CART', value)
     },
-    removeCart( {commit}, value) {
+    removeCart({ commit }, value) {
       commit('REMOVE_CART', value)
     },
-    clearCart({commit}) {
+    clearCart({ commit }) {
       commit('CLEAR_CART')
+    },
+    addItem({ commit }, value) {
+      commit('ADD_ITEM', value);
     }
   },
   modules: {

@@ -76,7 +76,6 @@
 
 <script>
 import axios from "axios";
-const querystring = require('querystring');
 export default {
   name: "Cart",
   props: ["list"],
@@ -140,14 +139,16 @@ export default {
               message: "訂購桃子早餐成功啦！"
             });
 
-            axios
-              .post(this.url, {msg: `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`})
+            let msg = `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`
+            axios({
+              methos: "get",
+              url: `https://script.google.com/macros/s/AKfycbxaXv_bRTwJRh_GKPtys6Ae7-zgQjvf1611R57L9AOouHgZVWcG/exec?msg=${msg}`,
+            })
               .then(res => {
-                alert(res)
+                alert(res);
               })
-              .catch(err => alert(err))
+              .catch(err => alert(err));
 
-            
             // 清除購物車
             this.$store.dispatch("clearCart");
           } else {

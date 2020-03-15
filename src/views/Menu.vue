@@ -9,8 +9,9 @@
               v-for="(item,i) in list1"
               :key="i + 'menu1'"
               :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
+              
             >
-              <li>
+              <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
                 <span>{{item.subtitle}}</span>
                 <span>{{item.desc}}</span>
@@ -29,7 +30,7 @@
               :key="i + 'menu2'"
               :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
             >
-              <li>
+              <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
                 <span>{{item.subtitle}}</span>
                 <span>{{item.desc}}</span>
@@ -48,7 +49,7 @@
               :key="i + 'menu3'"
               :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
             >
-              <li>
+              <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
                 <span>{{item.subtitle}}</span>
                 <span>{{item.desc}}</span>
@@ -67,7 +68,7 @@
               :key="i + 'menu4'"
               :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
             >
-              <li>
+              <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
                 <span>{{item.subtitle}}</span>
                 <span>{{item.desc}}</span>
@@ -232,6 +233,13 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    saveMenu(item) {
+      console.log('saveMenu')
+      this.$store.dispatch('addItem', item);
+      console.log(this.$store.state.item);
+    }
   }
 };
 </script>

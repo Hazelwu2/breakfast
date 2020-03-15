@@ -1,10 +1,10 @@
 <template>
   <div class="item">
     <van-sticky>
-      <van-nav-bar @click-left="back" :title="$route.params.subtitle" left-text="返回" left-arrow></van-nav-bar>
+      <van-nav-bar @click-left="back" :title="item.subtitle" left-text="返回" left-arrow></van-nav-bar>
     </van-sticky>
 
-    <van-panel :title="$route.params.title" :desc="$route.params.desc"></van-panel>
+    <van-panel :title="item.title" :desc="item.desc"></van-panel>
     <!-- 飲品加點 -->
     <div class="item-subtitle text-left">
       配杯飲料吧
@@ -42,15 +42,20 @@
 
 <script>
 export default {
+  computed:{
+    item() {
+      return this.$store.state.item
+    }
+  },
   data() {
     return {
-      item: {
-        title: "",
-        subtitle: "",
-        desc: "",
-        price: this.$route.params.price || 0,
-        msg: ""
-      },
+      // item: {
+      //   title: "",
+      //   subtitle: "",
+      //   desc: "",
+      //   price: this.item.price || 0,
+      //   msg: ""
+      // },
       beverage: [
         {
           name: '溫紅茶（中）',
@@ -95,16 +100,16 @@ export default {
       this.$store.dispatch("switchShoppingCart", false);
     },
     addToCart() {
-      this.item = {
-        title: this.$route.params.title,
-        subtitle: this.$route.params.subtitle,
-        desc: this.$route.params.desc,
-        price: this.$route.params.price,
+      let temp = {
+        title: this.item.title,
+        subtitle: this.item.subtitle,
+        desc: this.item.desc,
+        price: this.item.price,
         msg: this.item.msg
       };
       this.checkAddonItem()
 
-      this.$store.dispatch("addToCart", this.item);
+      this.$store.dispatch("addToCart", temp);
       this.$toast.success("加入購物車成功");
     },
     checkAddonItem() {
