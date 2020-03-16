@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{'isRest': isRest}">
     <transition name="slide-fade">
       <router-view></router-view>
     </transition>
-    
+
     <div class="cart" @click="switchShoppingCart">
       <svg
         t="1584171273138"
@@ -21,7 +21,6 @@
         />
       </svg>
     </div>
-    
 
     <Cart v-if="showCart" :list="cart" />
   </div>
@@ -31,17 +30,23 @@
 import Cart from "@/views/Cart";
 export default {
   components: { Cart },
+  data() {
+    return {
+      isRest: false
+    }
+  },
   computed: {
     showCart() {
-      return this.$store.state.showCart
+      return this.$store.state.showCart;
     },
     cart() {
-      return this.$store.state.cart
+      return this.$store.state.cart;
     }
   },
   created() {
-    let data = sessionStorage.getItem('vuex');
-    console.log('[App.vue] created，VueX資料： ', JSON.parse(data));
+    this.checkData();
+    let data = sessionStorage.getItem("vuex");
+    console.log("[App.vue] created，VueX資料： ", JSON.parse(data));
     // 如果data存在並且重整
     if (data) {
       this.$store.replaceState(
@@ -51,9 +56,31 @@ export default {
     }
   },
   methods: {
-    switchShoppingCart(){
-      console.log('this.$store.state.showCart', this.$store.state.showCart)
-      this.$store.dispatch('switchShoppingCart', true)
+    checkData() {
+      const startDate = this.$moment("20200316"); // 公休日
+      let isRest = false;
+      // moment().weeks() = 12 雙數週
+      // (moment().week()) % 2 == 0
+      // moment().weekday()
+      let biweekly = (this.$moment().weeks()) % 2 == 0;
+      let monday = this.$moment().weekday() == 1;
+
+      if (biweekly && monday) {
+        this.isRest = true
+      } 
+      // else if (startDate === startDate) {
+      //   this.isRest = true
+      // }
+      
+      if (this.isRest) {
+        this.$dialog.alert({
+          message: "桃子今日休息，不開放點餐"
+        });
+
+      }
+    },
+    switchShoppingCart() {
+      this.$store.dispatch("switchShoppingCart", true);
     }
   }
 };
