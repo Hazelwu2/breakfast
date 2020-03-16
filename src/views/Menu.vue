@@ -254,8 +254,8 @@ export default {
           price:  50
         },
         {
-          title: "卡拉雞腿蛋",
-          subtitle: "就是總匯",
+          title: "卡啦雞腿蛋",
+          subtitle: "就是卡啦雞腿蛋",
           price:  50
         },
         {
@@ -349,9 +349,7 @@ export default {
   },
   methods: {
     saveMenu(item) {
-      console.log("saveMenu");
       this.$store.dispatch("addItem", item);
-      console.log(this.$store.state.item);
     }
   }
 };
