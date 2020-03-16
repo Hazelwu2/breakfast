@@ -8,13 +8,12 @@ import './style/main.scss';
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
+import moment from 'moment';
+moment.locale('nl');
+Vue.prototype.$moment = moment;
 
 Vue.use(Vant);
 
-import { Tab, Tabs } from 'vant';
-
-Vue.use(Tab);
-Vue.use(Tabs);
 Vue.config.productionTip = false
 
 new Vue({

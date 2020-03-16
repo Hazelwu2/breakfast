@@ -1,109 +1,11 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
 
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-
-body {
-  line-height: 1;
+  font-weight: 300;
 }
 
 ol,
@@ -120,7 +22,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -129,12 +31,65 @@ table {
   border-spacing: 0;
 }
 
+.img-fluid {
+  width: 100%;
+  height: auto;
+}
+
+.w-100 {
+  width: 100%;
+}
 
 // =================================
+// iPhone and iPad CSS Hacks
+html {
+  // 阻止旋转屏幕时自动调整字体大小:
+  -webkit-text-size-adjust: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  -webkit-font-smoothing: antialiased; // 使字体变清晰
+  -webkit-overflow-scrolling: touch;
+}
+
+input {
+  // 移除原生樣式
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+
+  text-indent: 0;
+  background: transparent;
+  border: 0 none;
+  resize: none;
+  outline: none;
+  /*清除选中效果的默认蓝色边框 */
+  -webkit-appearance: none;
+  /*清除浏览器默认的样式 */
+  line-height: normal; //光标问题
+}
+
+body,
+html,
+a,
+input {
+  //去掉点击链接和文本框对象时默认的灰色半透明覆盖层(iOS)或者虚框(Android)
+
+  -webkit-tap-highlight-color: none;
+}
+
+// ==================================
 
 html,
 body {
   background: #f7f8fa;
+}
+
+.border-bottom {
+  border-top: 1px solid #e2e2e2;
 }
 
 .box {
@@ -145,26 +100,576 @@ body {
   margin: 2rem;
 
   h2 {
-    margin: 45px 0 20px;
-    font-size: 22px;
+    text-align: left;
+    padding-bottom: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
   }
 
   ul {
-    li {
-      padding: 2rem;
-      border-bottom: 1px solid #E2E2E2;
+    margin-bottom: 16px;
 
-      span {
-        display: block;
-        padding-top: 1rem;
-      }
+    li {
+      border-top: 1px solid #e2e2e2;
+      padding: 16px 0;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      color: #000000;
 
       h4 {
-        margin-bottom: 1rem;
-        font-weight: bold;
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: 500;
         letter-spacing: 1px;
-        font-size: 1.4rem;
+      }
+
+      span {
+        padding-top: 10px;
+
+        &+span {
+          color: #545454;
+          font-size: 14px;
+        }
+      }
+
+      h6 {
+        font-size: 14px;
+        padding-top: 10px;
       }
     }
   }
+}
+
+.submit-bar {
+  background: white;
+  padding: 0.6rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+
+  &__text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding-right: 12px;
+    color: #323233;
+    text-align: right;
+
+    span {
+      font-size: 14px;
+    }
+
+    &__price {
+      color: #ee0a24;
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+
+  &__button {
+    margin-right: 1rem;
+    width: 200px;
+    height: 40px;
+    font-weight: 500;
+    line-height: 40px;
+    border: none;
+    background: linear-gradient(to right, #ff6034, #ee0a24);
+    padding: 0 15px;
+    border-radius: 999px;
+    transition: all 0.3s;
+
+    &:hover {
+      box-shadow: 0 3px 5px rgba(black, 0.3);
+    }
+
+    span {
+      letter-spacing: 2px;
+      font-size: 14px;
+      color: white;
+    }
+  }
+}
+
+.submit-btn {
+  margin-right: 1rem;
+  width: 200px;
+  height: 40px;
+  font-weight: 500;
+  line-height: 40px;
+  border: none;
+  background: linear-gradient(to right, #ff6034, #ee0a24);
+  padding: 0 15px;
+  border-radius: 999px;
+  transition: all 0.3s;
+  border: none;
+  color: white !important;
+
+  &:hover {
+    box-shadow: 0 3px 5px rgba(black, 0.3);
+  }
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.van-panel {
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.van-cell__title {
+  font-size: 1.6rem;
+  text-align: left;
+}
+
+.item {
+  .item-subtitle {
+    // padding: 10px 16px;
+    margin: 16px;
+  }
+}
+
+input {
+  background-color: initial;
+  cursor: default;
+  -webkit-appearance: checkbox;
+  box-sizing: border-box;
+  margin: 3px 0.5ex;
+  padding: initial;
+  border: initial;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+}
+
+// ==============================
+.van-button__text {
+  letter-spacing: 2px;
+  font-size: 16px;
+}
+
+.van-button--block {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.item .van-radio {
+  padding-top: 1rem;
+
+  &__label {
+    margin-left: 1rem;
+    font-weight: bold;
+  }
+}
+
+.van-radio__icon--checked .van-icon {
+  background-color: #324150;
+  border-color: transparent;
+}
+
+.van-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopping-cart .van-field--min-height .van-field__control {
+  min-height: 20px;
+  max-height: 25px;
+}
+
+// ===============================
+.cart {
+  position: fixed;
+  bottom: 3rem;
+  right: 1rem;
+
+  border-radius: 50%;
+  background: #ee0a24bd;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {}
+}
+
+.slide-fade-enter-active {
+  transition: all 0.4s 0.2s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
+
+.isRest {
+  display: none;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  font-weight: 300;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.img-fluid {
+  width: 100%;
+  height: auto;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+// =================================
+// iPhone and iPad CSS Hacks
+html {
+  // 阻止旋转屏幕时自动调整字体大小:
+  -webkit-text-size-adjust: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  -webkit-font-smoothing: antialiased; // 使字体变清晰
+  -webkit-overflow-scrolling: touch;
+}
+
+input {
+  // 移除原生樣式
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+
+  text-indent: 0;
+  background: transparent;
+  border: 0 none;
+  resize: none;
+  outline: none;
+  /*清除选中效果的默认蓝色边框 */
+  -webkit-appearance: none;
+  /*清除浏览器默认的样式 */
+  line-height: normal; //光标问题
+}
+
+body,
+html,
+a,
+input {
+  //去掉点击链接和文本框对象时默认的灰色半透明覆盖层(iOS)或者虚框(Android)
+
+  -webkit-tap-highlight-color: none;
+}
+
+// ==================================
+
+html,
+body {
+  background: #f7f8fa;
+}
+
+.border-bottom {
+  border-top: 1px solid #e2e2e2;
+}
+
+.box {
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 12px #ebedf0;
+  margin: 2rem;
+
+  h2 {
+    text-align: left;
+    padding-bottom: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  ul {
+    margin-bottom: 16px;
+
+    li {
+      border-top: 1px solid #e2e2e2;
+      padding: 16px 0;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      color: #000000;
+
+      h4 {
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      span {
+        padding-top: 10px;
+
+        &+span {
+          color: #545454;
+          font-size: 14px;
+        }
+      }
+
+      h6 {
+        font-size: 14px;
+        padding-top: 10px;
+      }
+    }
+  }
+}
+
+.submit-bar {
+  background: white;
+  padding: 0.6rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+
+  &__text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding-right: 12px;
+    color: #323233;
+    text-align: right;
+
+    span {
+      font-size: 14px;
+    }
+
+    &__price {
+      color: #ee0a24;
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+
+  &__button {
+    margin-right: 1rem;
+    width: 200px;
+    height: 40px;
+    font-weight: 500;
+    line-height: 40px;
+    border: none;
+    background: linear-gradient(to right, #ff6034, #ee0a24);
+    padding: 0 15px;
+    border-radius: 999px;
+    transition: all 0.3s;
+
+    &:hover {
+      box-shadow: 0 3px 5px rgba(black, 0.3);
+    }
+
+    span {
+      letter-spacing: 2px;
+      font-size: 14px;
+      color: white;
+    }
+  }
+}
+
+.submit-btn {
+  margin-right: 1rem;
+  width: 200px;
+  height: 40px;
+  font-weight: 500;
+  line-height: 40px;
+  border: none;
+  background: linear-gradient(to right, #ff6034, #ee0a24);
+  padding: 0 15px;
+  border-radius: 999px;
+  transition: all 0.3s;
+  border: none;
+  color: white !important;
+
+  &:hover {
+    box-shadow: 0 3px 5px rgba(black, 0.3);
+  }
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.van-panel {
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.van-cell__title {
+  font-size: 1.6rem;
+  text-align: left;
+}
+
+.item {
+  .item-subtitle {
+    // padding: 10px 16px;
+    margin: 16px;
+  }
+}
+
+input {
+  background-color: initial;
+  cursor: default;
+  -webkit-appearance: checkbox;
+  box-sizing: border-box;
+  margin: 3px 0.5ex;
+  padding: initial;
+  border: initial;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+}
+
+// ==============================
+.van-button__text {
+  letter-spacing: 2px;
+  font-size: 16px;
+}
+
+.van-button--block {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.item .van-radio {
+  padding-top: 1rem;
+
+  &__label {
+    margin-left: 1rem;
+    font-weight: bold;
+  }
+}
+
+.van-radio__icon--checked .van-icon {
+  background-color: #324150;
+  border-color: transparent;
+}
+
+.van-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopping-cart .van-field--min-height .van-field__control {
+  min-height: 20px;
+  max-height: 25px;
+}
+
+// ===============================
+.cart {
+  position: fixed;
+  bottom: 3rem;
+  right: 1rem;
+
+  border-radius: 50%;
+  background: #ee0a24bd;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {}
+}
+
+.slide-fade-enter-active {
+  transition: all 0.4s 0.2s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
+
+.isRest {
+  display: none;
 }

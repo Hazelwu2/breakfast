@@ -1,113 +1,85 @@
 <template>
-  <div id="app">
-    <van-tabs v-model="active" scrollspy sticky>
-      <van-tab title="套餐">
-        <div class="box">
-          <h2>套餐</h2>
-          <ul>
-            <li>
-              <h4>1號餐</h4>
-              <span>漢堡任選口味+25元升級套餐</span>
-              <span>附薯條、中杯飲品</span>
-            </li>
-            <li>
-              <h4>2號餐</h4>
-              <span>大亨堡任選口味+25元升級套餐</span>
-              <span>附薯條、中杯飲品</span>
-            </li>
-            <li>
-              <h4>3號餐</h4>
-              <span>卡拉雞腿</span>
-              <span>附薯條、中杯飲品</span>
-            </li>
-            <li>
-              <h4>4號餐</h4>
-              <span>營養早餐 蛋兩顆、火腿、熱狗兩隻</span>
-              <span>附中杯飲品</span>
-            </li>
-            <li>
-              <h4>5號餐</h4>
-              <span>蘿蔔糕+蛋+熱狗</span>
-              <span>附薯條、中杯飲品</span>
-            </li>
-            <li>
-              <h4>6號餐</h4>
-              <span>麥克雞6塊</span>
-              <span>附薯條、中杯飲品</span>
-            </li>
-            <li>
-              <h4>7號餐</h4>
-              <span>厚片、培根</span>
-              <span>附薯條、中杯飲品</span>
-            </li>
-            <li>
-              <h4>8號餐</h4>
-              <span>薄片、蛋、豬排、熱狗</span>
-              <span>附中杯飲品</span>
-            </li>
-            <li>
-              <h4>9號餐</h4>
-              <span>鐵板麵、蛋、豬排</span>
-              <span>附中杯飲品</span>
-            </li>
-            <li>
-              <h4>10號餐</h4>
-              <span>宮保鐵板麵、蛋、豬排</span>
-              <span>附中杯飲品</span>
-            </li>
-          </ul>
-        </div>
-      </van-tab>
-      <van-tab title="單點類">
-        <div class="box">
-          <h2>單點類</h2>
-          <ul>
-            <li>熱狗兩隻</li>
-            <li>荷包蛋</li>
-          </ul>
-        </div>
-      </van-tab>
-      <van-tab title="乳酪厚片">
-        <div class="box">
-          <h2>乳酪厚片</h2>
-          <ul>
-            <li>鮪魚</li>
-            <li>火腿</li>
-          </ul>
-        </div>
-      </van-tab>
-      <van-tab title="披薩">
-        <div class="box">
-          <h2>披薩類</h2>
-          <div class="box__item">
-            <div class="box__item__name">
-              夏威夷披薩
-            </div>
-            <div class="box__item__price">
-              55$
-            </div>
+  <div id="app" :class="{'isRest': isRest}">
+    <transition name="slide-fade">
+      <router-view></router-view>
+    </transition>
 
-          </div>
-        </div>
-      </van-tab>
-    </van-tabs>
-
-
-
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+    <div class="cart" @click="switchShoppingCart">
+      <svg
+        t="1584171273138"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="6222"
+        width="48"
+        height="48"
+      >
+        <path
+          d="M810.666667 298.666667h-128V256a170.666667 170.666667 0 0 0-341.333334 0v42.666667H213.333333a42.666667 42.666667 0 0 0-42.666666 42.666666v469.333334a128 128 0 0 0 128 128h426.666666a128 128 0 0 0 128-128V341.333333a42.666667 42.666667 0 0 0-42.666666-42.666666z m-384-42.666667a85.333333 85.333333 0 0 1 170.666666 0v42.666667h-170.666666z m341.333333 554.666667a42.666667 42.666667 0 0 1-42.666667 42.666666H298.666667a42.666667 42.666667 0 0 1-42.666667-42.666666V384h85.333333v42.666667a42.666667 42.666667 0 0 0 85.333334 0V384h170.666666v42.666667a42.666667 42.666667 0 0 0 85.333334 0V384h85.333333z"
+          p-id="6223"
+        />
+      </svg>
     </div>
-    <router-view />-->
+
+    <Cart v-if="showCart" :list="cart" />
   </div>
 </template>
 
 <script>
+import Cart from "@/views/Cart";
 export default {
+  components: { Cart },
   data() {
     return {
-      active: 2
-    };
+      isRest: false
+    }
+  },
+  computed: {
+    showCart() {
+      return this.$store.state.showCart;
+    },
+    cart() {
+      return this.$store.state.cart;
+    }
+  },
+  created() {
+    this.checkData();
+    let data = sessionStorage.getItem("vuex");
+    console.log("[App.vue] created，VueX資料： ", JSON.parse(data));
+    // 如果data存在並且重整
+    if (data) {
+      this.$store.replaceState(
+        Object.assign({}, this.$store.state, JSON.parse(data))
+      );
+      sessionStorage.removeItem(data);
+    }
+  },
+  methods: {
+    checkData() {
+      const startDate = this.$moment("20200316"); // 公休日
+      let isRest = false;
+      // moment().weeks() = 12 雙數週
+      // (moment().week()) % 2 == 0
+      // moment().weekday()
+      let biweekly = (this.$moment().weeks()) % 2 == 0;
+      let monday = this.$moment().weekday() == 1;
+      if (biweekly && monday) {
+        this.isRest = true
+      } 
+      // else if (startDate === startDate) {
+      //   this.isRest = true
+      // }
+      
+      if (this.isRest) {
+        this.$dialog.alert({
+          message: "桃子今日休息，不開放點餐"
+        });
+      }
+    },
+    switchShoppingCart() {
+      this.$store.dispatch("switchShoppingCart", true);
+    }
   }
 };
 </script>
@@ -119,17 +91,7 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+svg {
+  fill: white;
 }
 </style>
