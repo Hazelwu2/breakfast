@@ -49,19 +49,17 @@ export default {
       // (moment().week()) % 2 == 0
       // moment().weekday()
       let biweekly = (this.$moment().weeks()) % 2 == 0;
-      let monday = this.$moment().weekday() == 1;
+      let monday = this.$moment().format('d') == "1";
+
       if (biweekly && monday) {
-        this.isRest = true
-      } 
-      // else if (startDate === startDate) {
-      //   this.isRest = true
-      // }
-      
-      if (this.isRest) {
+        this.isRest = true;
         this.$dialog.alert({
           message: "桃子今日休息，不開放點餐"
         });
+      }  else {
+        this.isRest = false;
       }
+      
     },
     switchShoppingCart() {
       this.$store.dispatch("switchShoppingCart", true);
