@@ -338,7 +338,7 @@ export default {
 
       this.beverage.forEach(drink => {
         if (drink.name === this.drinkRadio) {
-          temp.title += `、${drink.name}`;
+          temp.title += `＋${drink.name}`;
           temp.price += drink.price;
         }
       });

@@ -116,19 +116,21 @@ export default {
       this.cancelActionSheet();
 
       // 取得今天日期
-      let today = this.$moment().format("YYYYMMDD");
+      let today = this.$moment().format("MMDD");
       var arrTitle = [];
       var arrSubtitle = [];
       var arrDesc = [];
       var arrMsg = [];
 
       this.list.forEach(item => {
+        var temp;
         if (!item.msg) {
-          item.msg = "無備註";
+          temp = `${item.title}`;
+        } else {
+          temp = `備註：${item.msg} `
         }
 
-        var temp = `${item.title}，備註：${item.msg}。`;
-        arrTitle.push(temp);
+          arrTitle.push(temp);
       });
 
       axios
