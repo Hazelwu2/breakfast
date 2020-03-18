@@ -1,33 +1,36 @@
 <template>
   <div class="item">
     <van-sticky>
-      <van-nav-bar @click-left="back" :title="item.subtitle" left-text="返回" left-arrow></van-nav-bar>
+      <van-nav-bar @click-left="back" :title="item.title" left-text="返回" left-arrow></van-nav-bar>
     </van-sticky>
 
-    <van-panel :title="item.title" :desc="item.desc"></van-panel>
+    <van-panel :title="item.title" :desc="item.subtitle">NT$ {{item.price}}</van-panel>
 
     <!-- 配料 蛋餅吐司漢堡 -->
-    <div class="item-subtitle text-left">
-      配料要什麼呢？
-      <span>
-        <br />沒有看到你想要的？寫在備註，告訴桃子
-      </span>
-  
+    <div >
+      <!-- v-if="!item.combo" -->
+      <div class="item-subtitle text-left">
+        配料要什麼呢？
+        <span>
+          <br />
+          沒有看到你想要的？寫在備註，告訴桃子
+        </span>
+      </div>
+      <van-panel>
+        <van-radio-group @change="checkAddonItem('firstRadio')" v-model="firstRadio">
+          <van-radio :name="x.name" v-for="(x,i) in level(item.title)" :key="i">
+            <div>
+              <span class="name">{{x.name}}</span>
+              <span class="price">+NT${{x.price}}</span>
+            </div>
+          </van-radio>
+        </van-radio-group>
+      </van-panel>
     </div>
-    <van-panel>
-      <van-radio-group @change="checkAddonItem('firstRadio')" v-model="firstRadio">
-        <van-radio :name="x.name" v-for="(x,i) in level(item.title)" :key="i">
-          <div>
-            <span class="name">{{x.name}}</span>
-            <span class="price">+NT${{x.price}}</span>
-          </div>
-        </van-radio>
-      </van-radio-group>
-    </van-panel>
 
     <!-- 飲品加點 -->
     <div class="item-subtitle text-left">
-      配杯飲料吧 {{addon}}
+      配杯飲料吧
       <span>無糖飲料，請另外備註</span>
     </div>
     <van-panel>
@@ -68,6 +71,7 @@ export default {
   },
   data() {
     return {
+      test: [],
       beverage: [
         {
           name: "溫紅茶（中）",
@@ -94,12 +98,28 @@ export default {
           price: 15
         },
         {
+          name: "溫奶茶（大）",
+          price: 20
+        },
+        {
+          name: "冰奶茶（大）",
+          price: 20
+        },
+        {
           name: "溫豆漿（中）",
           price: 10
         },
         {
           name: "冰豆漿（中）",
           price: 10
+        },
+        {
+          name: "溫豆漿（大）",
+          price: 20
+        },
+        {
+          name: "冰豆漿（大）",
+          price: 20
         },
         {
           name: "檸檬汁（中）",
@@ -111,7 +131,7 @@ export default {
         },
         {
           name: "檸檬紅茶（中）",
-          price: 25
+          price: 20
         },
         {
           name: "檸檬紅茶（大）",
@@ -163,7 +183,7 @@ export default {
         },
         {
           name: "鮮奶茶（大）",
-          price: 40
+          price: 35
         },
         {
           name: "研磨咖啡（中）",
@@ -289,7 +309,8 @@ export default {
         }
       ],
       level4: [
-        { // 總匯
+        {
+          // 總匯
           name: "吐司",
           price: 50
         },
@@ -494,7 +515,7 @@ export default {
         case "德式香腸蛋":
           this.price = "level5";
           return this.level5;
-        
+
         case "雞腿蛋":
         case "卡啦雞腿蛋":
           this.price = "level6";
@@ -515,7 +536,7 @@ export default {
         subtitle: this.item.subtitle || "",
         desc: this.item.desc || "",
         price: this.item.price,
-        msg: this.item.msg || "",
+        msg: this.item.msg || ""
       };
 
       // this.price = 確定是level幾的菜單，每一層level價格都不同
@@ -538,11 +559,62 @@ export default {
 
       this.$store.dispatch("addToCart", temp);
       this.$toast.success("加入購物車成功");
+    },
+    checkBeveragePrice(item) {
+      // 針對是不是套餐，調整飲料價格
+      // 如果是套餐
+      if (item.combo) {
+        this.beverage.forEach(drink => {          
+          if (drink.name.includes('中')) {
+            // 點套餐、飲料是中杯，飲品0元
+            if (drink.price >= 30) {  
+              // 鮮奶茶、研磨咖啡、鮮奶咖啡 原價-10$
+              drink.price -= 10
+            } else if (drink.price > 20) {
+              drink.price -= 15
+            } else if (drink.price == 20){
+              // 檸檬汁、檸檬紅茶、柳橙汁、柳橙紅茶
+              drink.price +=5
+            } else {
+              // [套餐] 中杯不用補差額、大杯補五塊
+              // 紅茶、奶茶、豆漿、米漿、薏仁漿、豆漿紅茶
+              drink.price = 0
+            }
+          } else if  (drink.name.includes('大')) {
+            // 點套餐、飲料是大杯，飲品折10元
+            if (drink.price >= 30) {
+              // 鮮奶茶、研磨咖啡、鮮奶咖啡 原價-10$
+              drink.price -= 10
+            }else if (drink.price == 25) {
+              // 檸檬汁、檸檬紅茶、柳橙汁、柳橙紅茶
+              // 大杯補十塊
+              drink.price += 10;
+            } else if (drink.price == 20) {
+              drink.price -=15;
+            } else if (drink.price > 20) {
+              drink.price -= 10
+            }
+          }
+
+          return {
+            ...drink
+          }
+        })
+
+        // console.log('newArr')
+        // console.log(newArr)
+
+      } else {
+        // 如果不是套餐，照比原來價格算
+        return this.beverage;
+      }
     }
   },
   created() {
-    this.originPrice = this.item.price;
-  }
+    this.originPrice = 0;
+    this.trialPrice = this.originPrice;
+    this.checkBeveragePrice(this.item);
+  },
 };
 </script>
 
@@ -567,8 +639,6 @@ export default {
     }
   }
 
-  .van-sticky {
-    margin-bottom: 2.5rem;
-  }
+  
 }
 </style>
