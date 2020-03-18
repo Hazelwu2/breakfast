@@ -12,8 +12,7 @@
             >
               <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
-                <span>{{item.subtitle}}</span>
-                <span>{{item.desc}}</span>
+                <span class="subtitle">{{item.subtitle}}</span>
                 <h6>${{item.price}}</h6>
               </li>
             </router-link>
@@ -31,8 +30,7 @@
             >
               <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
-                <span>{{item.subtitle}}</span>
-                <span>{{item.desc}}</span>
+                <span class="subtitle">{{item.subtitle}}</span>
                 <h6>${{item.price}}</h6>
               </li>
             </router-link>
@@ -50,8 +48,7 @@
             >
               <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
-                <span>{{item.subtitle}}</span>
-                <span>{{item.desc}}</span>
+                <span class="subtitle">{{item.subtitle}}</span>
                 <h6>${{item.price}}</h6>
               </li>
             </router-link>
@@ -69,8 +66,7 @@
             >
               <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
-                <span>{{item.subtitle}}</span>
-                <span>{{item.desc}}</span>
+                <span class="subtitle">{{item.subtitle}}</span>
                 <h6>${{item.price}}</h6>
               </li>
             </router-link>
@@ -88,9 +84,8 @@
             >
               <li @click="saveMenu(item)">
                 <h4>{{item.title}}</h4>
-                <span>{{item.subtitle}}</span>
-                <span>{{item.desc}}</span>
-                <h6>${{item.price}}</h6>
+                <span class="subtitle">{{item.subtitle}}</span>
+                <h6>$ {{item.price}}</h6>
               </li>
             </router-link>
           </ul>
@@ -112,63 +107,53 @@ export default {
       active: 0,
       list1: [
         {
-          title: "1號餐",
-          subtitle: "大俠愛吃漢堡寶",
-          desc: "漢堡任選口味、附薯條、中杯飲品",
+          title: "1號餐：大俠愛吃漢堡包",
+          subtitle: "大俠最愛吃的漢堡又來啦，記得要選漢堡口味喔，附薯條、中杯飲品",
           price: 55
         },
         {
-          title: "2號餐",
-          subtitle: "大俠也愛大亨堡",
-          desc: "大亨堡任選口味、附薯條、中杯飲品",
+          title: "2號餐：Still The Same 大亨堡",
+          subtitle: "還是沒有變，如果說什麼是你記憶中的大亨堡呢？莫過於7-11的熱狗大亨堡了吧，點一道嘗嘗你記憶中的味道，附薯條、中杯飲品",
           price: 55
         },
         {
-          title: "3號餐",
-          subtitle: "卡拉雞腿",
-          desc: "附薯條、中杯飲品",
+          title: "3號餐：金雞獨立",
+          subtitle: "就是那隻超香的雞腿，沒有配漢堡也沒有配吐司，就是雞腿一隻，不要誤會了，卡拉雞腿、附薯條、中杯飲品",
           price: 55
         },
         {
-          title: "4號餐",
-          subtitle: "營養早餐",
-          desc: " 蛋兩顆、火腿、熱狗兩隻，附中杯飲品",
+          title: "4號餐：營養早餐標配",
+          subtitle: "最近缺營養？吃營養早餐就對啦，蛋兩顆、火腿、熱狗兩支，附中杯飲品",
           price: 55
         },
         {
-          title: "5號餐",
-          subtitle: "蘿蔔糕+蛋+熱狗",
-          desc: "附薯條、中杯飲品",
+          title: "5號餐：吃我的蘿蔔糕",
+          subtitle: "豐富你的味蕾，從小陪你長大的經典蘿蔔糕，吃一口安心，吃一口家，蘿蔔糕+蛋+熱狗，附薯條、中杯飲品",
           price: 55
         },
         {
-          title: "6號餐",
-          subtitle: "麥克雞6塊",
-          desc: "附薯條、中杯飲品",
+          title: "6號餐：麥克雞套餐",
+          subtitle: "是誰搶走了我的麥克風？沒關係我還有我的麥克雞🐔咕咕～麥克雞6塊，附薯條、中杯飲品",
           price: 55
         },
         {
-          title: "7號餐",
-          subtitle: "厚片、培根",
-          desc: "附薯條、中杯飲品",
+          title: "7號餐：偽紙片人",
+          subtitle: "要當紙片人，首先先吃厚片培根，這是一個經典的反指標，有厚片、培根，附薯條、中杯飲品",
           price: 55
         },
         {
-          title: "8號餐",
-          subtitle: "薄片、蛋、豬排、熱狗",
-          desc: "附中杯飲品",
+          title: "8號餐：超級滿足大套餐",
+          subtitle: "有麵包有蛋又有肉還有小熱狗，你還有什麼不滿足的？薄片、蛋、豬排、熱狗，附中杯飲品",
           price: 55
         },
         {
-          title: "9號餐",
-          subtitle: "鐵板麵、蛋、豬排",
-          desc: "附中杯飲品",
+          title: "9號餐：好初的鐵板麵",
+          subtitle: "這是我們賣最好最經典的餐點，推薦都是多餘的，如果你喜歡閉著眼睛點準沒錯，鐵板麵、蛋、豬排，附中杯飲品",
           price: 55
         },
         {
-          title: "10號餐",
-          subtitle: "宮保鐵板麵、蛋、豬排",
-          desc: "附中杯飲品",
+          title: "10號餐：宮保鐵板麵",
+          subtitle: "你如果吃膩鐵板麵，可以試試宮保鐵板麵啊，試了不用錢，不試怎麼成吃貨，宮保鐵板麵、蛋、豬排，附中杯飲品",
           price: 55
         }
       ],
@@ -349,6 +334,7 @@ export default {
   },
   methods: {
     saveMenu(item) {
+      item.combo = true;
       this.$store.dispatch("addItem", item);
     }
   }
