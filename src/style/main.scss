@@ -119,19 +119,17 @@ body {
       color: #000000;
 
       h4 {
-        font-size: 14px;
-        line-height: 24px;
+        font-size: 18px;
+        line-height: 22px;
         font-weight: 500;
-        letter-spacing: 1px;
       }
 
-      span {
+      span.subtitle {
         padding-top: 10px;
-
-        &+span {
-          color: #545454;
-          font-size: 14px;
-        }
+        color: #545454;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 1px;
       }
 
       h6 {
@@ -238,10 +236,28 @@ body {
   text-align: left;
 }
 
+
 .item {
   .item-subtitle {
     // padding: 10px 16px;
     margin: 16px;
+  }
+  .van-cell__label {
+    margin-top: 10px;
+    color: #969799;
+    font-size: 13px;
+    line-height: 19px;
+  }
+  .van-sticky {
+    .submit-btn{
+      margin-bottom: 2.5rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      border-radius: 10px;
+      margin: 0 auto;
+      width: 100%;
+    }
   }
 }
 
@@ -310,7 +326,8 @@ textarea {
   align-items: center;
   justify-content: center;
 
-  svg {}
+  svg {
+  }
 }
 
 .slide-fade-enter-active {
@@ -330,7 +347,6 @@ textarea {
   transform: translateX(-10px);
   opacity: 0;
 }
-
 
 .isRest {
   display: none;
@@ -457,16 +473,15 @@ body {
       color: #000000;
 
       h4 {
-        font-size: 14px;
+        font-size: 18px;
         line-height: 24px;
         font-weight: 500;
-        letter-spacing: 1px;
       }
 
       span {
         padding-top: 10px;
 
-        &+span {
+        & + span {
           color: #545454;
           font-size: 14px;
         }
@@ -648,7 +663,8 @@ textarea {
   align-items: center;
   justify-content: center;
 
-  svg {}
+  svg {
+  }
 }
 
 .slide-fade-enter-active {
@@ -668,7 +684,6 @@ textarea {
   transform: translateX(-10px);
   opacity: 0;
 }
-
 
 .isRest {
   display: none;
