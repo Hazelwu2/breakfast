@@ -4,16 +4,21 @@
       <van-nav-bar @click-left="back" :title="item.title" left-text="返回" left-arrow></van-nav-bar>
     </van-sticky>
 
-    <van-panel :title="item.title" :desc="item.subtitle">NT$ {{item.price}}</van-panel>
+    <van-panel :title="item.title" :desc="item.subtitle">
+      <div class="price">
+      NT$ {{item.price}}
+
+      </div>
+    </van-panel>
+
 
     <!-- 配料 蛋餅吐司漢堡 -->
-    <div >
-      <!-- v-if="!item.combo" -->
+    <div v-show="item.withBread">
+
       <div class="item-subtitle text-left">
         配料要什麼呢？
         <span>
-          <br />
-          沒有看到你想要的？寫在備註，告訴桃子
+          <br />沒有看到你想要的？寫在備註，告訴桃子
         </span>
       </div>
       <van-panel>
@@ -28,36 +33,51 @@
       </van-panel>
     </div>
 
-    <!-- 飲品加點 -->
-    <div class="item-subtitle text-left">
-      配杯飲料吧
-      <span>無糖飲料，請另外備註</span>
-    </div>
-    <van-panel>
-      <van-radio-group @change="checkAddonItem('drinkRadio')" v-model="drinkRadio">
-        <van-radio :name="drink.name" v-for="(drink,i) in beverage" :key="i">
-          <div>
-            <span class="name">{{drink.name}}</span>
-            <span class="price">+NT${{drink.price}}</span>
-          </div>
-        </van-radio>
-      </van-radio-group>
-    </van-panel>
+    <!-- 飲品加點，套餐 [item.combo] 才會出現 -->
+    <div v-if="item.combo"> 
 
-    <div class="item-subtitle text-left">特殊指示</div>
+      <div class="item-subtitle text-left">
+        配杯飲料吧
+        <span>無糖飲料，請另外備註</span>
+      </div>
+
+      <van-panel>
+        <van-radio-group @change="checkAddonItem('drinkRadio')" v-model="drinkRadio">
+          <van-radio :name="drink.name" v-for="(drink,i) in comboBeverage" :key="i">
+            <div>
+              <span class="name">{{drink.name}}</span>
+              <span class="price">+NT${{drink.price}}</span>
+            </div>
+          </van-radio>
+        </van-radio-group>
+      </van-panel>
+    </div>
+
+    <div class="item-subtitle text-left">特殊指示 {{this.addon}}</div>
 
     <van-panel>
       <div slot="header"></div>
       <textarea v-model="item.msg" placeholder="留下備註給桃子早餐"></textarea>
     </van-panel>
 
-    <van-sticky>
+    <van-sticky id="fixed">
+
       <van-button
-        :disabled="firstRadio == 0 && drinkRadio==0"
+        v-if="!item.drink"
+        :disabled="firstRadio == 0 && drinkRadio ==0"
         block
         class="btn-text submit-btn"
         @click="addToCart"
       >新增1份餐點到訂單 ${{trialPrice}}</van-button>
+
+      <!-- 點飲料進來，不會被disabled限制 -->
+      <van-button
+        v-else
+        block
+        class="btn-text submit-btn"
+        @click="addToCart"
+      >新增1份餐點到訂單 ${{trialPrice}}</van-button>
+
     </van-sticky>
   </div>
 </template>
@@ -71,8 +91,8 @@ export default {
   },
   data() {
     return {
-      test: [],
       beverage: [
+        // 非套餐飲料價格
         {
           name: "溫紅茶（中）",
           price: 15
@@ -205,7 +225,8 @@ export default {
           name: "不加點飲料",
           price: 0
         }
-      ],
+      ], //
+      comboBeverage: [], // 套餐飲料價格
       level1: [
         {
           name: "吐司",
@@ -463,16 +484,24 @@ export default {
       this.$store.dispatch("switchShoppingCart", false);
     },
     loop(items, name) {
-      // items 的值：飲料(beverage)、配料（item）
+      // items = comboBeverage
+      // name = 豆漿紅茶（大）
+
       this[items].forEach(item => {
         if (item.name == name) {
-          let temp = item.price;
           // 勾選飲料或配料的價格
-          this.addon[items == "beverage" ? "beverage" : "item"] = item.price;
+          this.addon[items == "comboBeverage" ? "beverage" : "item"] =
+            item.price;
         }
-        // 試算價格 = 原價 + 加點飲料 + 加點配料
-        this.trialPrice =
-          this.originPrice + this.addon["beverage"] + this.addon["item"];
+
+        if (this.item.combo) {
+          // 試算價格 = 套餐價格 + 加點飲料
+          this.trialPrice = this.item.price + this.addon["beverage"];
+        } else {
+          // 試算價格 = 原價 + 加點飲料 + 加點配料
+          this.trialPrice =
+            this.originPrice + this.addon["beverage"] + this.addon["item"];
+        }
       });
     },
     checkAddonItem(radio) {
@@ -482,7 +511,7 @@ export default {
       if (radio == "firstRadio") {
         this.loop(this.price, this.firstRadio);
       } else {
-        this.loop("beverage", this[radio]);
+        this.loop("comboBeverage", this[radio]);
       }
     },
     level(title) {
@@ -527,6 +556,7 @@ export default {
           return this.level7;
 
         default:
+          this.price = "level3";
           return this.level3;
       }
     },
@@ -534,26 +564,28 @@ export default {
       let temp = {
         title: this.item.title,
         subtitle: this.item.subtitle || "",
-        desc: this.item.desc || "",
         price: this.item.price,
         msg: this.item.msg || ""
       };
 
-      // this.price = 確定是level幾的菜單，每一層level價格都不同
-      this[this.price].forEach(item => {
-        if (item.name === this.firstRadio) {
-          temp.title += `${item.name}`;
-          temp.price += item.price;
-        }
-        // temp.price = this.addon['items']
-      });
-
-      this.beverage.forEach(drink => {
-        if (drink.name === this.drinkRadio) {
-          temp.title += `＋${drink.name}`;
-          temp.price += drink.price;
-        }
-      });
+      if (this.item.combo) {
+        this.comboBeverage.forEach(drink => {
+          if (drink.name === this.drinkRadio) {
+            temp.title += `＋${drink.name}`;
+            temp.price += drink.price;
+          }
+        });
+      } else {
+        // this.price = 確定是level幾的菜單，每一層level價格都不同
+        // 套餐不會出現配料，不用算價錢
+        this[this.price].forEach(item => {
+          if (item.name === this.firstRadio) {
+            temp.title += `${item.name}`;
+            temp.price += item.price;
+          }
+          // temp.price = this.addon['items']
+        });
+      }
 
       this.checkAddonItem();
 
@@ -563,47 +595,49 @@ export default {
     checkBeveragePrice(item) {
       // 針對是不是套餐，調整飲料價格
       // 如果是套餐
+      var arr = [];
       if (item.combo) {
-        this.beverage.forEach(drink => {          
-          if (drink.name.includes('中')) {
+        this.comboBeverage = this.beverage.map(drink => {
+          if (drink.name.includes("中")) {
             // 點套餐、飲料是中杯，飲品0元
-            if (drink.price >= 30) {  
+            if (drink.price >= 30) {
               // 鮮奶茶、研磨咖啡、鮮奶咖啡 原價-10$
-              drink.price -= 10
+              drink.price -= 10;
             } else if (drink.price > 20) {
-              drink.price -= 15
-            } else if (drink.price == 20){
+              drink.price -= 15;
+            } else if (drink.price == 20) {
               // 檸檬汁、檸檬紅茶、柳橙汁、柳橙紅茶
-              drink.price +=5
+              drink.price += 5;
             } else {
               // [套餐] 中杯不用補差額、大杯補五塊
               // 紅茶、奶茶、豆漿、米漿、薏仁漿、豆漿紅茶
-              drink.price = 0
+              drink.price = 0;
             }
-          } else if  (drink.name.includes('大')) {
+          } else if (drink.name.includes("大")) {
             // 點套餐、飲料是大杯，飲品折10元
             if (drink.price >= 30) {
               // 鮮奶茶、研磨咖啡、鮮奶咖啡 原價-10$
-              drink.price -= 10
-            }else if (drink.price == 25) {
+              drink.price -= 10;
+            } else if (drink.price == 25) {
               // 檸檬汁、檸檬紅茶、柳橙汁、柳橙紅茶
               // 大杯補十塊
               drink.price += 10;
             } else if (drink.price == 20) {
-              drink.price -=15;
+              drink.price -= 15;
             } else if (drink.price > 20) {
-              drink.price -= 10
+              drink.price -= 10;
             }
           }
 
-          return {
-            ...drink
-          }
-        })
+          var temp = {
+            name: drink.name,
+            price: drink.price
+          };
 
-        // console.log('newArr')
-        // console.log(newArr)
+          return temp;
+        });
 
+        arr.push(temp);
       } else {
         // 如果不是套餐，照比原來價格算
         return this.beverage;
@@ -612,9 +646,9 @@ export default {
   },
   created() {
     this.originPrice = 0;
-    this.trialPrice = this.originPrice;
+    this.trialPrice = this.item.combo ? this.item.price : this.originPrice;
     this.checkBeveragePrice(this.item);
-  },
+  }
 };
 </script>
 
@@ -638,7 +672,9 @@ export default {
       cursor: pointer;
     }
   }
-
-  
+  .price {
+    margin: 1rem;
+    text-align: left;
+  }
 }
 </style>
