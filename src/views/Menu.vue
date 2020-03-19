@@ -129,13 +129,13 @@ export default {
         {
           title: "1號餐：大俠愛吃漢堡包",
           subtitle: "大俠最愛吃的漢堡又來啦，記得要選漢堡口味喔，附薯條、中杯飲品",
-          price: 55,
+          price: 25,
           withBread: false
         },
         {
           title: "2號餐：Still The Same 大亨堡",
           subtitle: "還是沒有變，如果說什麼是你記憶中的大亨堡呢？莫過於7-11的熱狗大亨堡了吧，點一道嘗嘗你記憶中的味道，附薯條、中杯飲品",
-          price: 55,
+          price: 25,
           withBread: false
         },
         {

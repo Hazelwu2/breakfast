@@ -33,6 +33,9 @@
       </van-panel>
     </div>
 
+    <!-- 只有一號餐、二號餐才會出現漢堡、大亨堡口味挑選 -->
+    <Bread v-if="comboOneAndTwo" @addPrice="checkCustomPrice" />
+
     <!-- 飲品加點，套餐 [item.combo] 才會出現 -->
     <div v-if="item.combo"> 
 
@@ -53,7 +56,7 @@
       </van-panel>
     </div>
 
-    <div class="item-subtitle text-left">特殊指示 {{this.addon}}</div>
+    <div class="item-subtitle text-left">特殊指示</div>
 
     <van-panel>
       <div slot="header"></div>
@@ -83,10 +86,16 @@
 </template>
 
 <script>
+import Bread from './Bread'
 export default {
+  components: {Bread},
   computed: {
     item() {
       return this.$store.state.item;
+    },
+    comboOneAndTwo() { 
+      // 篩選餐點是不是1號餐、2號餐
+      return this.item.title.includes('1號餐') || this.item.title.includes('2號餐') 
     }
   },
   data() {
@@ -496,7 +505,8 @@ export default {
 
         if (this.item.combo) {
           // 試算價格 = 套餐價格 + 加點飲料
-          this.trialPrice = this.item.price + this.addon["beverage"];
+          this.trialPrice = this.item.price + this.addon["item"] + this.addon["beverage"];
+
         } else {
           // 試算價格 = 原價 + 加點飲料 + 加點配料
           this.trialPrice =
@@ -642,17 +652,26 @@ export default {
         // 如果不是套餐，照比原來價格算
         return this.beverage;
       }
+    },
+    checkCustomPrice(price) {
+      this.addon.item = price
+      console.log(price)
+      // 1號餐、2號餐價格
+      this.trialPrice =
+            this.originPrice + price + this.addon["beverage"];
     }
   },
   created() {
-    this.originPrice = 0;
+    // 品項是飲料就取得飲料價格，若不是飲料，從0元算
+    this.originPrice = this.item.drink || this.item.combo ? this.item.price : 0;
+    
     this.trialPrice = this.item.combo ? this.item.price : this.originPrice;
     this.checkBeveragePrice(this.item);
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .item {
   .item-subtitle {
     span {
