@@ -56,7 +56,10 @@
       </van-panel>
     </div>
 
-    <div class="item-subtitle text-left">特殊指示</div>
+    <div class="item-subtitle text-left">特殊指示
+      {{this.addon}}
+      <br>{{this.item.price}}
+    </div>
 
     <van-panel>
       <div slot="header"></div>
@@ -484,6 +487,10 @@ export default {
       addon: {
         item: 0,
         beverage: 0
+      },
+      customPrice: { // 客製化加點區會存在customPrice，例：一號餐的漢堡
+        name: '',
+        price: 0
       }
     };
   },
@@ -505,6 +512,7 @@ export default {
 
         if (this.item.combo) {
           // 試算價格 = 套餐價格 + 加點飲料
+
           this.trialPrice = this.item.price + this.addon["item"] + this.addon["beverage"];
 
         } else {
@@ -571,20 +579,38 @@ export default {
       }
     },
     addToCart() {
+      
       let temp = {
-        title: this.item.title,
+        title: this.item.title.split('：')[0], // 擷取冒號前的餐點名稱
         subtitle: this.item.subtitle || "",
         price: this.item.price,
         msg: this.item.msg || ""
       };
 
       if (this.item.combo) {
-        this.comboBeverage.forEach(drink => {
-          if (drink.name === this.drinkRadio) {
-            temp.title += `＋${drink.name}`;
-            temp.price += drink.price;
-          }
-        });
+        // 如果是套餐、而且也是一號餐、二號餐
+        if (this.item.title.includes('1號餐') || 
+            this.item.title.includes('2號餐') ) {
+          // 1號餐、2號餐有客製化選項，價格與品項皆存在customPrice
+          temp.title += `/${this.customPrice.name}`;
+          temp.price += this.customPrice.price;
+
+          this.comboBeverage.forEach(drink => {
+            if (drink.name === this.drinkRadio) {
+              temp.title += `＋${drink.name}`;
+              temp.price += drink.price;
+            }
+          });
+
+        } else {
+          // 其他套餐
+          this.comboBeverage.forEach(drink => {
+            if (drink.name === this.drinkRadio) {
+              temp.title += `＋${drink.name}`;
+              temp.price += drink.price;
+            }
+          });
+        }
       } else {
         // this.price = 確定是level幾的菜單，每一層level價格都不同
         // 套餐不會出現配料，不用算價錢
@@ -653,12 +679,17 @@ export default {
         return this.beverage;
       }
     },
-    checkCustomPrice(price) {
-      this.addon.item = price
-      console.log(price)
+    checkCustomPrice(order) {
+      // 客製化選單最後選的菜會用order回傳
+      // 例：order: {name: '鮪魚蛋漢堡', price: 30}
+      this.customPrice.price = order.price
+      this.customPrice.name = order.name
+
+      this.addon.item = order.price
+    
       // 1號餐、2號餐價格
       this.trialPrice =
-            this.originPrice + price + this.addon["beverage"];
+            this.originPrice + order.price + this.addon["beverage"];
     }
   },
   created() {

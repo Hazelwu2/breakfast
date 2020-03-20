@@ -110,7 +110,7 @@ export default {
       this.$router.go(-1);
     },
     order() {
-      if (!this.username) return;
+      if (!this.username) return; // 沒有填寫名字，無法提交
 
       this.loading = true;
       this.cancelActionSheet();
@@ -124,6 +124,7 @@ export default {
 
       this.list.forEach(item => {
         var temp;
+        // 若無備註，移除備註文字
         if (!item.msg) {
           temp = `${item.title}`;
         } else {
