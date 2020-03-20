@@ -11,6 +11,10 @@
       </div>
     </van-panel>
 
+    <!-- 只有一號餐、二號餐才會出現漢堡、大亨堡口味挑選 -->
+    <Bread v-if="comboOneAndTwo" @addPrice="checkCustomPrice" />
+    <!-- 只有七號餐、八號餐才會出現吐司口味（草莓、巧克力）挑選 -->
+    <Flavor v-if="comboSevenAndEight" @addPrice="checkCustomPrice" />
 
     <!-- 配料 蛋餅吐司漢堡 -->
     <div v-show="item.withBread">
@@ -32,9 +36,6 @@
         </van-radio-group>
       </van-panel>
     </div>
-
-    <!-- 只有一號餐、二號餐才會出現漢堡、大亨堡口味挑選 -->
-    <Bread v-if="comboOneAndTwo" @addPrice="checkCustomPrice" />
 
     <!-- 飲品加點，套餐 [item.combo] 才會出現 -->
     <div v-if="item.combo"> 
@@ -90,8 +91,9 @@
 
 <script>
 import Bread from './Bread'
+import Flavor from './Flavor';
 export default {
-  components: {Bread},
+  components: {Bread, Flavor},
   computed: {
     item() {
       return this.$store.state.item;
@@ -99,6 +101,9 @@ export default {
     comboOneAndTwo() { 
       // 篩選餐點是不是1號餐、2號餐
       return this.item.title.includes('1號餐') || this.item.title.includes('2號餐') 
+    },
+    comboSevenAndEight() {
+      return this.item.title.includes('7號餐') || this.item.title.includes('8號餐') 
     }
   },
   data() {
@@ -590,7 +595,8 @@ export default {
       if (this.item.combo) {
         // 如果是套餐、而且也是一號餐、二號餐
         if (this.item.title.includes('1號餐') || 
-            this.item.title.includes('2號餐') ) {
+            this.item.title.includes('2號餐') ||
+            this.comboSevenAndEight ) {
           // 1號餐、2號餐有客製化選項，價格與品項皆存在customPrice
           temp.title += `/${this.customPrice.name}`;
           temp.price += this.customPrice.price;

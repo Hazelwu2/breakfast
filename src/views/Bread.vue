@@ -196,11 +196,10 @@ export default {
   },
   methods: {
     checkAddonItem() {
-      // let temp;
       let order;
+      
       this.list.forEach(item => {
         if (item.name == this.hanbergerRadio) {
-          // temp = item.price;
           order = {
             name: item.name,
             price: item.price
