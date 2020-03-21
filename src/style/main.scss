@@ -410,6 +410,9 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.mr-5 {
+  margin-right: 8px! important;
+}
 input {
   // 移除原生樣式
   -webkit-appearance: none;
@@ -529,8 +532,8 @@ body {
   }
 
   &__button {
-    margin-right: 1rem;
-    width: 200px;
+    margin-right: 0rem;
+    width: 176px;
     height: 40px;
     font-weight: 500;
     line-height: 40px;

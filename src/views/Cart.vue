@@ -33,6 +33,12 @@
 
       <div v-if="list.length > 0">
         <div class="submit-bar">
+          <van-goods-action-icon
+            @click="checkOrder"
+            style="padding-right: 1rem;"
+            icon="cart-o"
+            text="查看訂單"
+          />
           <div class="submit-bar__text">
             <span>總計</span>
             <span class="submit-bar__text__price">NT${{total}}</span>
@@ -45,6 +51,12 @@
 
       <div v-else>
         <div class="submit-bar">
+          <van-goods-action-icon
+            @click="checkOrder"
+            style="padding-right: 1rem;"
+            icon="cart-o"
+            text="查看訂單"
+          />
           <div class="submit-bar__text">
             <span>總計</span>
             <span class="submit-bar__text__price">NT${{total}}</span>
@@ -55,6 +67,45 @@
         </div>
       </div>
 
+      <!-- 查詢訂單 Modal -->
+      <van-popup
+        v-model="showOrderModal"
+        closeable
+        close-icon="close"
+        position="bottom"
+        :style="{ height: '100%' }"
+      >
+        <van-panel class="order-panel" title="查詢訂單" desc="早餐不知道吃什麼，來參考大家看看">
+          <div>
+            <ul class="orderlist">
+              <li class="orderlist__item" v-for="(record,i) in records" :key="i+'records'">
+                <van-icon size="2rem" name="newspaper-o" />
+                <div>
+                  {{record['餐點']}}
+                  <br />
+                  $ {{record['價格']}}
+                  <br />
+                  <span>{{record['日期']}}，{{record['訂購人']}}</span>
+                </div>
+                <div slot="footer" style="margin-top: 1rem;">
+                  <van-button
+                    @click="deleteOrder(record.ID)"
+                    class="mr-5"
+                    type="default"
+                    size="mini"
+                  >刪除</van-button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </van-panel>
+
+        <van-overlay :show="loading">
+          <van-loading size="24px" vertical>請稍候...</van-loading>
+        </van-overlay>
+      </van-popup>
+
+      <!-- 提交訂單 -->
       <van-action-sheet @cancel="cancelActionSheet" v-model="showActionSheet" title="明天的早餐有著落啦">
         <van-form>
           <van-field
@@ -86,11 +137,13 @@ export default {
   data() {
     return {
       showActionSheet: false,
+      showOrderModal: false,
       username: "",
       url:
         "https://script.google.com/macros/s/AKfycbwPulu26xB4-ctjcf4XKe4JaY7pR5gvrkCqhgPIYgu7Aqb_V4OC/exec",
       loading: false,
-      all: 0
+      all: 0,
+      records: []
     };
   },
   computed: {
@@ -128,15 +181,15 @@ export default {
         if (!item.msg) {
           temp = `${item.title}`;
         } else {
-          temp = `備註：${item.msg} `
+          temp = `備註：${item.msg} `;
         }
 
-          arrTitle.push(temp);
+        arrTitle.push(temp);
       });
 
       axios
         .get(
-          `${this.url}?time=${today}&title=${arrTitle}&price=${this.all}&name=${this.username}`
+          `${this.url}?time=${today}&title=${arrTitle}&price=${this.all}&name=${this.username}&action=insert`
         )
         .then(response => {
           this.loading = false;
@@ -160,9 +213,16 @@ export default {
             this.$store.dispatch("clearCart");
           } else {
             this.$dialog.alert({
-              message: "訂購失敗 Sorry啦" + response.data
+              message: "訂購失敗 Sorry啦， " + response.data
             });
           }
+        })
+        .then(() => (this.loading = false))
+        .catch(err => {
+          this.loading = false;
+          this.$dialog.alert({
+            message: "訂購失敗 Sorry啦" + err
+          });
         });
     },
     calTotal() {
@@ -175,6 +235,87 @@ export default {
     },
     cancelActionSheet() {
       this.showActionSheet = false;
+    },
+    checkOrder() {
+      this.loading = true;
+      // 取得今天日期
+      let today = this.$moment().format("MMDD");
+      var arrTitle = [];
+      var arrSubtitle = [];
+      var arrDesc = [];
+      var arrMsg = [];
+
+      this.list.forEach(item => {
+        var temp;
+        // 若無備註，移除備註文字
+        if (!item.msg) {
+          temp = `${item.title}`;
+        } else {
+          temp = `備註：${item.msg} `;
+        }
+
+        arrTitle.push(temp);
+      });
+
+      axios
+        .get(
+          `${this.url}?time=${today}&title=${arrTitle}&price=${this.all}&name=${this.username}&action=read`
+        )
+        .then(res => {
+          this.loading = false;
+          this.showOrderModal = true;
+          var today = this.$moment()
+            .format("MMDD")
+            .split("0")[1];
+          // 將日期從0322轉為322，才符合 Excel試算表格式
+          if (res) {
+            
+            this.records = res.data.records.filter(item => {
+              return item["日期"] == today;
+            });
+            this.records = this.records.sort(function(a,b) {
+              return b.ID - a.ID
+            })
+          } else {
+            this.$dialog.alert({
+              message: "歹勢啦，查詢訂單失敗：" + res
+            });
+          }
+
+          // this.records = res.data.records;
+        })
+        .catch(err => {
+          this.loading = false;
+          this.$dialog.alert({
+            message: "歹勢啦，查詢訂單失敗，錯誤原因：" + err
+          });
+        });
+    },
+    deleteOrder(id) {
+      console.log("id: ", id);
+      this.loading = true;
+      axios
+        .get(`${this.url}?id=${id}&action=delete`)
+        .then(res => {
+          if (res.data.result == "value deleted successfully") {
+            this.$dialog.alert({
+              message: "刪除成功"
+            });
+          } else {
+            this.$dialog.alert({
+              message: "刪除失敗"
+            });
+          }
+        })
+        .then(() => {
+          this.checkOrder();
+        })
+        .catch(err => {
+          this.loading = false;
+          this.$dialog.alert({
+            message: "發生了一場美麗的錯誤，" + err
+          });
+        });
     }
   }
 };
@@ -190,6 +331,11 @@ export default {
   height: 100%;
   background: #f7f8fa;
   overflow: scroll;
+
+  .van-goods-action-icon {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
 }
 
 .list {
@@ -245,6 +391,49 @@ export default {
     span {
       font-size: 14px;
       color: rgb(84, 84, 84);
+    }
+  }
+}
+
+// 查詢訂單 CSS
+
+.orderlist {
+  &__item {
+    padding: 20px 10px;
+    border-radius: 5px;
+    transition: all 0.35s ease;
+    cursor: pointer;
+    border-bottom: 1px solid #e0e6ed;
+
+    /* display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap; */
+
+    & > div {
+      /* display: flex;
+      flex-direction: column; */
+      font-size: 13px;
+      text-align: center;
+
+      span {
+        color: #969799;
+      }
+    }
+  }
+
+  .van-button__text {
+    font-size: 12px;
+  }
+
+  .van-panel__footer {
+    .van-button {
+      margin-right: 5px;
+      min-width: 60px;
+      height: 30px;
+      padding: 0 8px;
+      font-size: 12px;
+      line-height: 28px;
     }
   }
 }

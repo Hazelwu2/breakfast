@@ -58,8 +58,6 @@
     </div>
 
     <div class="item-subtitle text-left">特殊指示
-      {{this.addon}}
-      <br>{{this.item.price}}
     </div>
 
     <van-panel>
