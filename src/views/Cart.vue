@@ -75,15 +75,13 @@
         position="bottom"
         :style="{ height: '100%' }"
       >
-        <van-panel class="order-panel" title="今天大家點了什麼" desc="早餐不知道吃什麼，決定今天來Cosplay學Hobby!">
+        <van-panel class="order-panel"  title="今天大家點了什麼" desc="早餐不知道吃什麼，決定今天來Cosplay學Hobby!">
           <div>
             <ul class="orderlist">
               <li class="orderlist__item" v-for="(record,i) in records" :key="i+'records'">
                 <div class="orderlist__item__icon">
                   <van-icon size="2rem" name="comment-o" />
-                  <van-tag class="orderlist__item__icon__tag d-block" plain>
-                    {{record['日期']}}
-                  </van-tag>
+                  <van-tag class="orderlist__item__icon__tag d-block" plain>{{record['日期']}}</van-tag>
                 </div>
                 <div>
                   <ul>
@@ -91,13 +89,9 @@
                   </ul>
                 </div>
                 <div class="orderlist__footer" slot="footer">
-                  <span class="d-block">
-                    $ {{record['價格']}}
-                  </span>
-                  
-                  <span class="d-block">
-                    {{record['訂購人']}}
-                  </span>
+                  <span class="d-block">$ {{record['價格']}}</span>
+
+                  <span class="d-block">{{record['訂購人']}}</span>
                   <van-button
                     v-if="userName == record['訂購人']"
                     @click="deleteOrder(record.ID)"
@@ -211,7 +205,7 @@ export default {
           if (response.data == "成功") {
             this.$store.dispatch("addUserName", this.username);
             this.$dialog.alert({
-              message: "訂購桃子早餐成功啦！"
+              message: "訂購桃子早餐成功啦，餐點請明日九點半後的11F領取"
             });
 
             // let msg = `${today}，訂購：${arrTitle}，價格：${this.all}，訂購人：${this.username}`;
@@ -443,7 +437,7 @@ export default {
       align-items: center;
 
       &__tag {
-        margin-top: .6rem;
+        margin-top: 0.6rem;
       }
     }
 
@@ -452,7 +446,6 @@ export default {
       flex: 4;
       text-align: center;
     }
-    
 
     &__footer {
       margin-top: 1rem;

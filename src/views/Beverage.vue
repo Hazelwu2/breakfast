@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      drinkSizeRadio: "中杯",
+      drinkSizeRadio: 0,
       drinkTemperatureRadio: '冰',
       drinkSize: [
         {

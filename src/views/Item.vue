@@ -67,27 +67,38 @@
     <van-sticky id="fixed">
       <!-- 不用另外客製化，只需要填寫備註的餐點，例：厚片類 -->
       <van-button
-        v-if="item.noRadio"
+        v-if="noDisabledCheck"
         block
         class="btn-text submit-btn"
-        @click="addToCart('厚片')"
-      >新增1份餐點到訂單 ${{trialPrice}}</van-button>
+        @click="addToCart"
+      >1 新增1份餐點到訂單 ${{trialPrice}}</van-button>
 
       <van-button
-        v-else-if="!item.drink && !item.noRadio"
+        v-else-if="item.type  == '套餐'"
         :disabled="firstRadio == 0 && drinkRadio ==0"
         block
         class="btn-text submit-btn"
         @click="addToCart"
-      >新增1份餐點到訂單 ${{trialPrice}}</van-button>
+      >2 新增1份餐點到訂單 ${{trialPrice}}</van-button>
 
-      <!-- 點飲料進來，不會被disabled限制 -->
+      <!-- 只有一種加料要確定的 -->
       <van-button
-        v-else
+        v-else-if="item.type  == '漢吐蛋'"
+        :disabled="firstRadio == 0"
         block
         class="btn-text submit-btn"
         @click="addToCart"
-      >新增1份餐點到訂單 ${{trialPrice}}</van-button>
+      >3 新增1份餐點到訂單 ${{trialPrice}}</van-button>
+
+
+      <!-- 單點飲料，不會被disabled限制 -->
+      <van-button
+        v-else
+        :disabled="!drink.name"
+        block
+        class="btn-text submit-btn"
+        @click="addToCart"
+      >4 新增1份餐點到訂單 ${{trialPrice}}</van-button>
     </van-sticky>
   </div>
 </template>
@@ -116,6 +127,12 @@ export default {
     isLaCarteDrink() {
       // 是單點飲料
       return this.item.drink;
+    },
+    noDisabledCheck() {
+      
+      return this.item.type == '乳酪厚片' 
+        || this.item.type == '披薩'
+        || this.item.type == '單點'
     }
   },
   data() {
@@ -989,13 +1006,14 @@ export default {
               temp.price += item.price;
             }
           });
+          break;
         default:
           temp.title = this.item.title;
           temp.price = this.item.price;
           break;
       }
 
-      this.checkAddonItem();
+      // this.checkAddonItem();
 
       console.log("temp", temp);
 
