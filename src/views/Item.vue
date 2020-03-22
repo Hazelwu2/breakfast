@@ -74,10 +74,13 @@
           closeable
           close-icon="close"
           position="bottom"
-          :style="{ height: '40%' }"
+          :style="{ height: '45%' }"
         >
           <van-panel class="order-panel"  title="生活就是一場流浪" desc="只好把飲料變成自己喜歡的樣子">
             <div>
+              <span class="d-block text-left mt-5 mb-5">
+              {{drinkRadio}}
+              </span>
               <van-radio-group v-model="comboDrink.temperature">
                 <van-radio name="冰的">冰的</van-radio>
                 <van-radio name="涼的">涼的</van-radio>
@@ -1169,6 +1172,7 @@ export default {
     }
   }
   .van-radio__label {
+    font-weight: 300;
     .name {
       color: #000;
     }
@@ -1179,6 +1183,7 @@ export default {
       line-height: 20px;
       color: rgb(84, 84, 84);
       cursor: pointer;
+      
     }
   }
   .price {
