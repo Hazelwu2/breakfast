@@ -436,6 +436,54 @@ export default {
           noRadio: true,
           type: "單點"
         },
+        {
+          title: "包心地瓜球10顆",
+          subtitle: "就是夜市看到那種地瓜球，早餐也吃得到喔",
+          price: 30,
+          withBread: false,
+          noRadio: true,
+          type: "單點"
+        },
+        {
+          title: "蘑菇鐵板麵",
+          subtitle: "就是蘑菇鐵板麵",
+          price: 40,
+          withBread: false,
+          noRadio: false,
+          type: "單點"
+        },
+        {
+          title: "黑胡椒鐵板麵",
+          subtitle: "就是黑胡椒鐵板麵",
+          price: 40,
+          withBread: false,
+          noRadio: false,
+          type: "單點"
+        },
+        {
+          title: "蘿蔔糕",
+          subtitle: "就是蘿蔔糕",
+          price: 30,
+          withBread: false,
+          noRadio: false,
+          type: "單點"
+        },
+        {
+          title: "蔥油餅",
+          subtitle: "就是蔥油餅",
+          price: 30,
+          withBread: false,
+          noRadio: false,
+          type: "單點"
+        },
+        {
+          title: "蔥抓餅",
+          subtitle: "就是蔥抓餅",
+          price: 30,
+          withBread: false,
+          noRadio: false,
+          type: "單點"
+        },
       ],
       list6: [
         {

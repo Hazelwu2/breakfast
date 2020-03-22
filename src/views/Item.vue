@@ -11,14 +11,13 @@
     </van-sticky>
 
     <!-- 只有一號餐、二號餐才會出現漢堡、大亨堡口味挑選 -->
-    <Bread 
-      v-if="comboOneAndTwo" 
-      @addPrice="checkCustomPrice" />
+    <Bread v-if="comboOneAndTwo" @addPrice="checkCustomPrice" />
 
     <!-- 只有七號餐、八號餐才會出現吐司口味（草莓、巧克力）挑選 -->
-    <Flavor 
-      v-if="comboSevenAndEight || item.type == '甜吐司'" 
-      @addPrice="checkCustomPrice" />
+    <Flavor v-if="comboSevenAndEight || item.type == '甜吐司'" @addPrice="checkCustomPrice" />
+
+    <!-- 只有九號餐才會出現鐵板味口味（炸醬、蘑菇口味）挑選 -->
+    <NoodlesFlavor v-if="comboNine" @addPrice="checkCustomPrice" />
 
     <!-- 單點飲料，才會出現的元件 -->
     <Beverage v-if="isLaCarteDrink" @addPrice="checkDrinkNotes" />
@@ -76,12 +75,9 @@
           position="bottom"
           :style="{ height: '60%' }"
         >
-        
           <van-panel class="order-panel" title="生活就是一場流浪" desc="只好把飲料變成自己喜歡的樣子">
             <div class="m-16">
-              <span class="d-block text-left mt-5 mb-5">
-              {{drinkRadio}}
-              </span>
+              <span class="d-block text-left mt-5 mb-5">{{drinkRadio}}</span>
               <van-radio-group v-model="comboDrink.temperature">
                 <van-radio name="冰的">冰的</van-radio>
                 <van-radio name="涼的">涼的</van-radio>
@@ -152,8 +148,9 @@
 import Bread from "./Bread";
 import Flavor from "./Flavor";
 import Beverage from "./Beverage";
+import NoodlesFlavor from "./NoodlesFlavor";
 export default {
-  components: { Bread, Flavor, Beverage },
+  components: { Bread, Flavor, Beverage, NoodlesFlavor },
   computed: {
     item() {
       return this.$store.state.item;
@@ -168,6 +165,9 @@ export default {
       return (
         this.item.title.includes("7號餐") || this.item.title.includes("8號餐")
       );
+    },
+    comboNine() {
+      return this.item.title.includes("9號餐");
     },
     isLaCarteDrink() {
       // 是單點飲料
@@ -1010,6 +1010,19 @@ export default {
                 temp.price += drink.price;
               }
             });
+
+          } else if (this.comboNine) {
+            // 如果是 9號餐
+            temp.title = `${temp.title}(${this.customPrice.name}口味)`;
+            // 蘑菇口味鐵板麵
+            temp.price += this.customPrice.price;
+
+            this.comboBeverage.forEach(drink => {
+              if (drink.name === this.drinkRadio) {
+                temp.title += `＋${this.comboDrink.temperature}${drink.name}`;
+                temp.price += drink.price;
+              }
+            });
           } else {
             // 其他套餐（非一號餐、二號餐）
             this.comboBeverage.forEach(drink => {
@@ -1038,7 +1051,7 @@ export default {
             }
           });
           break;
-        case '甜吐司':
+        case "甜吐司":
           temp.title = `${this.customPrice.name}${temp.title}`;
           break;
 
@@ -1107,7 +1120,7 @@ export default {
       }
     },
     checkCustomPrice(order) {
-      console.log(order)
+      console.log(order);
       // 客製化選單最後選的菜會用order回傳
       // 例：order: {name: '鮪魚蛋漢堡', price: 30}
       this.customPrice.price = order.price;
@@ -1116,18 +1129,17 @@ export default {
       this.addon.item = order.price;
 
       switch (this.item.type) {
-        case '甜吐司':
+        case "甜吐司":
           this.trialPrice = this.item.price;
           break;
 
-        case '套餐':
+        case "套餐":
           // 7號餐、8號餐價格
           // 1號餐、2號餐價格
-          this.trialPrice = this.originPrice + order.price + this.addon["beverage"];
+          this.trialPrice =
+            this.originPrice + order.price + this.addon["beverage"];
           break;
       }
-      
-
     },
     checkDrinkNotes(order) {
       // 飲料備註添加到訂單上
@@ -1144,7 +1156,7 @@ export default {
       this.trialPrice = this.originPrice + this.addon.item;
     },
     closePopupComboDrink() {
-      console.log('close')
+      console.log("close");
       console.log(this.comboDrink.temperature);
     }
   },
@@ -1184,7 +1196,6 @@ export default {
       line-height: 20px;
       color: rgb(84, 84, 84);
       cursor: pointer;
-      
     }
   }
   .price {
