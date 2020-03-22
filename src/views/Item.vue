@@ -74,8 +74,9 @@
           closeable
           close-icon="close"
           position="bottom"
-          :style="{ height: '45%' }"
+          :style="{ height: '60%' }"
         >
+        
           <van-panel class="order-panel"  title="生活就是一場流浪" desc="只好把飲料變成自己喜歡的樣子">
             <div>
               <span class="d-block text-left mt-5 mb-5">
