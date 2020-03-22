@@ -16,6 +16,9 @@
     <!-- 只有七號餐、八號餐才會出現吐司口味（草莓、巧克力）挑選 -->
     <Flavor v-if="comboSevenAndEight" @addPrice="checkCustomPrice" />
 
+    <!-- 單點飲料，才會出現的元件 -->
+    <Beverage v-if="isLaCarteDrink" @addPrice="checkDrinkNotes" />
+
     <!-- 配料 蛋餅吐司漢堡 -->
     <div v-show="item.withBread">
 
@@ -57,8 +60,7 @@
       </van-panel>
     </div>
 
-    <div class="item-subtitle text-left">特殊指示
-    </div>
+    <div class="item-subtitle text-left">特殊指示</div>
 
     <van-panel>
       <div slot="header"></div>
@@ -67,13 +69,22 @@
 
     <van-sticky id="fixed">
 
+      <!-- 不用另外客製化，只需要填寫備註的餐點，例：厚片類 -->
       <van-button
-        v-if="!item.drink"
+        v-if="item.noRadio"
+        block
+        class="btn-text submit-btn"
+        @click="addToCart"
+      >新增1份餐點到訂單 ${{trialPrice}}</van-button>
+
+      <van-button
+        v-else-if="!item.drink && !item.noRadio"
         :disabled="firstRadio == 0 && drinkRadio ==0"
         block
         class="btn-text submit-btn"
         @click="addToCart"
       >新增1份餐點到訂單 ${{trialPrice}}</van-button>
+
 
       <!-- 點飲料進來，不會被disabled限制 -->
       <van-button
@@ -90,8 +101,9 @@
 <script>
 import Bread from './Bread'
 import Flavor from './Flavor';
+import Beverage from './Beverage';
 export default {
-  components: {Bread, Flavor},
+  components: { Bread, Flavor, Beverage },
   computed: {
     item() {
       return this.$store.state.item;
@@ -102,6 +114,9 @@ export default {
     },
     comboSevenAndEight() {
       return this.item.title.includes('7號餐') || this.item.title.includes('8號餐') 
+    },
+    isLaCarteDrink() { // 是單點飲料
+      return this.item.drink
     }
   },
   data() {
@@ -494,7 +509,7 @@ export default {
       customPrice: { // 客製化加點區會存在customPrice，例：一號餐的漢堡
         name: '',
         price: 0
-      }
+      },
     };
   },
   methods: {
@@ -587,8 +602,12 @@ export default {
         title: this.item.title.split('：')[0], // 擷取冒號前的餐點名稱
         subtitle: this.item.subtitle || "",
         price: this.item.price,
-        msg: this.item.msg || ""
+        // price: this.trialPrice,
+        msg: this.item.msg || "",
+        cartItemTitle: this.item.cartItemTitle
       };
+
+      
 
       if (this.item.combo) {
         // 如果是套餐、而且也是一號餐、二號餐
@@ -628,6 +647,8 @@ export default {
       }
 
       this.checkAddonItem();
+
+      console.log('temp',temp)
 
       this.$store.dispatch("addToCart", temp);
       this.$toast.success("加入購物車成功");
@@ -694,6 +715,20 @@ export default {
       // 1號餐、2號餐價格
       this.trialPrice =
             this.originPrice + order.price + this.addon["beverage"];
+    },
+    checkDrinkNotes(order) {
+      // 飲料備註添加到訂單上
+      // 飲料價錢新增到試算價格上
+      // 中杯大杯、溫的冰的
+      console.log(order);
+      
+      // this.item.msg = order.name;
+      this.item.cartItemTitle = order.name;
+      this.addon.item = order.price;
+      
+      // 試算價格
+      this.trialPrice = 
+        this.originPrice + this.addon.item;
     }
   },
   created() {
@@ -701,6 +736,7 @@ export default {
     this.originPrice = this.item.drink || this.item.combo ? this.item.price : 0;
     
     this.trialPrice = this.item.combo ? this.item.price : this.originPrice;
+    // this.trialPrice = this.item.combo ? this.item.price : this.item.price;
     this.checkBeveragePrice(this.item);
   }
 };

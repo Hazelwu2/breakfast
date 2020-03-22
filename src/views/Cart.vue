@@ -15,7 +15,7 @@
                 NT${{item.price}}
               </div>
               <div class="list-info">
-                <h4>{{item.title}}</h4>
+                <h4>{{item.cartItemTitle}}</h4>
                 <span>{{item.desc}}</span>
               </div>
               <div class="close" @click="removeItem(i)">
@@ -24,7 +24,7 @@
             </div>
 
             <div class="msg" v-if="item.msg">
-              <span>備註 |</span>
+              <span>備註 | </span>
               <span>{{item.msg}}</span>
             </div>
           </li>
@@ -85,7 +85,9 @@
                   <br />
                   $ {{record['價格']}}
                   <br />
-                  <span>{{record['日期']}}，{{record['訂購人']}}</span>
+                  <span>
+                    <van-tag plain type="danger">{{record['日期']}}</van-tag>
+                    {{record['訂購人']}}</span>
                 </div>
                 <div slot="footer" style="margin-top: 1rem;">
                   <van-button
@@ -179,7 +181,8 @@ export default {
         var temp;
         // 若無備註，移除備註文字
         if (!item.msg) {
-          temp = `${item.title}`;
+          // temp = `${item.title}`;
+          temp = `${item.cartItemTitle}`;
         } else {
           temp = `備註：${item.msg} `;
         }
@@ -276,6 +279,8 @@ export default {
             this.records = this.records.sort(function(a,b) {
               return b.ID - a.ID
             })
+
+            console.log(this.records)
           } else {
             this.$dialog.alert({
               message: "歹勢啦，查詢訂單失敗：" + res
@@ -396,6 +401,9 @@ export default {
 }
 
 // 查詢訂單 CSS
+.van-tag--danger {
+  color: #ee0a24 !important; 
+}
 
 .orderlist {
   &__item {
@@ -416,9 +424,9 @@ export default {
       font-size: 13px;
       text-align: center;
 
-      span {
-        color: #969799;
-      }
+    }
+    span {
+      color: #969799;
     }
   }
 

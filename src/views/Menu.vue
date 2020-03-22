@@ -302,31 +302,36 @@ export default {
           title: "鮪魚乳酪厚片",
           subtitle: "深海鮪魚最相思",
           price: 50,
-          withBread: false
+          withBread: false,
+          noRadio: true, // 此參數關係到button disabled
         },
         {
           title: "火腿乳酪厚片",
           subtitle: "就是要吃加工食品",
           price: 50,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "豬排乳酪厚片",
           subtitle: "台灣的豬超級健康的啦",
           price: 60,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "燻雞乳酪厚片",
           subtitle: "燻雞口味",
           price: 60,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "雞腿乳酪厚片",
           subtitle: "雞腿口味",
           price: 65,
-          withBread: false
+          withBread: false,
+          noRadio: true
         }
       ],
       list4: [
@@ -334,13 +339,15 @@ export default {
           title: "夏威夷披薩",
           subtitle: "不用去夏威夷就吃得到",
           price: 30,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "總匯披薩",
           subtitle: "要營養吃總匯",
           price: 30,
-          withBread: false
+          withBread: false,
+          noRadio: true
         }
       ],
       list5: [
@@ -348,49 +355,57 @@ export default {
           title: "兩支熱狗",
           subtitle: "各位觀眾！兩支熱狗",
           price: 20,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "荷包蛋",
           subtitle: "天天吃蛋營養好健康",
           price: 10,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "豬排肉",
           subtitle: "就是豬排肉",
           price: 20,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "煎餃8顆",
           subtitle: "是煎餃，不是鍋貼",
           price: 20,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "一口雞",
           subtitle: "一口雞 12顆",
           price: 30,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "薯條",
           subtitle: "美式餐廳都有的薯條",
           price: 20,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "薯餅兩片",
           subtitle: "油亮亮的薯餅",
           price: 30,
-          withBread: false
+          withBread: false,
+          noRadio: true
         },
         {
           title: "麥克雞 6塊",
           subtitle: "我是麥克王子",
           price: 30,
-          withBread: false
+          withBread: false,
+          noRadio: true
         }
       ],
       list6: [
@@ -496,7 +511,13 @@ export default {
         item.combo = false;
       }
 
+      // 餐點加到購物車的名稱，預設是餐點名稱
+      // 此參數cartItemTitle是用來單點飲料時要修改名稱
+      // Ex: 紅茶 => 加入購物車後會顯示：中杯溫紅茶
+      item.cartItemTitle = item.title;
+      // 存進Vuex
       this.$store.dispatch("addItem", item);
+      console.log(this.$store.state)
     }
   }
 };
