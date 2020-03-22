@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     cart: [],
     showCart: false,
-    item: {}
+    item: {},
+    username: ''
   },
   plugins: [
     createPersistedState({
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     ADD_ITEM(state, payload) {
       state.item = payload;
+    },
+    ADD_USERNAME(state, payload) {
+      state.username = payload;
     }
   },
   actions: {
@@ -47,6 +51,9 @@ export default new Vuex.Store({
     },
     addItem({ commit }, value) {
       commit('ADD_ITEM', value);
+    },
+    addUserName({commit}, username) {
+      commit('ADD_USERNAME', username)
     }
   },
   modules: {

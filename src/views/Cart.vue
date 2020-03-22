@@ -75,7 +75,7 @@
         position="bottom"
         :style="{ height: '100%' }"
       >
-        <van-panel class="order-panel" title="查詢訂單" desc="早餐不知道吃什麼，來參考大家看看">
+        <van-panel class="order-panel" title="查詢今日訂單" desc="早餐不知道吃什麼，來參考大家看看">
           <div>
             <ul class="orderlist">
               <li class="orderlist__item" v-for="(record,i) in records" :key="i+'records'">
@@ -91,6 +91,7 @@
                 </div>
                 <div slot="footer" style="margin-top: 1rem;">
                   <van-button
+                    v-if="userName == record['訂購人']"
                     @click="deleteOrder(record.ID)"
                     class="mr-5"
                     type="default"
@@ -156,6 +157,9 @@ export default {
       });
       this.all = sum;
       return sum;
+    },
+    userName() {
+      return this.$store.state.username;
     }
   },
   methods: {
@@ -198,6 +202,7 @@ export default {
           this.loading = false;
 
           if (response.data == "成功") {
+            this.$store.dispatch('addUserName',this.username);
             this.$dialog.alert({
               message: "訂購桃子早餐成功啦！"
             });
