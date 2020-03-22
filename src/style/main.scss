@@ -403,6 +403,7 @@ html {
   -webkit-text-size-adjust: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+  
 }
 
 body {
@@ -458,6 +459,11 @@ input {
 html,
 body {
   background: #f7f8fa;
+  // 禁止複製貼上
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none; 
 }
 
 .border-bottom {

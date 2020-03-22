@@ -40,7 +40,7 @@
 
     <!-- 飲品加點，套餐 [item.combo] 才會出現 -->
     <div v-if="item.combo">
-      <div class="item-subtiㄖtle text-left">
+      <div class="item-subtitle text-left">
         配杯飲料吧
         
         <span>
