@@ -1013,7 +1013,7 @@ export default {
             // 其他套餐（非一號餐、二號餐）
             this.comboBeverage.forEach(drink => {
               if (drink.name === this.drinkRadio) {
-                temp.title += `＋${drink.name}`;
+                temp.title += `＋${this.comboDrink.temperature}${drink.name}`;
                 temp.price += drink.price;
               }
             });
