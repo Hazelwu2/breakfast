@@ -40,9 +40,19 @@
 
     <!-- 飲品加點，套餐 [item.combo] 才會出現 -->
     <div v-if="item.combo">
-      <div class="item-subtitle text-left">
+      <div class="item-subtiㄖtle text-left">
         配杯飲料吧
-        <span>無糖飲料，請另外備註</span>
+        
+        <span>
+          <br>
+          <van-icon name="chat-o" />
+          無糖飲料，請另外備註
+        </span>
+        <span>
+          <br>
+          <van-icon name="chat-o" />
+          沒有特別備註飲料要冰的熱的，預設都是冰的
+        </span>
       </div>
 
       <van-panel>
@@ -140,51 +150,27 @@ export default {
       beverage: [
         // 非套餐飲料價格
         {
-          name: "溫紅茶（中）",
+          name: "紅茶（中）",
           price: 15
         },
         {
-          name: "冰紅茶（中）",
+          name: "紅茶（大）",
+          price: 20
+        },
+        {
+          name: "奶茶（中）",
           price: 15
         },
         {
-          name: "溫紅茶（大）",
+          name: "奶茶（大）",
           price: 20
         },
         {
-          name: "冰紅茶（大）",
-          price: 20
-        },
-        {
-          name: "溫奶茶（中）",
-          price: 15
-        },
-        {
-          name: "冰奶茶（中）",
-          price: 15
-        },
-        {
-          name: "溫奶茶（大）",
-          price: 20
-        },
-        {
-          name: "冰奶茶（大）",
-          price: 20
-        },
-        {
-          name: "溫豆漿（中）",
+          name: "豆漿（中）",
           price: 10
         },
         {
-          name: "冰豆漿（中）",
-          price: 10
-        },
-        {
-          name: "溫豆漿（大）",
-          price: 20
-        },
-        {
-          name: "冰豆漿（大）",
+          name: "豆漿（大）",
           price: 20
         },
         {
