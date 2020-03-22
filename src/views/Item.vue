@@ -42,16 +42,13 @@
     <div v-if="item.combo">
       <div class="item-subtitle text-left">
         配杯飲料吧
-        
         <span>
-          <br>
-          <van-icon name="chat-o" />
-          無糖飲料，請另外備註
+          <br />
+          <van-icon name="chat-o" />無糖飲料，請另外備註
         </span>
         <span>
-          <br>
-          <van-icon name="chat-o" />
-          沒有特別備註飲料要冰的熱的，預設都是冰的
+          <br />
+          <van-icon name="chat-o" />沒有特別備註飲料要冰的熱的，預設都是冰的
         </span>
       </div>
 
@@ -64,6 +61,27 @@
             </div>
           </van-radio>
         </van-radio-group>
+
+        <!-- 選飲料大小 -->
+        <van-popup
+          @close="closePopupComboDrink"
+          v-model="showComboDrink"
+          closeable
+          close-icon="close"
+          position="bottom"
+          :style="{ height: '40%' }"
+        >
+          <van-panel class="order-panel"  title="生活就是一場流浪" desc="只好把飲料變成自己喜歡的樣子">
+            <div>
+              <van-radio-group v-model="comboDrink.temperature">
+                <van-radio name="冰的">冰的</van-radio>
+                <van-radio name="涼的">涼的</van-radio>
+                <van-radio name="溫的">溫的</van-radio>
+                <van-radio name="熱的">熱的</van-radio>
+              </van-radio-group>
+            </div>
+          </van-panel>
+        </van-popup>
       </van-panel>
     </div>
 
@@ -99,7 +117,6 @@
         class="btn-text submit-btn"
         @click="addToCart"
       >3 新增1份餐點到訂單 ${{trialPrice}}</van-button>
-
 
       <!-- 單點飲料，不會被disabled限制 -->
       <van-button
@@ -139,14 +156,16 @@ export default {
       return this.item.drink;
     },
     noDisabledCheck() {
-      
-      return this.item.type == '乳酪厚片' 
-        || this.item.type == '披薩'
-        || this.item.type == '單點'
+      return (
+        this.item.type == "乳酪厚片" ||
+        this.item.type == "披薩" ||
+        this.item.type == "單點"
+      );
     }
   },
   data() {
     return {
+      showComboDrink: false,
       beverage: [
         // 非套餐飲料價格
         {
@@ -856,6 +875,10 @@ export default {
         // 單點飲料時會存在這裡
         name: "",
         price: 0
+      },
+      comboDrink: {
+        // 套餐飲料選的冰塊會存在這裡
+        temperature: "冰的"
       }
     };
   },
@@ -894,6 +917,10 @@ export default {
       if (radio == "firstRadio") {
         this.loop(this.price, this.firstRadio);
       } else {
+        if (radio == "drinkRadio") {
+          this.showComboDrink = !this.showComboDrink;
+        }
+
         this.loop("comboBeverage", this[radio]);
       }
     },
@@ -961,7 +988,7 @@ export default {
 
             this.comboBeverage.forEach(drink => {
               if (drink.name === this.drinkRadio) {
-                temp.title += `＋${drink.name}`;
+                temp.title += `＋${this.comboDrink.temperature}${drink.name}`;
                 temp.price += drink.price;
               }
             });
@@ -1081,6 +1108,10 @@ export default {
 
       // 試算價格
       this.trialPrice = this.originPrice + this.addon.item;
+    },
+    closePopupComboDrink() {
+      console.log('close')
+      console.log(this.comboDrink.temperature);
     }
   },
   created() {
