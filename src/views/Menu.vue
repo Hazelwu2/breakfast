@@ -419,7 +419,23 @@ export default {
           withBread: false,
           noRadio: true,
           type: "單點"
-        }
+        },
+        {
+          title: "地瓜餅",
+          subtitle: "就是地瓜餅",
+          price: 20,
+          withBread: false,
+          noRadio: true,
+          type: "單點"
+        },
+        {
+          title: "南瓜餅",
+          subtitle: "就是南瓜餅",
+          price: 20,
+          withBread: false,
+          noRadio: true,
+          type: "單點"
+        },
       ],
       list6: [
         {
