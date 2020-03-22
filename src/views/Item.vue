@@ -1052,7 +1052,7 @@ export default {
       console.log("temp", temp);
 
       this.$store.dispatch("addToCart", temp);
-      this.$toast.success("加入購物車成功");
+      this.$toast.success(`${temp.title}加入購物車成功`);
     },
     checkBeveragePrice(item) {
       // 針對是不是套餐，調整飲料價格
