@@ -413,6 +413,19 @@ body {
 .mr-5 {
   margin-right: 8px! important;
 }
+
+.mt-5 {
+  margin-top: 10px !important;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.d-block {
+  display: block;
+}
+
 input {
   // 移除原生樣式
   -webkit-appearance: none;

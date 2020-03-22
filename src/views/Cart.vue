@@ -15,7 +15,7 @@
                 NT${{item.price}}
               </div>
               <div class="list-info">
-                <h4>{{item.cartItemTitle}}</h4>
+                <h4>{{item.title}}</h4>
                 <span>{{item.desc}}</span>
               </div>
               <div class="close" @click="removeItem(i)">
@@ -24,7 +24,7 @@
             </div>
 
             <div class="msg" v-if="item.msg">
-              <span>備註 | </span>
+              <span>備註 |</span>
               <span>{{item.msg}}</span>
             </div>
           </li>
@@ -75,25 +75,33 @@
         position="bottom"
         :style="{ height: '100%' }"
       >
-        <van-panel class="order-panel" title="查詢今日訂單" desc="早餐不知道吃什麼，來參考大家看看">
+        <van-panel class="order-panel" title="今天大家點了什麼" desc="早餐不知道吃什麼，決定今天來Cosplay學Hobby!">
           <div>
             <ul class="orderlist">
               <li class="orderlist__item" v-for="(record,i) in records" :key="i+'records'">
-                <van-icon size="2rem" name="newspaper-o" />
-                <div>
-                  {{record['餐點']}}
-                  <br />
-                  $ {{record['價格']}}
-                  <br />
-                  <span>
-                    <van-tag plain type="danger">{{record['日期']}}</van-tag>
-                    {{record['訂購人']}}</span>
+                <div class="orderlist__item__icon">
+                  <van-icon size="2rem" name="comment-o" />
+                  <van-tag class="orderlist__item__icon__tag d-block" plain>
+                    {{record['日期']}}
+                  </van-tag>
                 </div>
-                <div slot="footer" style="margin-top: 1rem;">
+                <div>
+                  <ul>
+                    <li v-for="(item,i) in record['餐點']" :key="i + '-order'">{{item}}</li>
+                  </ul>
+                </div>
+                <div class="orderlist__footer" slot="footer">
+                  <span class="d-block">
+                    $ {{record['價格']}}
+                  </span>
+                  
+                  <span class="d-block">
+                    {{record['訂購人']}}
+                  </span>
                   <van-button
                     v-if="userName == record['訂購人']"
                     @click="deleteOrder(record.ID)"
-                    class="mr-5"
+                    class="mt-5"
                     type="default"
                     size="mini"
                   >刪除</van-button>
@@ -185,8 +193,7 @@ export default {
         var temp;
         // 若無備註，移除備註文字
         if (!item.msg) {
-          // temp = `${item.title}`;
-          temp = `${item.cartItemTitle}`;
+          temp = `${item.title}`;
         } else {
           temp = `備註：${item.msg} `;
         }
@@ -202,7 +209,7 @@ export default {
           this.loading = false;
 
           if (response.data == "成功") {
-            this.$store.dispatch('addUserName',this.username);
+            this.$store.dispatch("addUserName", this.username);
             this.$dialog.alert({
               message: "訂購桃子早餐成功啦！"
             });
@@ -276,16 +283,19 @@ export default {
             .format("MMDD")
             .split("0")[1];
           // 將日期從0322轉為322，才符合 Excel試算表格式
+
           if (res) {
-            
             this.records = res.data.records.filter(item => {
               return item["日期"] == today;
             });
-            this.records = this.records.sort(function(a,b) {
-              return b.ID - a.ID
-            })
+            this.records = this.records.sort(function(a, b) {
+              return b.ID - a.ID;
+            });
+            this.records.forEach(item => {
+              item["餐點"] = item["餐點"].split(",");
+            });
 
-            console.log(this.records)
+            console.log(this.records);
           } else {
             this.$dialog.alert({
               message: "歹勢啦，查詢訂單失敗：" + res
@@ -407,7 +417,7 @@ export default {
 
 // 查詢訂單 CSS
 .van-tag--danger {
-  color: #ee0a24 !important; 
+  color: #ee0a24 !important;
 }
 
 .orderlist {
@@ -418,17 +428,36 @@ export default {
     cursor: pointer;
     border-bottom: 1px solid #e0e6ed;
 
-    /* display: flex;
+    display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap; */
+    flex-wrap: wrap;
+
+    &__icon {
+      font-size: 2rem;
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &__tag {
+        margin-top: .6rem;
+      }
+    }
 
     & > div {
-      /* display: flex;
-      flex-direction: column; */
       font-size: 13px;
+      flex: 4;
       text-align: center;
+    }
+    
 
+    &__footer {
+      margin-top: 1rem;
+      width: 100%;
+      text-align: right;
     }
     span {
       color: #969799;

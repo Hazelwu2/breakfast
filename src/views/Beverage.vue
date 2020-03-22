@@ -44,8 +44,8 @@ export default {
   },
   data() {
     return {
-      drinkSizeRadio: 0,
-      drinkTemperatureRadio: 0,
+      drinkSizeRadio: "中杯",
+      drinkTemperatureRadio: '冰',
       drinkSize: [
         {
           name: "中杯",
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     changeDrinkPrice(largePrice) {
-      // 傳出參數中杯價格、大杯價格
+      // 傳參數：大杯價格
       this.drinkSize.forEach(drink => {
         if (drink.name == "中杯") {
           drink.price = 0;
@@ -122,7 +122,8 @@ export default {
 
       this.drinkSize.forEach(item => {
         if (item.name == this.drinkSizeRadio) {
-
+          // item.name 中杯 || 大杯
+          // item.price 中杯價格 || 大杯價格
           order = {
             name: `${this.drinkSizeRadio}${this.drinkTemperatureRadio}${this.item.title}`,
             // 例：大杯溫奶茶或中杯冰奶茶

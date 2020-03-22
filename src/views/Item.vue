@@ -4,12 +4,11 @@
       <van-nav-bar @click-left="back" :title="item.title" left-text="返回" left-arrow></van-nav-bar>
     </van-sticky>
 
-    <van-panel :title="item.title" :desc="item.subtitle">
-      <div class="price">
-      NT$ {{item.price}}
-
-      </div>
-    </van-panel>
+    <van-sticky>
+      <van-panel :title="item.title" :desc="item.subtitle">
+        <div class="price" v-if="item.type !== '漢吐蛋'">NT$ {{item.price}}</div>
+      </van-panel>
+    </van-sticky>
 
     <!-- 只有一號餐、二號餐才會出現漢堡、大亨堡口味挑選 -->
     <Bread v-if="comboOneAndTwo" @addPrice="checkCustomPrice" />
@@ -21,7 +20,6 @@
 
     <!-- 配料 蛋餅吐司漢堡 -->
     <div v-show="item.withBread">
-
       <div class="item-subtitle text-left">
         配料要什麼呢？
         <span>
@@ -41,8 +39,7 @@
     </div>
 
     <!-- 飲品加點，套餐 [item.combo] 才會出現 -->
-    <div v-if="item.combo"> 
-
+    <div v-if="item.combo">
       <div class="item-subtitle text-left">
         配杯飲料吧
         <span>無糖飲料，請另外備註</span>
@@ -68,13 +65,12 @@
     </van-panel>
 
     <van-sticky id="fixed">
-
       <!-- 不用另外客製化，只需要填寫備註的餐點，例：厚片類 -->
       <van-button
         v-if="item.noRadio"
         block
         class="btn-text submit-btn"
-        @click="addToCart"
+        @click="addToCart('厚片')"
       >新增1份餐點到訂單 ${{trialPrice}}</van-button>
 
       <van-button
@@ -85,7 +81,6 @@
         @click="addToCart"
       >新增1份餐點到訂單 ${{trialPrice}}</van-button>
 
-
       <!-- 點飲料進來，不會被disabled限制 -->
       <van-button
         v-else
@@ -93,30 +88,34 @@
         class="btn-text submit-btn"
         @click="addToCart"
       >新增1份餐點到訂單 ${{trialPrice}}</van-button>
-
     </van-sticky>
   </div>
 </template>
 
 <script>
-import Bread from './Bread'
-import Flavor from './Flavor';
-import Beverage from './Beverage';
+import Bread from "./Bread";
+import Flavor from "./Flavor";
+import Beverage from "./Beverage";
 export default {
   components: { Bread, Flavor, Beverage },
   computed: {
     item() {
       return this.$store.state.item;
     },
-    comboOneAndTwo() { 
+    comboOneAndTwo() {
       // 篩選餐點是不是1號餐、2號餐
-      return this.item.title.includes('1號餐') || this.item.title.includes('2號餐') 
+      return (
+        this.item.title.includes("1號餐") || this.item.title.includes("2號餐")
+      );
     },
     comboSevenAndEight() {
-      return this.item.title.includes('7號餐') || this.item.title.includes('8號餐') 
+      return (
+        this.item.title.includes("7號餐") || this.item.title.includes("8號餐")
+      );
     },
-    isLaCarteDrink() { // 是單點飲料
-      return this.item.drink
+    isLaCarteDrink() {
+      // 是單點飲料
+      return this.item.drink;
     }
   },
   data() {
@@ -257,246 +256,584 @@ export default {
         }
       ], //
       comboBeverage: [], // 套餐飲料價格
+      // 吐司、蛋餅
       level1: [
         {
-          name: "吐司",
+          name: "煎蛋",
           price: 20
         },
         {
-          name: "漢堡",
+          name: "起司蛋",
+          price: 30
+        },
+        {
+          name: "漢堡肉蛋",
+          price: 30
+        },
+        {
+          name: "火腿肉蛋",
+          price: 30
+        },
+        {
+          name: "培根蛋",
+          price: 30
+        },
+        {
+          name: "肉鬆蛋",
+          price: 30
+        },
+        {
+          name: "鮪魚蛋",
+          price: 30
+        },
+        {
+          name: "豬排蛋",
+          price: 40
+        },
+        {
+          name: "香雞蛋",
+          price: 40
+        },
+        {
+          name: "燻雞蛋",
+          price: 40
+        },
+        {
+          name: "腓力蛋",
+          price: 40
+        },
+        {
+          name: "鮮蝦蛋",
+          price: 40
+        },
+        {
+          name: "鱈魚蛋",
+          price: 40
+        },
+        {
+          name: "總匯",
+          price: 50
+        },
+        {
+          name: "德式香腸蛋",
+          price: 45
+        },
+        {
+          name: "雞腿蛋",
+          price: 50
+        },
+        {
+          name: "原味卡啦雞腿蛋",
+          price: 50
+        },
+        {
+          name: "辣味卡啦雞腿蛋",
+          price: 50
+        },
+        {
+          name: "韓式勁辣雞腿蛋",
+          price: 60
+        },
+        {
+          name: "牛肉蛋",
+          price: 60
+        }
+      ],
+      // 漢堡
+      level2: [
+        {
+          name: "煎蛋",
           price: 25
         },
         {
-          name: "大亨堡",
+          name: "起司蛋",
           price: 30
         },
         {
-          name: "蛋餅",
-          price: 20
-        },
-        {
-          name: "捲餅",
+          name: "漢堡肉蛋",
           price: 30
         },
         {
-          name: "西式燒餅",
+          name: "火腿肉蛋",
           price: 30
         },
         {
-          name: "乳酪餅",
+          name: "培根蛋",
           price: 30
         },
         {
-          name: "鬆餅",
-          price: 35
-        }
-      ],
-      level2: [
-        {
-          name: "吐司",
+          name: "肉鬆蛋",
           price: 30
         },
         {
-          name: "漢堡",
+          name: "鮪魚蛋",
           price: 30
         },
         {
-          name: "大亨堡",
-          price: 35
-        },
-        {
-          name: "蛋餅",
-          price: 30
-        },
-        {
-          name: "捲餅",
-          price: 35
-        },
-        {
-          name: "西式燒餅",
-          price: 35
-        },
-        {
-          name: "乳酪餅",
+          name: "豬排蛋",
           price: 40
         },
         {
-          name: "鬆餅",
+          name: "香雞蛋",
           price: 40
+        },
+        {
+          name: "燻雞蛋",
+          price: 40
+        },
+        {
+          name: "腓力蛋",
+          price: 40
+        },
+        {
+          name: "鮮蝦蛋",
+          price: 40
+        },
+        {
+          name: "鱈魚蛋",
+          price: 40
+        },
+        {
+          name: "總匯",
+          price: 40
+        },
+        {
+          name: "德式香腸蛋",
+          price: 45
+        },
+        {
+          name: "雞腿蛋",
+          price: 50
+        },
+        {
+          name: "原味卡啦雞腿蛋",
+          price: 50
+        },
+        {
+          name: "辣味卡啦雞腿蛋",
+          price: 50
+        },
+        {
+          name: "韓式勁辣雞腿蛋",
+          price: 60
+        },
+        {
+          name: "牛肉蛋",
+          price: 60
         }
       ],
+      // 大亨堡
       level3: [
         {
-          name: "吐司",
-          price: 40
+          name: "煎蛋",
+          price: 30
         },
         {
-          name: "漢堡",
-          price: 40
+          name: "起司蛋",
+          price: 35
         },
         {
-          name: "大亨堡",
+          name: "漢堡肉蛋",
+          price: 35
+        },
+        {
+          name: "火腿肉蛋",
+          price: 35
+        },
+        {
+          name: "培根蛋",
+          price: 35
+        },
+        {
+          name: "肉鬆蛋",
+          price: 35
+        },
+        {
+          name: "鮪魚蛋",
+          price: 35
+        },
+        {
+          name: "豬排蛋",
           price: 45
         },
         {
-          name: "蛋餅",
-          price: 40
-        },
-        {
-          name: "捲餅",
+          name: "香雞蛋",
           price: 45
         },
         {
-          name: "西式燒餅",
+          name: "燻雞蛋",
           price: 45
         },
         {
-          name: "乳酪餅",
+          name: "腓力蛋",
           price: 45
         },
         {
-          name: "鬆餅",
-          price: 50
+          name: "鮮蝦蛋",
+          price: 45
+        },
+        {
+          name: "鱈魚蛋",
+          price: 45
+        },
+        {
+          name: "總匯",
+          price: 45
+        },
+        {
+          name: "德式香腸蛋",
+          price: 45
+        },
+        {
+          name: "雞腿蛋",
+          price: 55
+        },
+        {
+          name: "原味卡啦雞腿蛋",
+          price: 55
+        },
+        {
+          name: "辣味卡啦雞腿蛋",
+          price: 55
+        },
+        {
+          name: "韓式勁辣雞腿蛋",
+          price: 65
+        },
+        {
+          name: "牛肉蛋",
+          price: 65
         }
       ],
+      // 捲餅
       level4: [
         {
-          // 總匯
-          name: "吐司",
-          price: 50
+          name: "煎蛋",
+          price: 30
         },
         {
-          name: "漢堡",
-          price: 40
+          name: "起司蛋",
+          price: 35
         },
         {
-          name: "大亨堡",
+          name: "漢堡肉蛋",
+          price: 35
+        },
+        {
+          name: "火腿肉蛋",
+          price: 35
+        },
+        {
+          name: "培根蛋",
+          price: 35
+        },
+        {
+          name: "肉鬆蛋",
+          price: 35
+        },
+        {
+          name: "鮪魚蛋",
+          price: 35
+        },
+        {
+          name: "豬排蛋",
           price: 45
         },
         {
-          name: "蛋餅",
-          price: 40
+          name: "香雞蛋",
+          price: 45
         },
         {
-          name: "捲餅",
+          name: "燻雞蛋",
+          price: 45
+        },
+        {
+          name: "腓力蛋",
+          price: 45
+        },
+        {
+          name: "鮮蝦蛋",
+          price: 45
+        },
+        {
+          name: "鱈魚蛋",
+          price: 45
+        },
+        {
+          name: "總匯",
           price: 55
         },
         {
-          name: "西式燒餅",
-          price: 55
-        },
-        {
-          name: "乳酪餅",
+          name: "德式香腸蛋",
           price: 50
         },
         {
-          name: "鬆餅",
-          price: 60
+          name: "雞腿蛋",
+          price: 55
+        },
+        {
+          name: "原味卡啦雞腿蛋",
+          price: 55
+        },
+        {
+          name: "辣味卡啦雞腿蛋",
+          price: 55
+        },
+        {
+          name: "韓式勁辣雞腿蛋",
+          price: 65
+        },
+        {
+          name: "牛肉蛋",
+          price: 65
         }
       ],
+      // 西式燒餅
       level5: [
-        // 德式香腸蛋
         {
-          name: "吐司",
+          name: "煎蛋",
+          price: 30
+        },
+        {
+          name: "起司蛋",
+          price: 35
+        },
+        {
+          name: "漢堡肉蛋",
+          price: 35
+        },
+        {
+          name: "火腿肉蛋",
+          price: 35
+        },
+        {
+          name: "培根蛋",
+          price: 35
+        },
+        {
+          name: "肉鬆蛋",
+          price: 35
+        },
+        {
+          name: "鮪魚蛋",
+          price: 35
+        },
+        {
+          name: "豬排蛋",
           price: 45
         },
         {
-          name: "漢堡",
+          name: "香雞蛋",
           price: 45
         },
         {
-          name: "大亨堡",
+          name: "燻雞蛋",
           price: 45
         },
         {
-          name: "蛋餅",
+          name: "腓力蛋",
           price: 45
         },
         {
-          name: "捲餅",
-          price: 50
+          name: "鮮蝦蛋",
+          price: 45
         },
         {
-          name: "西式燒餅",
+          name: "鱈魚蛋",
+          price: 45
+        },
+        {
+          name: "總匯",
           price: 55
         },
         {
-          name: "乳酪餅",
-          price: 50
+          name: "德式香腸蛋",
+          price: 55
         },
         {
-          name: "鬆餅",
-          price: 60
+          name: "雞腿蛋",
+          price: 55
+        },
+        {
+          name: "原味卡啦雞腿蛋",
+          price: 55
+        },
+        {
+          name: "辣味卡啦雞腿蛋",
+          price: 55
+        },
+        {
+          name: "韓式勁辣雞腿蛋",
+          price: 65
+        },
+        {
+          name: "牛肉蛋",
+          price: 65
         }
       ],
+      // 乳酪餅
       level6: [
         {
-          name: "吐司",
+          name: "煎蛋",
+          price: 30
+        },
+        {
+          name: "起司蛋",
+          price: 40
+        },
+        {
+          name: "漢堡肉蛋",
+          price: 40
+        },
+        {
+          name: "火腿肉蛋",
+          price: 40
+        },
+        {
+          name: "培根蛋",
+          price: 40
+        },
+        {
+          name: "肉鬆蛋",
+          price: 40
+        },
+        {
+          name: "鮪魚蛋",
+          price: 40
+        },
+        {
+          name: "豬排蛋",
+          price: 45
+        },
+        {
+          name: "香雞蛋",
+          price: 45
+        },
+        {
+          name: "燻雞蛋",
+          price: 45
+        },
+        {
+          name: "腓力蛋",
+          price: 45
+        },
+        {
+          name: "鮮蝦蛋",
+          price: 45
+        },
+        {
+          name: "鱈魚蛋",
+          price: 45
+        },
+        {
+          name: "總匯",
           price: 50
         },
         {
-          name: "漢堡",
+          name: "德式香腸蛋",
           price: 50
         },
         {
-          name: "大亨堡",
-          price: 55
-        },
-        {
-          name: "蛋餅",
+          name: "雞腿蛋",
           price: 50
         },
         {
-          name: "捲餅",
-          price: 55
-        },
-        {
-          name: "西式燒餅",
-          price: 55
-        },
-        {
-          name: "乳酪餅",
+          name: "原味卡啦雞腿蛋",
           price: 50
         },
         {
-          name: "鬆餅",
+          name: "辣味卡啦雞腿蛋",
+          price: 50
+        },
+        {
+          name: "韓式勁辣雞腿蛋",
+          price: 60
+        },
+        {
+          name: "牛肉蛋",
           price: 60
         }
       ],
+      // 鬆餅
       level7: [
         {
-          name: "吐司",
+          name: "煎蛋",
+          price: 35
+        },
+        {
+          name: "起司蛋",
+          price: 40
+        },
+        {
+          name: "漢堡肉蛋",
+          price: 40
+        },
+        {
+          name: "火腿肉蛋",
+          price: 40
+        },
+        {
+          name: "培根蛋",
+          price: 40
+        },
+        {
+          name: "肉鬆蛋",
+          price: 40
+        },
+        {
+          name: "鮪魚蛋",
+          price: 40
+        },
+        {
+          name: "豬排蛋",
+          price: 50
+        },
+        {
+          name: "香雞蛋",
+          price: 50
+        },
+        {
+          name: "燻雞蛋",
+          price: 50
+        },
+        {
+          name: "腓力蛋",
+          price: 50
+        },
+        {
+          name: "鮮蝦蛋",
+          price: 50
+        },
+        {
+          name: "總匯",
           price: 60
         },
         {
-          name: "漢堡",
+          name: "德式香腸蛋",
           price: 60
         },
         {
-          name: "大亨堡",
-          price: 65
-        },
-        {
-          name: "蛋餅",
+          name: "雞腿蛋",
           price: 60
         },
         {
-          name: "捲餅",
-          price: 65
-        },
-        {
-          name: "西式燒餅",
-          price: 65
-        },
-        {
-          name: "乳酪餅",
+          name: "原味卡啦雞腿蛋",
           price: 60
         },
         {
-          name: "鬆餅",
+          name: "辣味卡啦雞腿蛋",
+          price: 60
+        },
+        {
+          name: "韓式勁辣雞腿蛋",
+          price: 70
+        },
+        {
+          name: "牛肉蛋",
           price: 70
         }
       ],
+
       firstRadio: "0", // 選蛋餅、漢堡等
       drinkRadio: "0", // 選飲料
       price: "", // level1-level6，不同level價格也不同
@@ -506,10 +843,17 @@ export default {
         item: 0,
         beverage: 0
       },
-      customPrice: { // 客製化加點區會存在customPrice，例：一號餐的漢堡
-        name: '',
+      customPrice: {
+        // 類別是套餐
+        // 客製化加點區會存在customPrice，例：一號餐的漢堡
+        name: "",
         price: 0
       },
+      drink: {
+        // 單點飲料時會存在這裡
+        name: "",
+        price: 0
+      }
     };
   },
   methods: {
@@ -531,8 +875,8 @@ export default {
         if (this.item.combo) {
           // 試算價格 = 套餐價格 + 加點飲料
 
-          this.trialPrice = this.item.price + this.addon["item"] + this.addon["beverage"];
-
+          this.trialPrice =
+            this.item.price + this.addon["item"] + this.addon["beverage"];
         } else {
           // 試算價格 = 原價 + 加點飲料 + 加點配料
           this.trialPrice =
@@ -552,103 +896,108 @@ export default {
     },
     level(title) {
       switch (title) {
-        case "煎蛋":
+        case "吐司":
+        case "蛋餅":
           this.price = "level1";
           return this.level1;
-        case "起司蛋":
-        case "漢堡肉蛋":
-        case "火腿蛋":
-        case "培根蛋":
-        case "肉鬆蛋":
-        case "鮪魚蛋":
-        case "玉米蛋":
+
+        case "漢堡":
           this.price = "level2";
           return this.level2;
-
-        case "豬排蛋":
-        case "香雞蛋":
-        case "燻雞蛋":
-        case "腓力蛋":
-        case "鮮蝦蛋":
-        case "鱈魚蛋":
+        case "大亨堡":
           this.price = "level3";
           return this.level3;
-        case "總匯":
+
+        case "捲餅":
           this.price = "level4";
           return this.level4;
 
-        case "德式香腸蛋":
-          this.price = "level5";
-          return this.level5;
-
-        case "雞腿蛋":
-        case "卡啦雞腿蛋":
+        case "捲餅":
           this.price = "level6";
           return this.level6;
 
-        case "韓式勁辣雞腿蛋":
-        case "牛肉蛋":
+        case "西式燒餅":
+          this.price = "level5";
+          return this.level5;
+        case "乳酪餅":
+          this.price = "level6";
+          return this.level6;
+        case "鬆餅":
           this.price = "level7";
           return this.level7;
-
         default:
-          this.price = "level3";
-          return this.level3;
+          console.log("no level price");
+          break;
       }
     },
     addToCart() {
-      
       let temp = {
-        title: this.item.title.split('：')[0], // 擷取冒號前的餐點名稱
+        title: this.item.title, // 擷取冒號前的餐點名稱
         subtitle: this.item.subtitle || "",
         price: this.item.price,
-        // price: this.trialPrice,
         msg: this.item.msg || "",
         cartItemTitle: this.item.cartItemTitle
       };
 
-      
+      switch (this.item.type) {
+        case "套餐":
+          // 將套餐的標題簡化成 x號餐
+          // 例：9號餐：好初的鐵板麵 => 9號餐
+          temp.title = this.item.title.split("：")[0];
 
-      if (this.item.combo) {
-        // 如果是套餐、而且也是一號餐、二號餐
-        if (this.item.title.includes('1號餐') || 
-            this.item.title.includes('2號餐') ||
-            this.comboSevenAndEight ) {
-          // 1號餐、2號餐有客製化選項，價格與品項皆存在customPrice
-          temp.title += `/${this.customPrice.name}`;
-          temp.price += this.customPrice.price;
+          // 如果是套餐裡面的一號餐、二號餐
+          // 便另外算出加點選項的價格
+          if (
+            this.item.title.includes("1號餐") ||
+            this.item.title.includes("2號餐") ||
+            this.comboSevenAndEight
+          ) {
+            // 1號餐、2號餐有客製化選項，價格與品項皆存在customPrice
+            temp.title += `/${this.customPrice.name}`;
+            temp.price += this.customPrice.price;
 
-          this.comboBeverage.forEach(drink => {
-            if (drink.name === this.drinkRadio) {
-              temp.title += `＋${drink.name}`;
-              temp.price += drink.price;
-            }
-          });
-
-        } else {
-          // 其他套餐
-          this.comboBeverage.forEach(drink => {
-            if (drink.name === this.drinkRadio) {
-              temp.title += `＋${drink.name}`;
-              temp.price += drink.price;
-            }
-          });
-        }
-      } else {
-        // this.price = 確定是level幾的菜單，每一層level價格都不同
-        // 套餐不會出現配料，不用算價錢
-        this[this.price].forEach(item => {
-          if (item.name === this.firstRadio) {
-            temp.title += `${item.name}`;
-            temp.price += item.price;
+            this.comboBeverage.forEach(drink => {
+              if (drink.name === this.drinkRadio) {
+                temp.title += `＋${drink.name}`;
+                temp.price += drink.price;
+              }
+            });
+          } else {
+            // 其他套餐（非一號餐、二號餐）
+            this.comboBeverage.forEach(drink => {
+              if (drink.name === this.drinkRadio) {
+                temp.title += `＋${drink.name}`;
+                temp.price += drink.price;
+              }
+            });
           }
-          // temp.price = this.addon['items']
-        });
+          break;
+
+        case "飲料":
+          temp.title = this.drink.name;
+          // 飲料價格 = 原價 + 看使用者選中杯還是大杯另外加錢
+          temp.price = this.item.price + this.drink.price;
+
+          break;
+
+        case "漢吐蛋":
+          // 類別是漢堡吐司蛋餅的話，
+          // 便從 level 找到符合對應的價格
+          this[this.price].forEach(item => {
+            if (item.name === this.firstRadio) {
+              temp.title = `${item.name}${temp.title}`;
+              temp.price += item.price;
+            }
+          });
+        default:
+          temp.title = this.item.title;
+          temp.price = this.item.price;
+          break;
       }
 
       this.checkAddonItem();
 
-      console.log('temp',temp)
+      console.log("temp", temp);
 
       this.$store.dispatch("addToCart", temp);
       this.$toast.success("加入購物車成功");
@@ -707,36 +1056,41 @@ export default {
     checkCustomPrice(order) {
       // 客製化選單最後選的菜會用order回傳
       // 例：order: {name: '鮪魚蛋漢堡', price: 30}
-      this.customPrice.price = order.price
-      this.customPrice.name = order.name
+      this.customPrice.price = order.price;
+      this.customPrice.name = order.name;
 
-      this.addon.item = order.price
-    
+      this.addon.item = order.price;
+
       // 1號餐、2號餐價格
-      this.trialPrice =
-            this.originPrice + order.price + this.addon["beverage"];
+      this.trialPrice = this.originPrice + order.price + this.addon["beverage"];
     },
     checkDrinkNotes(order) {
       // 飲料備註添加到訂單上
       // 飲料價錢新增到試算價格上
       // 中杯大杯、溫的冰的
       console.log(order);
-      
-      // this.item.msg = order.name;
-      this.item.cartItemTitle = order.name;
+      this.drink.name = order.name;
+      this.drink.price = order.price;
+
+      // let temp = order.name;
       this.addon.item = order.price;
-      
+
       // 試算價格
-      this.trialPrice = 
-        this.originPrice + this.addon.item;
+      this.trialPrice = this.originPrice + this.addon.item;
     }
   },
   created() {
     // 品項是飲料就取得飲料價格，若不是飲料，從0元算
     this.originPrice = this.item.drink || this.item.combo ? this.item.price : 0;
-    
-    this.trialPrice = this.item.combo ? this.item.price : this.originPrice;
-    // this.trialPrice = this.item.combo ? this.item.price : this.item.price;
+
+    switch (this.item.type) {
+      case "套餐":
+        this.trialPrice = this.item.combo ? this.item.price : this.originPrice;
+        break;
+      default:
+        this.trialPrice = this.item.price;
+        break;
+    }
     this.checkBeveragePrice(this.item);
   }
 };
