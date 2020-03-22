@@ -37,6 +37,26 @@
           </ul>
         </div>
       </van-tab>
+
+      <van-tab title="甜吐司">
+        <div class="box">
+          <h2>甜吐司</h2>
+          <ul>
+            <router-link
+              v-for="(item,i) in list7"
+              :key="i + 'menu7'"
+              :to="{ name: 'Item', params: {item: i, title: item.title, subtitle: item.subtitle, desc: item.desc, price: item.price}}"
+            >
+              <li @click="saveMenu(item)">
+                <h4>{{item.title}}</h4>
+                <span class="subtitle">{{item.subtitle}}</span>
+                <h6>${{item.price}}</h6>
+              </li>
+            </router-link>
+          </ul>
+        </div>
+      </van-tab>
+
       <van-tab title="乳酪厚片">
         <div class="box">
           <h2>乳酪厚片</h2>
@@ -508,6 +528,36 @@ export default {
           drink: true,
           type: "飲料"
         }
+      ],
+      list7: [
+        { // 薄片10厚片25乳酪餅25鬆餅35
+          title: "薄片",
+          subtitle: "不要問我甜吐司為什麼有香蒜口味，可能桃子店長打從心底認為香蒜是甜的吧",
+          price: 10,
+          withBread: false,
+          type: "甜吐司"
+        },
+        { 
+          title: "厚片",
+          subtitle: "厚片吐司們都聚集在這",
+          price: 25,
+          withBread: false,
+          type: "甜吐司"
+        },
+        { 
+          title: "乳酪餅",
+          subtitle: "好初乳酪餅",
+          price: 25,
+          withBread: false,
+          type: "甜吐司"
+        },
+        { 
+          title: "鬆餅",
+          subtitle: "誰早餐會吃鬆餅啊？我啊，是好初鬆餅",
+          price: 35,
+          withBread: false,
+          type: "甜吐司"
+        },
       ]
     };
   },

@@ -11,9 +11,14 @@
     </van-sticky>
 
     <!-- 只有一號餐、二號餐才會出現漢堡、大亨堡口味挑選 -->
-    <Bread v-if="comboOneAndTwo" @addPrice="checkCustomPrice" />
+    <Bread 
+      v-if="comboOneAndTwo" 
+      @addPrice="checkCustomPrice" />
+
     <!-- 只有七號餐、八號餐才會出現吐司口味（草莓、巧克力）挑選 -->
-    <Flavor v-if="comboSevenAndEight" @addPrice="checkCustomPrice" />
+    <Flavor 
+      v-if="comboSevenAndEight || item.type == '甜吐司'" 
+      @addPrice="checkCustomPrice" />
 
     <!-- 單點飲料，才會出現的元件 -->
     <Beverage v-if="isLaCarteDrink" @addPrice="checkDrinkNotes" />
@@ -118,6 +123,15 @@
         @click="addToCart"
       >3 新增1份餐點到訂單 ${{trialPrice}}</van-button>
 
+      <!-- 甜吐司 -->
+      <van-button
+        v-else-if="item.type  == '甜吐司'"
+        :disabled="!customPrice.name"
+        block
+        class="btn-text submit-btn"
+        @click="addToCart"
+      >4 新增1份餐點到訂單 ${{trialPrice}}</van-button>
+
       <!-- 單點飲料，不會被disabled限制 -->
       <van-button
         v-else
@@ -125,7 +139,7 @@
         block
         class="btn-text submit-btn"
         @click="addToCart"
-      >4 新增1份餐點到訂單 ${{trialPrice}}</van-button>
+      >5 新增1份餐點到訂單 ${{trialPrice}}</van-button>
     </van-sticky>
   </div>
 </template>
@@ -1020,6 +1034,10 @@ export default {
             }
           });
           break;
+        case '甜吐司':
+          temp.title = `${this.customPrice.name}${temp.title}`;
+          break;
+
         default:
           temp.title = this.item.title;
           temp.price = this.item.price;
@@ -1085,6 +1103,7 @@ export default {
       }
     },
     checkCustomPrice(order) {
+      console.log(order)
       // 客製化選單最後選的菜會用order回傳
       // 例：order: {name: '鮪魚蛋漢堡', price: 30}
       this.customPrice.price = order.price;
@@ -1092,8 +1111,19 @@ export default {
 
       this.addon.item = order.price;
 
-      // 1號餐、2號餐價格
-      this.trialPrice = this.originPrice + order.price + this.addon["beverage"];
+      switch (this.item.type) {
+        case '甜吐司':
+          this.trialPrice = this.item.price;
+          break;
+
+        case '套餐':
+          // 7號餐、8號餐價格
+          // 1號餐、2號餐價格
+          this.trialPrice = this.originPrice + order.price + this.addon["beverage"];
+          break;
+      }
+      
+
     },
     checkDrinkNotes(order) {
       // 飲料備註添加到訂單上

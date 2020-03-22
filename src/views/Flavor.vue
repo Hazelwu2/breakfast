@@ -4,7 +4,8 @@
       <div class="item-subtitle text-left">
         {{item.title.includes('7號餐') ? '厚片' : '薄片'}}要什麼口味呢？
         <span>
-          <br />沒有看到你想要的？寫在備註，告訴桃子
+          <br />
+          <van-icon name="chat-o" />沒有看到你想要的？寫在備註，告訴桃子
         </span>
       </div>
       <van-panel>
