@@ -92,7 +92,6 @@
         </div>
       </van-tab>
 
-
       <van-tab title="飲料">
         <div class="box">
           <h2>飲料</h2>
@@ -112,6 +111,18 @@
         </div>
       </van-tab>
     </van-tabs>
+
+    <footer>
+      <div class="box">
+        <h2>桃子早午餐</h2>
+        <ul>
+          <li>萬華區德昌街74號1F</li>
+          <li>營業時間 0530-1400</li>
+          <li>訂購專線 02-2303-7808</li>
+        </ul>
+      </div>
+      
+    </footer>
   </div>
 </template>
 
@@ -128,132 +139,141 @@ export default {
       list1: [
         {
           title: "1號餐：大俠愛吃漢堡包",
-          subtitle: "大俠最愛吃的漢堡又來啦，記得要選漢堡口味喔，附薯條、中杯飲品",
+          subtitle:
+            "大俠最愛吃的漢堡又來啦，記得要選漢堡口味喔，附薯條、中杯飲品",
           price: 25,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "2號餐：Still The Same 大亨堡",
-          subtitle: "還是沒有變，如果說什麼是你記憶中的大亨堡呢？莫過於7-11的熱狗大亨堡了吧，點一道嘗嘗你記憶中的味道，附薯條、中杯飲品",
+          subtitle:
+            "還是沒有變，如果說什麼是你記憶中的大亨堡呢？莫過於7-11的熱狗大亨堡了吧，點一道嘗嘗你記憶中的味道，附薯條、中杯飲品",
           price: 25,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "3號餐：我只是一隻小小小小雞🐔",
-          subtitle: "就是那隻超香的雞腿，沒有配漢堡也沒有配吐司，就是雞腿一隻，不要誤會了，卡拉雞腿、附薯條、中杯飲品",
+          subtitle:
+            "就是那隻超香的雞腿，沒有配漢堡也沒有配吐司，就是雞腿一隻，不要誤會了，卡拉雞腿、附薯條、中杯飲品",
           price: 55,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "4號餐：營養早餐標配",
-          subtitle: "最近缺營養？吃營養早餐就對啦，蛋兩顆、火腿、熱狗兩支，附中杯飲品",
+          subtitle:
+            "最近缺營養？吃營養早餐就對啦，蛋兩顆、火腿、熱狗兩支，附中杯飲品",
           price: 55,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "5號餐：吃我的蘿蔔糕",
-          subtitle: "豐富你的味蕾，從小陪你長大的經典蘿蔔糕，吃一口安心，吃一口家，蘿蔔糕+蛋+熱狗，附薯條、中杯飲品",
+          subtitle:
+            "豐富你的味蕾，從小陪你長大的經典蘿蔔糕，吃一口安心，吃一口家，蘿蔔糕+蛋+熱狗，附薯條、中杯飲品",
           price: 55,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "6號餐：麥克雞套餐",
-          subtitle: "是誰搶走了我的麥克風？沒關係我還有我的麥克雞🐔咕咕～麥克雞6塊，附薯條、中杯飲品",
+          subtitle:
+            "是誰搶走了我的麥克風？沒關係我還有我的麥克雞🐔咕咕～麥克雞6塊，附薯條、中杯飲品",
           price: 55,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "7號餐：厚片培根初起乃",
           subtitle: "厚片培根初起乃就對了，啊還會附上薯條、中杯飲品",
           price: 55,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "8號餐：超級滿足大套餐",
-          subtitle: "有麵包有蛋又有肉還有小熱狗，你還有什麼不滿足的？薄片、蛋、豬排、熱狗，附中杯飲品",
+          subtitle:
+            "有麵包有蛋又有肉還有小熱狗，你還有什麼不滿足的？薄片、蛋、豬排、熱狗，附中杯飲品",
           price: 55,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "9號餐：好初的鐵板麵",
-          subtitle: "這是我們賣最好最經典的餐點，推薦都是多餘的，如果你喜歡閉著眼睛點準沒錯，鐵板麵、蛋、豬排，附中杯飲品",
+          subtitle:
+            "這是我們賣最好最經典的餐點，推薦都是多餘的，如果你喜歡閉著眼睛點準沒錯，鐵板麵、蛋、豬排，附中杯飲品",
           price: 55,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         },
         {
           title: "10號餐：宮保鐵板麵",
-          subtitle: "你如果吃膩鐵板麵，可以試試宮保鐵板麵啊，試了不用錢，不試怎麼成吃貨，宮保鐵板麵、蛋、豬排，附中杯飲品",
+          subtitle:
+            "你如果吃膩鐵板麵，可以試試宮保鐵板麵啊，試了不用錢，不試怎麼成吃貨，宮保鐵板麵、蛋、豬排，附中杯飲品",
           price: 55,
           withBread: false,
-          type: '套餐'
+          type: "套餐"
         }
       ],
       list2: [
         {
           title: "吐司",
           subtitle: "各種吐司口味",
-          price:  0,
+          price: 0,
           withBread: true,
-          type: '漢吐蛋'
+          type: "漢吐蛋"
         },
         {
           title: "漢堡",
           subtitle: "各種口味漢堡",
-          price:  0,
+          price: 0,
           withBread: true,
-          type: '漢吐蛋'
+          type: "漢吐蛋"
         },
         {
           title: "大亨堡",
           subtitle: "就是大亨堡",
-          price:  0,
+          price: 0,
           withBread: true,
-          type: '漢吐蛋'
+          type: "漢吐蛋"
         },
         {
           title: "蛋餅",
           subtitle: "就是蛋餅",
-          price:  0,
+          price: 0,
           withBread: true,
-          type: '漢吐蛋'
+          type: "漢吐蛋"
         },
         {
           title: "捲餅",
           subtitle: "就是捲餅",
-          price:  0,
+          price: 0,
           withBread: true,
-          type: '漢吐蛋'
+          type: "漢吐蛋"
         },
         {
           title: "西式燒餅",
           subtitle: "就是西式燒餅",
-          price:  0,
+          price: 0,
           withBread: true,
-          type: '漢吐蛋'
+          type: "漢吐蛋"
         },
         {
           title: "乳酪餅",
           subtitle: "就是乳酪餅",
-          price:  0,
+          price: 0,
           withBread: true,
-          type: '漢吐蛋'
+          type: "漢吐蛋"
         },
         {
           title: "鬆餅",
           subtitle: "就是鬆餅",
-          price:  0,
+          price: 0,
           withBread: true,
-          type: '漢吐蛋'
-        },
+          type: "漢吐蛋"
+        }
       ],
       list3: [
         {
@@ -262,7 +282,7 @@ export default {
           price: 50,
           withBread: false,
           noRadio: true, // 此參數關係到button disabled
-          type: '乳酪厚片' 
+          type: "乳酪厚片"
         },
         {
           title: "火腿乳酪厚片",
@@ -270,7 +290,7 @@ export default {
           price: 50,
           withBread: false,
           noRadio: true,
-          type: '乳酪厚片'
+          type: "乳酪厚片"
         },
         {
           title: "豬排乳酪厚片",
@@ -278,7 +298,7 @@ export default {
           price: 60,
           withBread: false,
           noRadio: true,
-          type: '乳酪厚片'
+          type: "乳酪厚片"
         },
         {
           title: "燻雞乳酪厚片",
@@ -286,7 +306,7 @@ export default {
           price: 60,
           withBread: false,
           noRadio: true,
-          type: '乳酪厚片'
+          type: "乳酪厚片"
         },
         {
           title: "雞腿乳酪厚片",
@@ -294,7 +314,7 @@ export default {
           price: 65,
           withBread: false,
           noRadio: true,
-          type: '乳酪厚片'
+          type: "乳酪厚片"
         }
       ],
       list4: [
@@ -304,7 +324,7 @@ export default {
           price: 30,
           withBread: false,
           noRadio: true,
-          type: '披薩'
+          type: "披薩"
         },
         {
           title: "總匯披薩",
@@ -312,7 +332,7 @@ export default {
           price: 30,
           withBread: false,
           noRadio: true,
-          type: '披薩'
+          type: "披薩"
         }
       ],
       list5: [
@@ -322,7 +342,7 @@ export default {
           price: 20,
           withBread: false,
           noRadio: true,
-          type: '單點'
+          type: "單點"
         },
         {
           title: "荷包蛋",
@@ -330,7 +350,7 @@ export default {
           price: 10,
           withBread: false,
           noRadio: true,
-          type: '單點'
+          type: "單點"
         },
         {
           title: "豬排肉",
@@ -338,7 +358,7 @@ export default {
           price: 20,
           withBread: false,
           noRadio: true,
-          type: '單點'
+          type: "單點"
         },
         {
           title: "煎餃8顆",
@@ -346,7 +366,7 @@ export default {
           price: 20,
           withBread: false,
           noRadio: true,
-          type: '單點'
+          type: "單點"
         },
         {
           title: "一口雞",
@@ -354,7 +374,7 @@ export default {
           price: 30,
           withBread: false,
           noRadio: true,
-          type: '單點'
+          type: "單點"
         },
         {
           title: "薯條",
@@ -362,7 +382,7 @@ export default {
           price: 20,
           withBread: false,
           noRadio: true,
-          type: '單點'
+          type: "單點"
         },
         {
           title: "薯餅兩片",
@@ -370,7 +390,7 @@ export default {
           price: 30,
           withBread: false,
           noRadio: true,
-          type: '單點'
+          type: "單點"
         },
         {
           title: "麥克雞 6塊",
@@ -378,7 +398,7 @@ export default {
           price: 30,
           withBread: false,
           noRadio: true,
-          type: '單點'
+          type: "單點"
         }
       ],
       list6: [
@@ -388,23 +408,25 @@ export default {
           price: 15,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "奶茶",
-          subtitle: "愛喝假奶的人不會喜歡喝的，嗯像是..Hobby、Hazel，我是說應該吧，我們的奶茶不加奶昔，只加純鮮奶",
+          subtitle:
+            "愛喝假奶的人不會喜歡喝的，嗯像是..Hobby、Hazel，我是說應該吧，我們的奶茶不加奶昔，只加純鮮奶",
           price: 15,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "豆漿",
-          subtitle: "Ｑ懂的最愛，不懂嗎沒關係Ｑ懂，跟上Ｑ董的潮流，早上總是要來杯大冰豆",
+          subtitle:
+            "Ｑ懂的最愛，不懂嗎沒關係Ｑ懂，跟上Ｑ董的潮流，早上總是要來杯大冰豆",
           price: 10,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "檸檬汁",
@@ -412,7 +434,7 @@ export default {
           price: 20,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "檸檬紅茶",
@@ -420,7 +442,7 @@ export default {
           price: 20,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "柳橙汁",
@@ -428,7 +450,7 @@ export default {
           price: 20,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "柳橙紅茶",
@@ -436,7 +458,7 @@ export default {
           price: 20,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "米漿",
@@ -444,7 +466,7 @@ export default {
           price: 10,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "豆漿紅茶",
@@ -452,7 +474,7 @@ export default {
           price: 15,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "薏仁漿",
@@ -460,7 +482,7 @@ export default {
           price: 10,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "鮮奶茶",
@@ -468,7 +490,7 @@ export default {
           price: 30,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "研磨咖啡",
@@ -476,7 +498,7 @@ export default {
           price: 30,
           withBread: false,
           drink: true,
-          type: '飲料'
+          type: "飲料"
         },
         {
           title: "鮮奶咖啡",
@@ -484,14 +506,14 @@ export default {
           price: 45,
           withBread: false,
           drink: true,
-          type: '飲料'
-        },
-      ],
+          type: "飲料"
+        }
+      ]
     };
   },
   methods: {
     saveMenu(item) {
-      if (item.title.includes('號餐')) {
+      if (item.title.includes("號餐")) {
         item.combo = true;
       } else {
         item.combo = false;
@@ -503,7 +525,7 @@ export default {
       item.cartItemTitle = item.title;
       // 存進Vuex
       this.$store.dispatch("addItem", item);
-      console.log(this.$store.state)
+      console.log(this.$store.state);
     }
   }
 };

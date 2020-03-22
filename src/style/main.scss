@@ -261,6 +261,10 @@ body {
       width: 100%;
     }
   }
+
+  .van-cell__title {
+    line-height: 32px;
+  }
 }
 
 input {
@@ -403,7 +407,6 @@ html {
   -webkit-text-size-adjust: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  
 }
 
 body {
@@ -412,7 +415,7 @@ body {
 }
 
 .mr-5 {
-  margin-right: 8px! important;
+  margin-right: 8px !important;
 }
 
 .mt-5 {
@@ -460,10 +463,10 @@ html,
 body {
   background: #f7f8fa;
   // 禁止複製貼上
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none; 
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
 }
 
 .border-bottom {
