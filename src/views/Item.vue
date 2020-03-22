@@ -22,6 +22,10 @@
     <!-- 單點飲料，才會出現的元件 -->
     <Beverage v-if="isLaCarteDrink" @addPrice="checkDrinkNotes" />
 
+    <!-- 類型：單點，額外加蛋/不加蛋 選項 -->
+    <ExtraEgg 
+      v-if="checkExtranEgg" @addPrice="checkCustomPrice" />
+
     <!-- 配料 蛋餅吐司漢堡 -->
     <div v-show="item.withBread">
       <div class="item-subtitle text-left">
@@ -149,8 +153,9 @@ import Bread from "./Bread";
 import Flavor from "./Flavor";
 import Beverage from "./Beverage";
 import NoodlesFlavor from "./NoodlesFlavor";
+import ExtraEgg from "./ExtraEgg";
 export default {
-  components: { Bread, Flavor, Beverage, NoodlesFlavor },
+  components: { Bread, Flavor, Beverage, NoodlesFlavor, ExtraEgg },
   computed: {
     item() {
       return this.$store.state.item;
@@ -179,6 +184,10 @@ export default {
         this.item.type == "披薩" ||
         this.item.type == "單點"
       );
+    },
+    checkExtranEgg() {
+      return this.item.type == "單點" &&
+        !this.item.noRadio
     }
   },
   data() {
@@ -1054,6 +1063,10 @@ export default {
         case "甜吐司":
           temp.title = `${this.customPrice.name}${temp.title}`;
           break;
+        case "單點":
+          temp.title = `${temp.title}${this.customPrice.name}`;
+          temp.price += this.customPrice.price;
+          break;
 
         default:
           temp.title = this.item.title;
@@ -1131,6 +1144,10 @@ export default {
       switch (this.item.type) {
         case "甜吐司":
           this.trialPrice = this.item.price;
+          break;
+        case "單點":
+          // 蘿蔔糕那類加蛋/不加蛋
+          this.trialPrice = this.item.price + order.price;
           break;
 
         case "套餐":
