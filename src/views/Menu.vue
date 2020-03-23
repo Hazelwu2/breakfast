@@ -462,7 +462,7 @@ export default {
         },
         {
           title: "包心地瓜球10顆",
-          subtitle: "就是夜市看到那種地瓜球，早餐也吃得到喔",
+          subtitle: "不是夜市看到的那種地瓜球，裡面有餡喔",
           price: 30,
           withBread: false,
           noRadio: true,
