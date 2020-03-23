@@ -199,7 +199,7 @@ export default {
         if (!item.msg) {
           temp = `${item.title}`;
         } else {
-          temp = `備註：${item.msg} `;
+          temp = `${item.title}，備註：${item.msg} `;
         }
 
         arrTitle.push(temp);

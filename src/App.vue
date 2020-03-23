@@ -102,7 +102,8 @@ export default {
         // });
       } else if (now.isBetween(yesterday, today9PM)) {
         // 再檢查是不是介於2300-0900時間區間
-        this.$store.dispatch("changeIsOpenStatus", false);
+        // this.$store.dispatch("changeIsOpenStatus", false);
+        this.$store.dispatch("changeIsOpenStatus", true);
         console.log("介於時間之間，不可以訂");
         // this.$dialog.alert({
         //   message: `2300-0900暫時不開放點餐`
