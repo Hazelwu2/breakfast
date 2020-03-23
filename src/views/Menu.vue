@@ -389,8 +389,8 @@ export default {
           type: "單點"
         },
         {
-          title: "一口雞",
-          subtitle: "一口雞 12顆",
+          title: "雞球12顆",
+          subtitle: "一口吃下去的經典雞球",
           price: 30,
           withBread: false,
           noRadio: true,
