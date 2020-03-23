@@ -1123,8 +1123,9 @@ export default {
             } else if (drink.price > 20) {
               drink.price -= 15;
             } else if (drink.price == 20) {
-              // 檸檬汁、檸檬紅茶、柳橙汁、柳橙紅茶
-              drink.price += 5;
+              // 檸檬汁、檸檬紅茶、柳橙汁、柳橙紅茶 
+              // 中杯補五元
+              drink.price = 5;
             } else {
               // [套餐] 中杯不用補差額、大杯補五塊
               // 紅茶、奶茶、豆漿、米漿、薏仁漿、豆漿紅茶
@@ -1138,7 +1139,7 @@ export default {
             } else if (drink.price == 25) {
               // 檸檬汁、檸檬紅茶、柳橙汁、柳橙紅茶
               // 大杯補十塊
-              drink.price += 10;
+              drink.price = 10;
             } else if (drink.price == 20) {
               drink.price -= 15;
             } else if (drink.price > 20) {
