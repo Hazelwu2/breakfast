@@ -51,12 +51,26 @@ export default {
       let biweekly = (this.$moment().weeks()) % 2 == 0;
       let monday = this.$moment().format('d') == "1";
 
+      // 檢查時間點 每天的23:00
+      let timePoint = 
+        this.$moment().startOf('day').subtract(1, 'hour').format('HH:mm');
+      // 現在的時間
+      let now = this.$moment().format('HH:mm');
+
+      // 先檢查是不是雙週的週一
       if (biweekly && monday) {
         this.isRest = true;
         this.$dialog.alert({
           message: "桃子今日休息，不開放點餐"
         });
-      }  else {
+      } else if (now > timePoint) {
+        // 檢查是不是超過每天晚上2300
+        this.isRest = true
+        this.$dialog.alert({
+          message: "已經結單囉，請23:00前訂"
+        });
+
+      } else {
         this.isRest = false;
       }
       
