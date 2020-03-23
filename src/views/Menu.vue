@@ -224,7 +224,7 @@ export default {
           title: "9號餐：好初的鐵板麵",
           subtitle:
             "這是我們賣最好最經典的餐點，推薦都是多餘的，如果你喜歡閉著眼睛點準沒錯，鐵板麵、蛋、豬排，附中杯飲品",
-          price: 55,
+          price: 70,
           withBread: false,
           type: "套餐"
         },
@@ -232,7 +232,7 @@ export default {
           title: "10號餐：宮保鐵板麵",
           subtitle:
             "你如果吃膩鐵板麵，可以試試宮保鐵板麵啊，試了不用錢，不試怎麼成吃貨，宮保鐵板麵、蛋、豬排，附中杯飲品",
-          price: 55,
+          price: 80,
           withBread: false,
           type: "套餐"
         }
