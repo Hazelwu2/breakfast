@@ -51,26 +51,32 @@ export default {
       let biweekly = (this.$moment().weeks()) % 2 == 0;
       let monday = this.$moment().format('d') == "1";
 
-      // 檢查時間點 每天的23:00
-      let timePoint = 
-        this.$moment().startOf('day').subtract(1, 'hour').format('HH:mm');
+      // 檢查時間點 每天的23:00 -隔日 0900都不給訂餐
+      
       // 現在的時間
-      let now = this.$moment().format('HH:mm');
-
+      let now = this.$moment();
+      let format = 'hh:mm:ss';
+      // let beforeTime = this.$moment('23:00:00', format);
+      // moment().isBetween('2020-03-22 23:00:00', '2020-03-23 20:00:00');
+      // let beforeTime = this.$moment('18:00:00', format);
+      // let afterTime = this.$moment('09:00:00', format);
+      console.log(beforeTime, afterTime)
       // 先檢查是不是雙週的週一
       if (biweekly && monday) {
         this.isRest = true;
         this.$dialog.alert({
           message: "桃子今日休息，不開放點餐"
         });
-      } else if (now > timePoint) {
-        // 檢查是不是超過每天晚上2300
+      } else if (now.isBetween(beforeTime, afterTime)) {
+        // 再檢查是不是介於2300-0900時間區間
+        console.log('介於時間之間，不可以訂')
         this.isRest = true
         this.$dialog.alert({
-          message: "已經結單囉，請23:00前訂"
+          message: `${beforeTime}-${afterTime}無法訂餐喔`
         });
 
       } else {
+        console.log('不是雙週日、也不在2300-0900歡迎訂餐')
         this.isRest = false;
       }
       

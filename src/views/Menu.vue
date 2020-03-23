@@ -462,7 +462,7 @@ export default {
         },
         {
           title: "蘿蔔糕",
-          subtitle: "就是蘿蔔糕",
+          subtitle: "總會在早餐店遇見蘿蔔糕，這裡也不意外，你知道的，熟悉的味道。",
           price: 30,
           withBread: false,
           noRadio: false,
@@ -478,7 +478,7 @@ export default {
         },
         {
           title: "蔥抓餅",
-          subtitle: "就是蔥抓餅",
+          subtitle: "你知道的，就是蔥抓餅",
           price: 30,
           withBread: false,
           noRadio: false,
