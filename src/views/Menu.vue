@@ -313,6 +313,14 @@ export default {
           type: "乳酪厚片"
         },
         {
+          title: "培根乳酪厚片",
+          subtitle: "培根乳酪厚片",
+          price: 50,
+          withBread: false,
+          noRadio: true,
+          type: "乳酪厚片"
+        },
+        {
           title: "豬排乳酪厚片",
           subtitle: "台灣的豬超級健康的啦",
           price: 60,
@@ -335,7 +343,23 @@ export default {
           withBread: false,
           noRadio: true,
           type: "乳酪厚片"
-        }
+        },
+        {
+          title: "原味卡啦雞腿乳酪厚片",
+          subtitle: "雞腿口味",
+          price: 65,
+          withBread: false,
+          noRadio: true,
+          type: "乳酪厚片"
+        },
+        {
+          title: "辣味卡啦雞腿乳酪厚片",
+          subtitle: "雞腿口味",
+          price: 65,
+          withBread: false,
+          noRadio: true,
+          type: "乳酪厚片"
+        },
       ],
       list4: [
         {
