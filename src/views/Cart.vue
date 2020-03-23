@@ -49,7 +49,7 @@
           </div>
           <button class="submit-bar__button" @click="showActionSheet=true"
             :disabled="!isOpen"
-            :class=" {'close': !isOpen}">
+            :class=" {'close-order': !isOpen}">
             <span>明天的早餐有著落啦</span>
           </button>
         </div>
@@ -181,7 +181,7 @@ export default {
       this.$router.go(-1);
     },
     order() {
-      if (!this.username) return; // 沒有填寫名字，無法提交
+      if (!this.username || !this.isOpen) return; // 沒有填寫名字、不開放點單，無法提交
 
       this.loading = true;
       this.cancelActionSheet();
