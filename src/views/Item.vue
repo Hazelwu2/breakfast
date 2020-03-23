@@ -312,6 +312,10 @@ export default {
           price: 20
         },
         {
+          name: "玉米蛋",
+          price: 30
+        },
+        {
           name: "起司蛋",
           price: 30
         },
@@ -393,6 +397,10 @@ export default {
         {
           name: "煎蛋",
           price: 25
+        },
+        {
+          name: "玉米蛋",
+          price: 30
         },
         {
           name: "起司蛋",
@@ -478,6 +486,10 @@ export default {
           price: 30
         },
         {
+          name: "玉米蛋",
+          price: 35
+        },
+        {
           name: "起司蛋",
           price: 35
         },
@@ -559,6 +571,10 @@ export default {
         {
           name: "煎蛋",
           price: 30
+        },
+        {
+          name: "玉米蛋",
+          price: 35
         },
         {
           name: "起司蛋",
@@ -644,6 +660,10 @@ export default {
           price: 30
         },
         {
+          name: "玉米蛋",
+          price: 35
+        },
+        {
           name: "起司蛋",
           price: 35
         },
@@ -727,6 +747,10 @@ export default {
           price: 30
         },
         {
+          name: "玉米蛋",
+          price: 40
+        },
+        {
           name: "起司蛋",
           price: 40
         },
@@ -808,6 +832,10 @@ export default {
         {
           name: "煎蛋",
           price: 35
+        },
+        {
+          name: "玉米蛋",
+          price: 40
         },
         {
           name: "起司蛋",
