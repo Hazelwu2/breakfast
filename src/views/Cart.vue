@@ -256,13 +256,11 @@ export default {
       this.showActionSheet = false;
     },
     checkOrder() {
+      // 查詢訂單
       this.loading = true;
       // 取得今天日期
       let today = this.$moment().format("MMDD");
       var arrTitle = [];
-      var arrSubtitle = [];
-      var arrDesc = [];
-      var arrMsg = [];
 
       this.list.forEach(item => {
         var temp;
@@ -278,7 +276,7 @@ export default {
 
       axios
         .get(
-          `${this.url}?time=${today}&title=${arrTitle}&price=${this.all}&name=${this.username}&action=read`
+          `${this.url}?time=${today}&action=read`
         )
         .then(res => {
           this.loading = false;
