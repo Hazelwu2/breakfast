@@ -663,7 +663,6 @@ export default {
       item.cartItemTitle = item.title;
       // 存進Vuex
       this.$store.dispatch("addItem", item);
-      console.log(this.$store.state);
     }
   }
 };
