@@ -107,44 +107,44 @@
         v-if="noDisabledCheck"
         block
         :disabled="!isOpen"
-        class="btn-text submit-btn"
+        class="btn-text submit-btn 1"
         @click="addToCart"
-      >1 新增1份餐點到訂單 ${{trialPrice}}</van-button>
+      >{{checkIsOpen()}}</van-button>
 
       <van-button
         v-else-if="item.type  == '套餐'"
         :disabled="firstRadio == 0 && drinkRadio ==0 || !isOpen"
         block
-        class="btn-text submit-btn"
+        class="btn-text submit-btn 2"
         @click="addToCart"
-      >2 新增1份餐點到訂單 ${{trialPrice}}</van-button>
+      >{{checkIsOpen()}}</van-button>
 
       <!-- 只有一種加料要確定的 -->
       <van-button
         v-else-if="item.type  == '漢吐蛋'"
         :disabled="firstRadio == 0 || !isOpen"
         block
-        class="btn-text submit-btn"
+        class="btn-text submit-btn 3"
         @click="addToCart"
-      >3 新增1份餐點到訂單 ${{trialPrice}}</van-button>
+      >{{checkIsOpen()}}</van-button>
 
       <!-- 甜吐司 -->
       <van-button
         v-else-if="item.type  == '甜吐司'"
         :disabled="!customPrice.name || !isOpen"
         block
-        class="btn-text submit-btn"
+        class="btn-text submit-btn 4"
         @click="addToCart"
-      >4 新增1份餐點到訂單 ${{trialPrice}}</van-button>
+      >{{checkIsOpen()}}</van-button>
 
       <!-- 單點飲料，不會被disabled限制 -->
       <van-button
         v-else
         :disabled="!drink.name || !isOpen"
         block
-        class="btn-text submit-btn"
+        class="btn-text submit-btn 5"
         @click="addToCart"
-      >5 新增1份餐點到訂單 ${{trialPrice}}</van-button>
+      >{{checkIsOpen()}}</van-button>
     </van-sticky>
   </div>
 </template>
@@ -1203,6 +1203,13 @@ export default {
     closePopupComboDrink() {
       console.log("close");
       console.log(this.comboDrink.temperature);
+    },
+    checkIsOpen() {
+      if (this.isOpen) {
+        return `新增1份餐點到訂單 ${this.trialPrice}`
+      } else {
+        return `已結單，2300-0900不開放點餐`
+      }
     }
   },
   created() {
