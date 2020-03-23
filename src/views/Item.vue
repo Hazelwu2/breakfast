@@ -299,10 +299,6 @@ export default {
           name: "鮮奶咖啡（大）",
           price: 55
         },
-        {
-          name: "不加點飲料",
-          price: 0
-        }
       ], //
       comboBeverage: [], // 套餐飲料價格
       // 吐司、蛋餅

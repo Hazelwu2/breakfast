@@ -47,7 +47,7 @@ export default {
           price: 30
         },
         {
-          name: "漢堡肉蛋漢堡30",
+          name: "漢堡肉蛋漢堡",
           price: 30
         },
         {
