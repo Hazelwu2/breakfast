@@ -1,8 +1,12 @@
 <template>
   <div class="shopping-cart">
     <div>
-      <van-sticky>
+      <van-sticky v-if="isOpen">
         <van-nav-bar @click-left="back" title="早起鳥兒有早餐吃" left-text="返回" left-arrow></van-nav-bar>
+      </van-sticky>
+      <!-- 如果沒有開放點餐，顯示 2300-隔日0900時段不開放點單 -->
+      <van-sticky v-else>
+        <van-nav-bar @click-left="back" title="2300-隔日0900時段不開放點單" left-text="返回" left-arrow></van-nav-bar>
       </van-sticky>
 
       <div class="list">
@@ -43,7 +47,9 @@
             <span>總計</span>
             <span class="submit-bar__text__price">NT${{total}}</span>
           </div>
-          <button class="submit-bar__button" @click="showActionSheet=true">
+          <button class="submit-bar__button" @click="showActionSheet=true"
+            :disabled="!isOpen"
+            :class=" {'close': !isOpen}">
             <span>明天的早餐有著落啦</span>
           </button>
         </div>
@@ -63,6 +69,7 @@
           </div>
           <button class="submit-bar__button" :disabled="true" @click="showActionSheet=true">
             <span>這裡沒有任何東西</span>
+            <span v-if="!isOpen">0900-2300時段不開放點單喔</span>
           </button>
         </div>
       </div>
@@ -162,6 +169,9 @@ export default {
     },
     userName() {
       return this.$store.state.username;
+    },
+    isOpen() {
+      return this.$store.state.isOpen;
     }
   },
   methods: {

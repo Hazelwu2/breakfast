@@ -96,7 +96,7 @@
 
     <div class="item-subtitle text-left">特殊指示</div>
 
-    <van-panel>
+    <van-panel style="margin-bottom: 4rem;" >
       <div slot="header"></div>
       <textarea v-model="item.msg" placeholder="留下備註給桃子早餐"></textarea>
     </van-panel>
@@ -106,13 +106,14 @@
       <van-button
         v-if="noDisabledCheck"
         block
+        :disabled="!isOpen"
         class="btn-text submit-btn"
         @click="addToCart"
       >1 新增1份餐點到訂單 ${{trialPrice}}</van-button>
 
       <van-button
         v-else-if="item.type  == '套餐'"
-        :disabled="firstRadio == 0 && drinkRadio ==0"
+        :disabled="firstRadio == 0 && drinkRadio ==0 || !isOpen"
         block
         class="btn-text submit-btn"
         @click="addToCart"
@@ -121,7 +122,7 @@
       <!-- 只有一種加料要確定的 -->
       <van-button
         v-else-if="item.type  == '漢吐蛋'"
-        :disabled="firstRadio == 0"
+        :disabled="firstRadio == 0 || !isOpen"
         block
         class="btn-text submit-btn"
         @click="addToCart"
@@ -130,7 +131,7 @@
       <!-- 甜吐司 -->
       <van-button
         v-else-if="item.type  == '甜吐司'"
-        :disabled="!customPrice.name"
+        :disabled="!customPrice.name || !isOpen"
         block
         class="btn-text submit-btn"
         @click="addToCart"
@@ -139,7 +140,7 @@
       <!-- 單點飲料，不會被disabled限制 -->
       <van-button
         v-else
-        :disabled="!drink.name"
+        :disabled="!drink.name || !isOpen"
         block
         class="btn-text submit-btn"
         @click="addToCart"
@@ -188,6 +189,9 @@ export default {
     checkExtranEgg() {
       return this.item.type == "單點" &&
         !this.item.noRadio
+    },
+    isOpen() {
+      return this.$store.state.isOpen;
     }
   },
   data() {

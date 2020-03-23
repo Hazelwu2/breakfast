@@ -240,56 +240,56 @@ export default {
       list2: [
         {
           title: "吐司",
-          subtitle: "各種吐司口味",
+          subtitle: "我曾經跨過山和大海，也穿過人山人海，每天吃一片吐司，才知道平凡就是這麼簡單",
           price: 0,
           withBread: true,
           type: "漢吐蛋"
         },
         {
           title: "漢堡",
-          subtitle: "各種口味漢堡",
+          subtitle: "每天吃著差不多的早餐、差不多的中餐，差不多的時間去上班，差不多該換個口味了，差不多可以試試不同口味的漢堡",
           price: 0,
           withBread: true,
           type: "漢吐蛋"
         },
         {
           title: "大亨堡",
-          subtitle: "就是大亨堡",
+          subtitle: " 我家的門被自己反鎖，鑰匙掉了鑰匙掉了誰來救我，沒人救我只好點大亨堡來吃",
           price: 0,
           withBread: true,
           type: "漢吐蛋"
         },
         {
           title: "蛋餅",
-          subtitle: "就是蛋餅",
+          subtitle: "那幾個愛過我的窮小子，沒辦法為了每天都吃好吃蛋餅而堅持，你呢？我相信你懂。",
           price: 0,
           withBread: true,
           type: "漢吐蛋"
         },
         {
           title: "捲餅",
-          subtitle: "就是捲餅",
+          subtitle: "涉世未深，做人好難，還是吃個捲餅吧。",
           price: 0,
           withBread: true,
           type: "漢吐蛋"
         },
         {
           title: "西式燒餅",
-          subtitle: "就是西式燒餅",
+          subtitle: "籠罩在暴風圈蓄勢待發的西式燒餅，準備給你燃燒不停的熱情",
           price: 0,
           withBread: true,
           type: "漢吐蛋"
         },
         {
           title: "乳酪餅",
-          subtitle: "就是乳酪餅",
+          subtitle: "只要今天比昨天進步了一點點，今天就可以吃乳酪餅！",
           price: 0,
           withBread: true,
           type: "漢吐蛋"
         },
         {
           title: "鬆餅",
-          subtitle: "就是鬆餅",
+          subtitle: "我就這樣告別山下的家，朝向好吃的鬆餅出發",
           price: 0,
           withBread: true,
           type: "漢吐蛋"
@@ -406,7 +406,7 @@ export default {
         },
         {
           title: "薯餅兩片",
-          subtitle: "油亮亮的薯餅",
+          subtitle: "我還是一樣，像波希米亞每天早上要吃薯餅兩片",
           price: 30,
           withBread: false,
           noRadio: true,
@@ -470,7 +470,7 @@ export default {
         },
         {
           title: "蔥油餅",
-          subtitle: "就是蔥油餅",
+          subtitle: "曾經在我眼前卻又消失不見，這是今天的第六遍，蔥油餅你在哪兒",
           price: 30,
           withBread: false,
           noRadio: false,

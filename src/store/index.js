@@ -9,7 +9,8 @@ export default new Vuex.Store({
     cart: [],
     showCart: false,
     item: {},
-    username: ''
+    username: '',
+    isOpen: true
   },
   plugins: [
     createPersistedState({
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     ADD_USERNAME(state, payload) {
       state.username = payload;
+    },
+    SWITCH_ISOPEN(state, payload) {
+      state.isOpen = payload;
     }
   },
   actions: {
@@ -54,6 +58,9 @@ export default new Vuex.Store({
     },
     addUserName({commit}, username) {
       commit('ADD_USERNAME', username)
+    },
+    changeIsOpenStatus({commit}, boolean) {
+      commit('SWITCH_ISOPEN', boolean)
     }
   },
   modules: {
