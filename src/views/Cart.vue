@@ -189,8 +189,17 @@ export default {
       this.loading = true;
       this.cancelActionSheet();
 
-      // 取得今天日期
-      let today = this.$moment().format("MMDD");
+      // 超過AM9 算隔日訂單
+      let am9 = this.$moment().startOf('day').add(9, 'hour');
+      let now = this.$moment();
+      let today;
+      
+      if (now > am9) {
+        today = this.$moment().add(1, 'day').format("MMDD");
+      } else {
+        today = this.$moment().format("MMDD").split("0")[1];
+      }
+
       var arrTitle = [];
       var arrSubtitle = [];
       var arrDesc = [];
