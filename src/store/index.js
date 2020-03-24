@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
+import {setToken, getToken, removeToken} from '@/utils/auth';
 
 Vue.use(Vuex)
 
@@ -57,6 +58,7 @@ export default new Vuex.Store({
       commit('ADD_ITEM', value);
     },
     addUserName({commit}, username) {
+      setToken(username);
       commit('ADD_USERNAME', username)
     },
     changeIsOpenStatus({commit}, boolean) {

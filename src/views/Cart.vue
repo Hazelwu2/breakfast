@@ -100,7 +100,7 @@
 
                   <span class="d-block">{{record['訂購人']}}</span>
                   <van-button
-                    v-if="userName == record['訂購人']"
+                    v-if="userName() == record['訂購人']"
                     @click="deleteOrder(record.ID)"
                     class="mt-5"
                     type="default"
@@ -142,6 +142,8 @@
 </template>
 
 <script>
+import {setToken, getToken, removeToken} from '@/utils/auth';
+
 import axios from "axios";
 export default {
   name: "Cart",
@@ -150,7 +152,7 @@ export default {
     return {
       showActionSheet: false,
       showOrderModal: false,
-      username: "",
+      username: '',
       url:
         "https://script.google.com/macros/s/AKfycbwPulu26xB4-ctjcf4XKe4JaY7pR5gvrkCqhgPIYgu7Aqb_V4OC/exec",
       loading: false,
@@ -167,14 +169,15 @@ export default {
       this.all = sum;
       return sum;
     },
-    userName() {
-      return this.$store.state.username;
-    },
+    
     isOpen() {
       return this.$store.state.isOpen;
     }
   },
   methods: {
+    userName() {
+      return getToken();
+    },
     submit() {},
     back() {
       this.$store.dispatch("switchShoppingCart", false);
@@ -213,6 +216,8 @@ export default {
           this.loading = false;
 
           if (response.data == "成功") {
+            // 送交訂單成功，便將username存進cookie
+            // 查詢訂單會根據cookie的username來顯示可不可以刪除
             this.$store.dispatch("addUserName", this.username);
             this.$dialog.alert({
               message: "訂購桃子早餐成功啦，餐點請明日九點半後的11F領取"
@@ -259,7 +264,18 @@ export default {
       // 查詢訂單
       this.loading = true;
       // 取得今天日期
-      let today = this.$moment().format("MMDD");
+      // 如果超過早上九點 tomorrow
+      // 沒有超過早上九點 today
+      let pm9 = this.$moment().startOf('day').add(9, 'hour');
+      let now = this.$moment();
+      let today = this.$moment();
+      
+      if (now > pm9) {
+        today = this.$moment().add(1, 'day').format("MMDD");
+      } else {
+        today = this.$moment().format("MMDD").split("0")[1];
+      }
+      
       var arrTitle = [];
 
       this.list.forEach(item => {
@@ -281,9 +297,17 @@ export default {
         .then(res => {
           this.loading = false;
           this.showOrderModal = true;
-          var today = this.$moment()
-            .format("MMDD")
-            .split("0")[1];
+
+          let pm9 = this.$moment().startOf('day').add(9, 'hour');
+          let now = this.$moment();
+          var today = this.$moment();
+          
+          if (now > pm9) {
+            today = this.$moment().add(1, 'day').format("MMDD").split("0")[1];
+          } else {
+            today = this.$moment().format("MMDD").split("0")[1];
+          }
+          
           // 將日期從0322轉為322，才符合 Excel試算表格式
 
           if (res) {

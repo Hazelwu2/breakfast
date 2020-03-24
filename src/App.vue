@@ -86,13 +86,6 @@ export default {
           .format(format);
       }
 
-      // console.log("yesterday: ", yesterday);
-      // console.log("today9PM: ", today9PM);
-      // console.log(
-      //   "now.isBetween(yesterday, today9PM) ",
-      //   now.isBetween(yesterday, today9PM)
-      // );
-
       // 先檢查是不是雙週的週一
       if (biweekly && monday) {
         this.$store.dispatch("changeIsOpenStatus", false);
