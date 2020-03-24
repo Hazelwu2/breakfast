@@ -312,7 +312,7 @@ export default {
           price: 20
         },
         {
-          name: "辣椒蛋餅",
+          name: "辣椒",
           price: 20
         },
         {
