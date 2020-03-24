@@ -58,13 +58,21 @@ export default {
       ],
       drinkTemperature: [
         {
-          name: "溫",
+          name: "熱的",
           price: 0
         },
         {
-          name: "冰",
+          name: "溫的",
           price: 0
-        }
+        },
+        {
+          name: "冰的",
+          price: 0
+        },
+        {
+          name: "涼的",
+          price: 0
+        },
       ]
     };
   },
