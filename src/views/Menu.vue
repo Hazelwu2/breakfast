@@ -521,7 +521,7 @@ export default {
         {
           title: "奶茶",
           subtitle:
-            "愛喝假奶的人不會喜歡喝的，嗯像是..Hobby、Hazel，我是說應該吧，我們的奶茶不加奶昔，只加純鮮奶",
+            "愛喝假奶的人不會喜歡喝的，嗯像是..Hobby、Hazel，我是說應該吧，奶茶會加一點點鮮奶",
           price: 15,
           withBread: false,
           drink: true,
@@ -594,7 +594,7 @@ export default {
         },
         {
           title: "鮮奶茶",
-          subtitle: "就是鮮奶茶",
+          subtitle: "就是鮮奶茶，和奶茶的差別是會加很多很多的鮮奶",
           price: 30,
           withBread: false,
           drink: true,
