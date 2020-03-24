@@ -407,7 +407,7 @@ export default {
         {
           title: "煎餃8顆",
           subtitle: "是煎餃，不是鍋貼",
-          price: 20,
+          price: 30,
           withBread: false,
           noRadio: true,
           type: "單點"
