@@ -101,7 +101,18 @@
       <textarea v-model="item.msg" placeholder="留下備註給桃子早餐"></textarea>
     </van-panel>
 
-    <van-sticky id="fixed">
+    <!-- 非營業中 -->
+    <van-sticky id="fixed" v-if="!isOpen">
+      <van-button
+        block
+        :disabled="!isOpen"
+        class="btn-text submit-btn 1"
+        @click="addToCart"
+      >{{checkIsOpen()}}</van-button>
+    </van-sticky>
+
+    <!-- 營業中 -->
+    <van-sticky id="fixed" v-else>
       <!-- 不用另外客製化，只需要填寫備註的餐點，例：厚片類 -->
       <van-button
         v-if="noDisabledCheck"
@@ -113,11 +124,11 @@
 
       <van-button
         v-else-if="item.type  == '套餐'"
-        :disabled="firstRadio == 0 && drinkRadio ==0 || !isOpen"
+        :disabled="(firstRadio == 0 && drinkRadio == 0)"
         block
         class="btn-text submit-btn 2"
         @click="addToCart"
-      >{{checkIsOpen()}}</van-button>
+      >{{checkIsOpen()}} </van-button>
 
       <!-- 只有一種加料要確定的 -->
       <van-button

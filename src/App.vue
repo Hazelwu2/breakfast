@@ -30,7 +30,7 @@ export default {
   created() {
     this.checkData();
     let data = sessionStorage.getItem("vuex");
-    console.log("[App.vue] created，VueX資料： ", JSON.parse(data));
+    // console.log("[App.vue] created，VueX資料： ", JSON.parse(data));
     // 如果data存在並且重整
     if (data) {
       this.$store.replaceState(
