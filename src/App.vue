@@ -88,11 +88,17 @@ export default {
 
       // 先檢查是不是雙週的週一
       if (biweekly && monday) {
-        this.$store.dispatch("changeIsOpenStatus", false);
-        console.log("isOpen", this.$store.state.isOpen);
-        this.$dialog.alert({
-          message: "桃子今日休息，不開放點餐"
-        });
+        let am9 = this.$moment().startOf('day').add(9, 'hour');
+        if ( this.$moment > am9) {
+          // 超過早上九點，可以點餐
+          this.$store.dispatch("changeIsOpenStatus", true);
+        } else {
+          this.$store.dispatch("changeIsOpenStatus", false);
+          console.log("isOpen", this.$store.state.isOpen);
+          this.$dialog.alert({
+            message: "桃子今日休息，不開放點餐"
+          });
+        }
       } else if (now.isBetween(yesterday, today9PM)) {
         // 再檢查是不是介於2300-0900時間區間
         this.$store.dispatch("changeIsOpenStatus", false);
