@@ -89,7 +89,7 @@ export default {
       // 先檢查是不是雙週的週一
       if (biweekly && monday) {
         let am9 = this.$moment().startOf('day').add(9, 'hour');
-        if ( this.$moment > am9) {
+        if ( this.$moment() > am9) {
           // 超過早上九點，可以點餐
           this.$store.dispatch("changeIsOpenStatus", true);
         } else {
