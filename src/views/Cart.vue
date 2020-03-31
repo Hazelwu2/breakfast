@@ -195,9 +195,9 @@ export default {
       let today;
       
       if (now > am9) {
-        today = this.$moment().add(1, 'day').format("MMDD");
+        today = this.$moment().add(1, 'day').format("YYYY/MM/DD HH:MM");
       } else {
-        today = this.$moment().format("MMDD").split("0")[1];
+        today = this.$moment().format("YYYY/MM/DD HH:MM");
       }
 
       var arrTitle = [];
@@ -279,11 +279,12 @@ export default {
       let now = this.$moment();
       let today = this.$moment();
       
-      if (now > pm9) {
-        today = this.$moment().add(1, 'day').format("MMDD");
-      } else {
-        today = this.$moment().format("MMDD").split("0")[1];
-      }
+      // if (now > pm9) {
+      //   today = this.$moment().add(1, 'day').format("MMDD");
+      // } else {
+      //   today = this.$moment().format("MMDD").split("0")[1];
+      // }
+      today = this.$moment().format('YYYY/MM/DD')
       
       var arrTitle = [];
 
@@ -312,28 +313,32 @@ export default {
           var today = this.$moment();
           
           if (now > pm9) {
-            today = this.$moment().add(1, 'day').format("MMDD").split("0")[1];
-
-            if (today == "4" ) {
-              today = "4" + this.$moment().add(1, 'day').format("MMDD")[2] + this.$moment().add(1, 'day').format("MMDD")[3]
-            }
+            // today = this.$moment().add(1, 'day').format("MMDD").split("0")[1];
+            today = this.$moment().add(1, 'day').format("YYYY/MM/DD HH:MM");
+            
+            // if (today == "4" ) {
+            //   today = "4" + this.$moment().add(1, 'day').format("MMDD")[2] + this.$moment().add(1, 'day').format("MMDD")[3]
+            // }
           } else {
-            today = this.$moment().format("MMDD").split("0")[1];
+            // today = this.$moment().format("MMDD").split("0")[1];
+            today = this.$moment().format("YYYY/MM/DD HH:MM");
           }
           
-          console.log('today')
-          console.log(today)
+          console.log('today', today);
           // 將日期從0322轉為322，才符合 Excel試算表格式
-
           if (res) {
             this.records = res.data.records.filter(item => {
+              // return item["日期"] == today;
+              item["日期"] = this.$moment(item["日期"]).format("YYYY/MM/DD HH:MM");
               return item["日期"] == today;
             });
+
             this.records = this.records.sort(function(a, b) {
               return b.ID - a.ID;
             });
             this.records.forEach(item => {
               item["餐點"] = item["餐點"].split(",");
+              item["日期"] = this.$moment(item["日期"]).format('YYYY/MM/DD')
             });
 
             console.log(this.records);
@@ -343,7 +348,6 @@ export default {
             });
           }
 
-          // this.records = res.data.records;
         })
         .catch(err => {
           this.loading = false;
