@@ -313,10 +313,16 @@ export default {
           
           if (now > pm9) {
             today = this.$moment().add(1, 'day').format("MMDD").split("0")[1];
+
+            if (today == "4" ) {
+              today = "4" + this.$moment().add(1, 'day').format("MMDD")[2] + this.$moment().add(1, 'day').format("MMDD")[3]
+            }
           } else {
             today = this.$moment().format("MMDD").split("0")[1];
           }
           
+          console.log('today')
+          console.log(today)
           // 將日期從0322轉為322，才符合 Excel試算表格式
 
           if (res) {
