@@ -195,9 +195,9 @@ export default {
       let today;
       
       if (now > am9) {
-        today = this.$moment().add(1, 'day').format("YYYY/MM/DD HH:MM");
+        today = this.$moment().add(1, 'day').format("YYYY/MM/DD");
       } else {
-        today = this.$moment().format("YYYY/MM/DD HH:MM");
+        today = this.$moment().format("YYYY/MM/DD");
       }
 
       var arrTitle = [];
@@ -272,19 +272,9 @@ export default {
     checkOrder() {
       // 查詢訂單
       this.loading = true;
-      // 取得今天日期
-      // 如果超過早上九點 tomorrow
-      // 沒有超過早上九點 today
-      let pm9 = this.$moment().startOf('day').add(9, 'hour');
-      let now = this.$moment();
-      let today = this.$moment();
-      
-      // if (now > pm9) {
-      //   today = this.$moment().add(1, 'day').format("MMDD");
-      // } else {
-      //   today = this.$moment().format("MMDD").split("0")[1];
-      // }
-      today = this.$moment().format('YYYY/MM/DD')
+
+      // 以今日日期下去查詢
+      let today = this.$moment().format('YYYY/MM/DD')
       
       var arrTitle = [];
 
@@ -312,24 +302,22 @@ export default {
           let now = this.$moment();
           var today = this.$moment();
           
+          // 取得今天日期
+            // 如果超過早上九點 tomorrow
+            // 沒有超過早上九點 today
           if (now > pm9) {
             // today = this.$moment().add(1, 'day').format("MMDD").split("0")[1];
-            today = this.$moment().add(1, 'day').format("YYYY/MM/DD HH:MM");
+            today = this.$moment().add(1, 'day').format("YYYY/MM/DD");
             
-            // if (today == "4" ) {
-            //   today = "4" + this.$moment().add(1, 'day').format("MMDD")[2] + this.$moment().add(1, 'day').format("MMDD")[3]
-            // }
           } else {
             // today = this.$moment().format("MMDD").split("0")[1];
-            today = this.$moment().format("YYYY/MM/DD HH:MM");
+            today = this.$moment().format("YYYY/MM/DD");
           }
           
           console.log('today', today);
-          // 將日期從0322轉為322，才符合 Excel試算表格式
           if (res) {
             this.records = res.data.records.filter(item => {
-              // return item["日期"] == today;
-              item["日期"] = this.$moment(item["日期"]).format("YYYY/MM/DD HH:MM");
+              item["日期"] = this.$moment(item["日期"]).format("YYYY/MM/DD");
               return item["日期"] == today;
             });
 
@@ -341,7 +329,6 @@ export default {
               item["日期"] = this.$moment(item["日期"]).format('YYYY/MM/DD')
             });
 
-            console.log(this.records);
           } else {
             this.$dialog.alert({
               message: "歹勢啦，查詢訂單失敗：" + res
