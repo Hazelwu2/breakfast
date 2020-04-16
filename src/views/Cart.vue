@@ -193,11 +193,14 @@ export default {
       let am9 = this.$moment().startOf('day').add(9, 'hour');
       let now = this.$moment();
       let today;
+      var timestamp; // 時間戳記存在excel裡
       
       if (now > am9) {
         today = this.$moment().add(1, 'day').format("YYYY/MM/DD");
+        timestamp = this.$moment().add(1, 'day').valueOf();
       } else {
         today = this.$moment().format("YYYY/MM/DD");
+        timestamp = this.$moment().valueOf();
       }
 
       var arrTitle = [];
@@ -219,7 +222,7 @@ export default {
 
       axios
         .get(
-          `${this.url}?time=${today}&title=${arrTitle}&price=${this.all}&name=${this.username}&action=insert`
+          `${this.url}?time=${today}&title=${arrTitle}&price=${this.all}&name=${this.username}&timestamp=${timestamp}&action=insert`
         )
         .then(response => {
           this.loading = false;
