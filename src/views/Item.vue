@@ -1225,14 +1225,13 @@ export default {
       this.trialPrice = this.originPrice + this.addon.item;
     },
     closePopupComboDrink() {
-      console.log("close");
       console.log(this.comboDrink.temperature);
     },
     checkIsOpen() {
       if (this.isOpen) {
         return `新增1份餐點到訂單 ${this.trialPrice}`
       } else {
-        return `已結單，2300-0900不開放點餐`
+        return `已結單，2200-0900不開放點餐`
       }
     }
   },
