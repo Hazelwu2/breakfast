@@ -355,6 +355,14 @@ export default {
           price: 30
         },
         {
+          name: "薯餅蛋",
+          price: 40
+        },
+        {
+          name: "熱狗蛋",
+          price: 40
+        },
+        {
           name: "豬排蛋",
           price: 40
         },
