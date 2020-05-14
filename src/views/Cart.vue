@@ -317,7 +317,7 @@ export default {
             today = this.$moment().format("YYYY/MM/DD");
           }
           
-          console.log('today', today);
+          // console.log('today', today);
           if (res) {
             this.records = res.data.records.filter(item => {
               item["日期"] = this.$moment(item["日期"]).format("YYYY/MM/DD");
@@ -347,7 +347,7 @@ export default {
         });
     },
     deleteOrder(id) {
-      console.log("id: ", id);
+      // console.log("id: ", id);
       this.loading = true;
       axios
         .get(`${this.url}?id=${id}&action=delete`)

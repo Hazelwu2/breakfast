@@ -1034,7 +1034,7 @@ export default {
           this.price = "level7";
           return this.level7;
         default:
-          console.log("no level price");
+          // console.log("no level price");
           break;
       }
     },
@@ -1127,7 +1127,7 @@ export default {
 
       // this.checkAddonItem();
 
-      console.log("temp", temp);
+      // console.log("temp", temp);
 
       this.$store.dispatch("addToCart", temp);
       this.$toast.success(`${temp.title}加入購物車成功`);
@@ -1185,7 +1185,6 @@ export default {
       }
     },
     checkCustomPrice(order) {
-      console.log(order);
       // 客製化選單最後選的菜會用order回傳
       // 例：order: {name: '鮪魚蛋漢堡', price: 30}
       this.customPrice.price = order.price;
@@ -1214,7 +1213,6 @@ export default {
       // 飲料備註添加到訂單上
       // 飲料價錢新增到試算價格上
       // 中杯大杯、溫的冰的
-      console.log(order);
       this.drink.name = order.name;
       this.drink.price = order.price;
 
@@ -1225,7 +1223,7 @@ export default {
       this.trialPrice = this.originPrice + this.addon.item;
     },
     closePopupComboDrink() {
-      console.log(this.comboDrink.temperature);
+      // console.log(this.comboDrink.temperature);
     },
     checkIsOpen() {
       if (this.isOpen) {
