@@ -1,6 +1,9 @@
 # 桃子早餐
 
 ## Log
+- 20200521
+  - [Test] build時打包的文件加版本號，嘗試解決JS緩存
+  - [Test] 測試快取問題，html加上時間戳記，用`document.documentElement.dataset.buildTimestampUtc`查
 - 20200512
   - [Add] 新增薯餅蛋、熱狗蛋，單價40
 - 20200401
@@ -16,9 +19,8 @@
   - [Fix] 煎餃8顆價格20$更正為30$
   
 ## Feature
-- PM 23:00 - AM 09:00 無法提供訂餐
+- PM 22:00 - AM 09:00 無法提供訂餐
 - 送出訂單後會存到Google試算表
-
 
 
 ## Project setup

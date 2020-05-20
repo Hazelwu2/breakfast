@@ -17,7 +17,8 @@ import Cart from "@/views/Cart";
 export default {
   components: { Cart },
   data() {
-    return {};
+    return {
+    };
   },
   computed: {
     showCart() {
