@@ -4,7 +4,7 @@
 set -e
 
 # 构建
-npm run build
+NODE_ENV=production npm run build
 
 # cd 到构建输出的目录下 
 cd dist
