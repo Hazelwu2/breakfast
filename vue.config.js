@@ -9,4 +9,7 @@ module.exports = {
       chunkFilename: `[name].${process.env.VUE_APP_Version}.${timeStamp}.js`
     },
   },
+  pwa: {
+    serviceWorker: false,
+  }
 }
