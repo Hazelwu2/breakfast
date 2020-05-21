@@ -3,7 +3,8 @@
 ## Log
 - 20200521
   - [Test] build時打包的文件加版本號，嘗試解決JS緩存
-  - [Test] 測試快取問題，html加上時間戳記，用`document.documentElement.dataset.buildTimestampUtc`查
+  - [Test] 測試快取問題，html加上時間戳記，用`document.documentElement.dataset.buildTimestampUtc`
+  - [Remove] Remove registerServiceWorker.js, PWA Plugin，以測試快取
 - 20200512
   - [Add] 新增薯餅蛋、熱狗蛋，單價40
 - 20200401
